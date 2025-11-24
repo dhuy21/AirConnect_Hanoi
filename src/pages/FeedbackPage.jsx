@@ -1,11 +1,9 @@
 import React from "react";
-import Header from "../components/Header";
 import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin } from "lucide-react";
 
 const FeedbackPage = () => {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      <Header />
 
       <div className="flex-1 py-12 px-6">
         <div className="max-w-7xl mx-auto">

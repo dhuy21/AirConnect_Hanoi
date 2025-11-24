@@ -1,5 +1,4 @@
 import React from "react";
-import Header from "../components/Header";
 import { Search, PlusCircle } from "lucide-react";
 
 const ResourceCard = ({ type, title, desc, author, date, image, tagColor }) => (
@@ -31,7 +30,6 @@ const ResourceCard = ({ type, title, desc, author, date, image, tagColor }) => (
 const Resources = () => {
   return (
     <div className="bg-gray-50 min-h-screen pb-12">
-      <Header />
       <div className="bg-white py-12 px-6 border-b border-gray-200">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">

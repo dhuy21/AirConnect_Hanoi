@@ -1,11 +1,9 @@
 import React from "react";
-import Header from "../components/Header"; // Tái sử dụng Header cũ
 import { Filter, Check, X, XCircle, CheckCircle2 } from "lucide-react";
 
 const MapPage = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
       <div className="flex-1 flex relative">
         {/* Filter Sidebar (Floating on Desktop over map or Static) */}
         <aside className="w-80 bg-white shadow-xl z-10 absolute top-4 left-4 bottom-4 rounded-xl overflow-y-auto border border-gray-200 hidden md:block">
