@@ -2,7 +2,7 @@ import React from "react";
 import { Wind, Sun } from "lucide-react"; 
 import routes from "../../../config/routes";
 import { Link } from "react-router-dom";
-import { ButtonPrimary, ButtonSecondary, ToggleTheme } from "../../../components";
+import { PopButton, ToggleTheme } from "../../../components";
 
 const Header = () => {
   return (
@@ -32,14 +32,15 @@ const Header = () => {
         <Link to={routes.feedback} className="hover:text-brand-dark transition">
           Feedback
         </Link>
+
+        {/* Action Buttons */}
+        <div className="flex items-center gap-4">
+          <ToggleTheme/>
+        </div>
+        
       </nav>
 
-      {/* Action Buttons */}
-      <div className="flex items-center gap-4">
-        <ToggleTheme/>
-        <ButtonPrimary color="pastel-green">SIGN IN</ButtonPrimary>
-        <ButtonPrimary>JOIN US</ButtonPrimary>
-      </div>
+      
     </header>
   );
 };
