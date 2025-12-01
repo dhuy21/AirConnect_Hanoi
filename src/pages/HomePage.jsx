@@ -4,7 +4,7 @@ import { PopButton, WaveCard, PulseButton } from "../components";
 import { BookOpen, BarChart3, Users } from "lucide-react";
 import routes from "../config/routes";
 
-// ✅ Données statiques en dehors du composant (créées une seule fois)
+
 const FEATURE_CARDS = [
   {
     id: "knowledge-base",
