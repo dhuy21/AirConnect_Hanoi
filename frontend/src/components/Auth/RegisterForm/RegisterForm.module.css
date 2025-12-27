@@ -1,0 +1,74 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.25rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+  outline: none;
+  transition: all 0.2s;
+
+  &:focus {
+    ring: 2px;
+    ring-color: #dcfce7;
+  }
+}
+
+.gridTwo {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #22c55e;
+  color: white;
+  font-weight: 700;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+
+  &:hover {
+    background-color: #16a34a;
+  }
+}
+
+.terms {
+  font-size: 0.75rem;
+  text-align: center;
+  color: #9ca3af;
+  margin-top: 1rem;
+}
+
+.link {
+  color: #22c55e;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+

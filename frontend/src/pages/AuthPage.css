@@ -1,0 +1,72 @@
+/* Animation Login - Entre depuis la GAUCHE */
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.form-slide-left {
+  animation: slideInFromLeft 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Animation Register - Entre depuis la DROITE */
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.form-slide-right {
+  animation: slideInFromRight 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Animation pour le texte - Fade simple */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.text-fade-in {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Animation pour l'image - Zoom + Fade */
+@keyframes imageZoomIn {
+  from {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.image-fade-in {
+  animation: imageZoomIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Smooth height transition pour le container */
+form {
+  transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Transition smooth pour le conteneur principal */
+.min-h-screen {
+  transition: flex-direction 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+

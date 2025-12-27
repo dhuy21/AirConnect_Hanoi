@@ -1,0 +1,90 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+  outline: none;
+  transition: all 0.2s;
+
+  &:focus {
+    border-color: #22c55e;
+    ring: 2px;
+    ring-color: #dcfce7;
+  }
+}
+
+.passwordField {
+  position: relative;
+}
+
+.eyeButton {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.eyeIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #9ca3af;
+}
+
+.forgotPassword {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.forgotLink {
+  font-size: 0.875rem;
+  color: #22c55e;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.submitButton {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #22c55e;
+  color: white;
+  font-weight: 700;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+  &:hover {
+    background-color: #16a34a;
+  }
+}
+
