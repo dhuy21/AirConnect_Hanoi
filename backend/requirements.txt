@@ -9,7 +9,7 @@ fastapi-cors==0.0.6
 geoalchemy2==0.14.2
 shapely==2.0.2
 numpy<2.0.0
-requests==2.31.0
+requests==2.32.4
 pandas==2.2.2
 passlib[bcrypt]==1.7.4
 python-jose[cryptography]==3.3.0
