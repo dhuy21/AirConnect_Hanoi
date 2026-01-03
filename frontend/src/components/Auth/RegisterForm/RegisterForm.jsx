@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './RegisterForm.module.css';
 import Search from './Search';
+import { BACKEND_URL } from '../../../config/env';
 
 const RegisterForm = ({ onSubmit, loading }) => {
   const [formData, setFormData] = useState({
@@ -17,7 +18,7 @@ const RegisterForm = ({ onSubmit, loading }) => {
   });
   const [schools, setSchools] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:8000/api/schools')
+    fetch(`${BACKEND_URL}/api/schools`)
       .then(res => res.json())
       .then(data => setSchools(data))
       .catch(err => console.error('Error fetching schools:', err));

@@ -96,10 +96,12 @@ pip install -r requirements.txt
 
 ### Fichier `.env`
 
-Créez un fichier `.env` à la racine du dossier `backend/` :
+Créez un fichier `.env` à la **racine du projet** (même niveau que `backend/` et `frontend/`) :
 
 ```env
 DATABASE_URL=postgresql://airconnect_user:airconnecthn1209@localhost:5432/airconnect_hanoi
+BACKEND_URL=http://localhost:8000
+FRONTEND_URL=http://localhost:5173
 ```
 
 > ⚠️ **Important**: Ne commitez JAMAIS le fichier `.env` dans Git (déjà dans `.gitignore`)

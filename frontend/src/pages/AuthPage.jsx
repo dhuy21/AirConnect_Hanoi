@@ -4,10 +4,12 @@ import imageSignin from "../assets/images/Signin.jpeg";
 import imageLogin from "../assets/images/Login.jpeg";
 import { AuthToggle, LoginForm, RegisterForm, SocialLogin } from "../components";
 import routes from "../config/routes";
+import { BACKEND_URL } from "../config/env";
 import "./AuthPage.css";
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const [userType, setUserType] = useState('student'); // 'student', 'admin', 'school'
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -16,13 +18,33 @@ const AuthPage = () => {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch('http://localhost:8000/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+      let endpoint = '';
+      let body = {};
+
+      if (userType === 'admin') {
+        endpoint = `${BACKEND_URL}/api/auth/login/admin`;
+        body = {
+          username: formData.username || formData.email,
+          password: formData.password,
+        };
+      } else if (userType === 'school') {
+        endpoint = `${BACKEND_URL}/api/auth/login/school`;
+        body = {
           email: formData.email,
           password: formData.password,
-        }),
+        };
+      } else {
+        endpoint = `${BACKEND_URL}/api/auth/login/student`;
+        body = {
+          email: formData.email,
+          password: formData.password,
+        };
+      }
+
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
       });
 
       const data = await response.json();
@@ -31,10 +53,26 @@ const AuthPage = () => {
         throw new Error(data.detail || 'Login failed');
       }
 
-      localStorage.setItem('student_token', data.access_token);
-      localStorage.setItem('student_id', data.student_id);
-      localStorage.setItem('student_name', data.name);
-      navigate(routes.userDashboard);
+      // Save to localStorage based on user type
+      if (userType === 'admin') {
+        localStorage.setItem('admin_token', data.access_token);
+        localStorage.setItem('admin_id', data.admin_id);
+        localStorage.setItem('admin_username', data.username);
+        navigate(routes.adminDashboard);
+      } else if (userType === 'school') {
+        localStorage.setItem('school_token', data.access_token);
+        localStorage.setItem('school_id', data.school_id);
+        localStorage.setItem('school_name', data.name);
+        navigate(routes.schoolDashboard);
+      } else {
+        localStorage.setItem('student_token', data.access_token);
+        localStorage.setItem('student_id', data.student_id);
+        localStorage.setItem('student_name', data.name);
+        if (data.student_school_id) {
+          localStorage.setItem('school_id', data.student_school_id);
+        }
+        navigate(routes.userDashboard);
+      }
     } catch (err) {
       setError(err.message);
     } finally {
@@ -53,7 +91,7 @@ const AuthPage = () => {
         return;
       }
 
-      const response = await fetch('http://localhost:8000/api/auth/register', {
+      const response = await fetch(`${BACKEND_URL}/api/auth/register/student`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -75,10 +113,13 @@ const AuthPage = () => {
         throw new Error(data.detail || 'Registration failed');
       }
 
-      localStorage.setItem('student_token', data.access_token);
-      localStorage.setItem('student_id', data.student_id);
-      localStorage.setItem('student_name', data.name);
-      navigate(routes.userDashboard);
+            localStorage.setItem('student_token', data.access_token);
+            localStorage.setItem('student_id', data.student_id);
+            localStorage.setItem('student_name', data.name);
+            if (data.student_school_id) {
+              localStorage.setItem('school_id', data.student_school_id);
+            }
+            navigate(routes.userDashboard);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -119,6 +160,47 @@ const AuthPage = () => {
         {/* Toggle Tabs */}
         <AuthToggle isLogin={isLogin} onToggle={setIsLogin} />
 
+        {/* User Type Selector (only for login) */}
+        {isLogin && (
+          <div className="mb-6">
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => setUserType('student')}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  userType === 'student'
+                    ? 'bg-teal-600 text-white'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                Student
+              </button>
+              <button
+                type="button"
+                onClick={() => setUserType('admin')}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  userType === 'admin'
+                    ? 'bg-teal-600 text-white'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                Admin
+              </button>
+              <button
+                type="button"
+                onClick={() => setUserType('school')}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  userType === 'school'
+                    ? 'bg-teal-600 text-white'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                School
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* Logo & Title */}
         <div className="mb-8 text-fade-in">
           
@@ -146,7 +228,7 @@ const AuthPage = () => {
         {/* Forms */}
         <div key={isLogin ? 'login' : 'register'}>
           {isLogin ? (
-            <LoginForm onSubmit={handleLoginSubmit} loading={loading} />
+            <LoginForm onSubmit={handleLoginSubmit} loading={loading} userType={userType} />
           ) : (
             <RegisterForm onSubmit={handleRegisterSubmit} loading={loading} />
           )}

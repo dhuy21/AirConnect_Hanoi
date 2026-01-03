@@ -32,6 +32,21 @@ const SidebarItem = ({ icon: Icon, label, to, active }) => (
 const SchoolDashboardLayout = ({ children }) => {
   const location = useLocation();
   const path = location.pathname;
+  const schoolName = localStorage.getItem("school_name") || "School";
+  
+  // Get initials from school name (first 2 letters)
+  const getInitials = (name) => {
+    if (!name || name.trim().length === 0) return "SC";
+    const words = name.trim().split(/\s+/).filter(w => w.length > 0);
+    if (words.length >= 2) {
+      return (words[0][0] + words[1][0]).toUpperCase();
+    }
+    if (name.length >= 2) {
+      return name.substring(0, 2).toUpperCase();
+    }
+    return name.charAt(0).toUpperCase() + name.charAt(0).toUpperCase();
+  };
+  const schoolInitials = getInitials(schoolName);
 
   return (
     <div className="flex min-h-screen bg-gray-50 font-sans">
@@ -46,11 +61,11 @@ const SchoolDashboardLayout = ({ children }) => {
           <div className="mb-6">
             <div className="flex items-center gap-3 px-4 mb-4">
               <div className="w-10 h-10 rounded-full bg-teal-800 flex items-center justify-center text-white font-bold">
-                HS
+                {schoolInitials}
               </div>
               <div>
                 <p className="text-sm font-bold text-gray-900">
-                  Hanoi Int'l School
+                  {schoolName}
                 </p>
                 <p className="text-xs text-gray-500">School User</p>
               </div>
@@ -117,11 +132,8 @@ const SchoolDashboardLayout = ({ children }) => {
             <Bell className="w-5 h-5 text-gray-600" />
             <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white"></span>
           </button>
-          <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
-            <img
-              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-              alt="User"
-            />
+          <div className="w-10 h-10 rounded-full bg-teal-800 flex items-center justify-center text-white font-bold">
+            {schoolInitials}
           </div>
         </header>
         {children}

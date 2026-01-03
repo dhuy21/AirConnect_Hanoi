@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { SchoolMap } from "../components";
 import Search from "../components/Map/Search";
 import Filter from "../components/Map/Filter";
+import { BACKEND_URL } from "../config/env";
 
 const criteriaList = [
   { label: "Proactive Pollution Responses", scoreKey: "score_1" },
@@ -27,7 +28,7 @@ const MapPage = () => {
   useEffect(() => {
     const fetchSchools = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/schools');
+        const response = await fetch(`${BACKEND_URL}/api/schools`);
         if (!response.ok) {
           throw new Error('Cannot load school list');
         }

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { BACKEND_URL } from '../../config/env';
 
 // Fix default icon issue in React Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
@@ -42,7 +43,7 @@ const SchoolMap = ({ filteredSchools = null }) => {
     useEffect(() => {
         const fetchSchools = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/schools');
+                const response = await fetch(`${BACKEND_URL}/api/schools`);
                 if (!response.ok) {
                     throw new Error('Cannot load school list');
                 }

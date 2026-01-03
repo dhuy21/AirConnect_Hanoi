@@ -12,9 +12,11 @@ from app.api.endpoints import schools, submissions, air_quality, posts, reviews,
 app = FastAPI(title="AirConnect Hanoi API")
 
 # CORS - allow React frontend to call API
+from app.core.config import FRONTEND_URL
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=[FRONTEND_URL],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

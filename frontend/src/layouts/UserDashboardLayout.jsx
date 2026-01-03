@@ -31,6 +31,8 @@ const SidebarItem = ({ icon: Icon, label, to, active }) => (
 const UserDashboardLayout = ({ children }) => {
   const location = useLocation();
   const path = location.pathname;
+  const studentName = localStorage.getItem("student_name") || "User";
+  const studentInitial = studentName.charAt(0).toUpperCase();
 
   return (
     <div className="flex min-h-screen bg-gray-50 font-sans">
@@ -44,14 +46,12 @@ const UserDashboardLayout = ({ children }) => {
         <div className="flex-1 px-4 space-y-2 mt-4">
           <div className="mb-6">
             <div className="flex items-center gap-3 px-4 mb-4">
-            <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
-                <img
-                src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                />
+            <div className="w-10 h-10 rounded-full bg-teal-600 flex items-center justify-center text-white font-bold">
+                {studentInitial}
             </div>
               <div>
                 <p className="text-sm font-bold text-gray-900">
-                    User Nguyen
+                    {studentName}
                 </p>
                 <p className="text-xs text-gray-500">Student</p>
               </div>

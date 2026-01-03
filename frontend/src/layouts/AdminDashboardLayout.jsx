@@ -31,6 +31,8 @@ const SidebarItem = ({ icon: Icon, label, to, active }) => (
 const AdminDashboardLayout = ({ children }) => {
   const location = useLocation();
   const path = location.pathname;
+  const adminUsername = localStorage.getItem("admin_username") || "Admin";
+  const adminInitial = adminUsername.charAt(0).toUpperCase();
 
   return (
     <div className="flex min-h-screen bg-gray-50 font-sans">
@@ -44,16 +46,14 @@ const AdminDashboardLayout = ({ children }) => {
         <div className="flex-1 px-4 space-y-2 mt-4">
           <div className="mb-6">
             <div className="flex items-center gap-3 px-4 mb-4">
-            <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
-                <img
-                src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                />
+            <div className="w-10 h-10 rounded-full bg-teal-600 flex items-center justify-center text-white font-bold">
+                {adminInitial}
             </div>
               <div>
                 <p className="text-sm font-bold text-gray-900">
-                  Nguyen Van A
+                  {adminUsername}
                 </p>
-                <p className="text-xs text-gray-500"> Administrator</p>
+                <p className="text-xs text-gray-500">Administrator</p>
               </div>
             </div>
           </div>
@@ -107,10 +107,8 @@ const AdminDashboardLayout = ({ children }) => {
             <Bell className="w-5 h-5 text-gray-600" />
             <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white"></span>
           </button>
-          <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
-            <img
-              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-            />
+          <div className="w-10 h-10 rounded-full bg-teal-600 flex items-center justify-center text-white font-bold">
+            {adminInitial}
           </div>
         </header>
         {children}
