@@ -1,6 +1,7 @@
 import React from 'react';
-import './ToggleTheme.scss';
+import styles from './ToggleTheme.module.css';
 import { useTheme } from '../../../contexts/ThemeContext';
+import clsx from 'clsx';
 
 const ToggleTheme = ({ className = '' }) => {
   const { isDarkMode, toggleTheme } = useTheme();
@@ -10,48 +11,48 @@ const ToggleTheme = ({ className = '' }) => {
   };
 
   return (
-    <div className={`toggle-theme ${className}`}>
-      <label className="switch">
+    <div className={clsx(styles.toggleTheme, className)}>
+      <label className={styles.switch}>
         <input 
           type="checkbox" 
           id="toggle" 
           checked={isDarkMode}
           onChange={handleChange}
         />
-        <span className="slider">
-          <div className="moons-hole">
-            <div className="moon-hole" />
-            <div className="moon-hole" />
-            <div className="moon-hole" />
+        <span className={styles.slider}>
+          <div className={styles.moonsHole}>
+            <div className={styles.moonHole} />
+            <div className={styles.moonHole} />
+            <div className={styles.moonHole} />
           </div>
-          <div className="black-clouds">
-            <div className="black-cloud" />
-            <div className="black-cloud" />
-            <div className="black-cloud" />
+          <div className={styles.blackClouds}>
+            <div className={styles.blackCloud} />
+            <div className={styles.blackCloud} />
+            <div className={styles.blackCloud} />
           </div>
-          <div className="clouds">
-            <div className="cloud" />
-            <div className="cloud" />
-            <div className="cloud" />
-            <div className="cloud" />
-            <div className="cloud" />
-            <div className="cloud" />
-            <div className="cloud" />
+          <div className={styles.clouds}>
+            <div className={styles.cloud} />
+            <div className={styles.cloud} />
+            <div className={styles.cloud} />
+            <div className={styles.cloud} />
+            <div className={styles.cloud} />
+            <div className={styles.cloud} />
+            <div className={styles.cloud} />
           </div>
-          <div className="stars">
-            <svg className="star" viewBox="0 0 20 20">
+          <div className={styles.stars}>
+            <svg className={styles.star} viewBox="0 0 20 20">
               <path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z" />
             </svg>
-            <svg className="star" viewBox="0 0 20 20">
+            <svg className={styles.star} viewBox="0 0 20 20">
               <path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z" />
             </svg>
-            <svg className="star" viewBox="0 0 20 20">
+            <svg className={styles.star} viewBox="0 0 20 20">
               <path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z" />
             </svg>
-            <svg className="star" viewBox="0 0 20 20">
+            <svg className={styles.star} viewBox="0 0 20 20">
               <path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z" />
             </svg>
-            <svg className="star" viewBox="0 0 20 20">
+            <svg className={styles.star} viewBox="0 0 20 20">
               <path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z" />
             </svg>
           </div>

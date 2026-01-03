@@ -1,46 +1,92 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import routes from "../../../config/routes";
-import { Link } from "react-router-dom";
-import { PopButton, ToggleTheme } from "../../../components";
+import { Link, useLocation } from "react-router-dom";
+import { ToggleTheme } from "../../../components";
 import logo from "../../../assets/images/Logo.png";
 
+const navItems = [
+  { label: "Home", route: routes.home },
+  { label: "Map", route: routes.map },
+  { label: "Resources", route: routes.resources },
+  { label: "Feedback", route: routes.feedback },
+];
+
 const Header = () => {
-  return (
+  const location = useLocation();
+  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
+  const homeRef = useRef(null);
+  const mapRef = useRef(null);
+  const resourcesRef = useRef(null);
+  const feedbackRef = useRef(null);
+  
+  const navRefs = {
+    [routes.home]: homeRef,
+    [routes.map]: mapRef,
+    [routes.resources]: resourcesRef,
+    [routes.feedback]: feedbackRef,
+  };
+
+  useEffect(() => {
+    const updateIndicator = () => {
+      const activeRef = navRefs[location.pathname];
+      if (!activeRef?.current) {
+        setIndicatorStyle({ left: 0, width: 0 });
+        return;
+      }
+
+      const container = activeRef.current.parentElement;
+      const containerRect = container.getBoundingClientRect();
+      const activeRect = activeRef.current.getBoundingClientRect();
+      
+      setIndicatorStyle({
+        left: activeRect.left - containerRect.left,
+        width: activeRect.width,
+      });
+    };
+
+    requestAnimationFrame(updateIndicator);
+    window.addEventListener("resize", updateIndicator);
+    return () => window.removeEventListener("resize", updateIndicator);
+  }, [location.pathname]);
+
+  const isActive = (route) => location.pathname === route;
+    
+    return (
     <header className="w-full py-4 px-6 flex justify-between items-center bg-white sticky top-0 z-50 border-b border-gray-100 opacity-90"> 
-      {/* Logo */}
       <Link to={routes.home} className="flex items-center gap-2 cursor-pointer">
         <img src={logo} alt="AirConnect Hanoi" className="w-12 h-12" />
-        <span className="text-xl font-bold text-gray-800 tracking-tight">
-          AirConnect Hanoi
-        </span>
+        <span className="text-xl font-bold text-gray-800 tracking-tight">AirConnect Hanoi</span>
       </Link>
 
-      {/* Navigation - Hidden on mobile, visible on md+ */}
-      <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600">
-        <Link to={routes.home} className="px-4 py-1.5 bg-brand-light rounded-full text-gray-900 font-semibold">
-          Home
-        </Link>
+      <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600 relative">
+        {navItems.map(({ label, route }) => (
+      <Link 
+            key={route}
+            ref={navRefs[route]}
+            to={route}
+            className={`px-4 py-1.5 rounded-full relative z-10 transition-colors duration-200 ${
+              isActive(route) ? 'text-gray-900 font-semibold' : 'text-gray-600 hover:text-brand-dark'
+            }`}
+          >
+            {label}
+          </Link>
+        ))}
 
-        <Link to={routes.map} className="hover:text-brand-dark transition">
-          Map
-        </Link>
+        <span
+          className="absolute bg-brand-light rounded-full transition-all duration-300 ease-out"
+          style={{
+            left: `${indicatorStyle.left}px`,
+            width: `${indicatorStyle.width}px`,
+            height: '100%',
+            opacity: indicatorStyle.width > 0 ? 1 : 0,
+            pointerEvents: 'none',
+          }}
+        />
 
-        <Link to={routes.resources} className="hover:text-brand-dark transition">
-          Resources
-        </Link>
-
-        <Link to={routes.feedback} className="hover:text-brand-dark transition">
-          Feedback
-        </Link>
-
-        {/* Action Buttons */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 ml-4 relative z-10">
           <ToggleTheme/>
         </div>
-        
       </nav>
-
-      
     </header>
   );
 };

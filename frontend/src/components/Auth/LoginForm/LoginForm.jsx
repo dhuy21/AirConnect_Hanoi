@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 import styles from './LoginForm.module.css';
 
-const LoginForm = ({ onSubmit }) => {
+const LoginForm = ({ onSubmit, loading }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -65,8 +65,8 @@ const LoginForm = ({ onSubmit }) => {
         </a>
       </div>
 
-      <button type="submit" className={styles.submitButton}>
-        Log In
+      <button type="submit" className={styles.submitButton} disabled={loading}>
+        {loading ? 'Logging in...' : 'Log In'}
       </button>
     </form>
   );

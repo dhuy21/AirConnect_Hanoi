@@ -11,7 +11,7 @@ L.Icon.Default.mergeOptions({
     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 });
 
-// Custom icon cho trường học
+// Custom icon for school
 const schoolIcon = new L.Icon({
     iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
@@ -21,7 +21,7 @@ const schoolIcon = new L.Icon({
     shadowSize: [41, 41]
 });
 
-// Custom icon cho vị trí hiện tại
+// Custom icon for current position
 const userIcon = new L.Icon({
     iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
@@ -31,39 +31,20 @@ const userIcon = new L.Icon({
     shadowSize: [41, 41]
 });
 
-const LocationMarker = () => {
-    const [position, setPosition] = useState(null);
 
-    const map = useMapEvents({
-        click() {
-            map.locate();
-        },
-        locationfound(e) {
-            setPosition(e.latlng);
-            map.flyTo(e.latlng, map.getZoom());
-        },
-    });
-
-    return position === null ? null : (
-        <Marker position={position} icon={userIcon}>
-            <Popup>Vị trí của bạn</Popup>
-        </Marker>
-    );
-};
-
-const SchoolMap = () => {
+const SchoolMap = ({ filteredSchools = null }) => {
     const hanoiCenter = [21.0285, 105.8542];
     const [schools, setSchools] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Fetch danh sách trường từ API
+    // Fetch school list from API
     useEffect(() => {
         const fetchSchools = async () => {
             try {
                 const response = await fetch('http://localhost:8000/api/schools');
                 if (!response.ok) {
-                    throw new Error('Không thể tải danh sách trường học');
+                    throw new Error('Cannot load school list');
                 }
                 const data = await response.json();
                 setSchools(data);
@@ -78,12 +59,15 @@ const SchoolMap = () => {
         fetchSchools();
     }, []);
 
+    // Use filtered schools if provided, otherwise use all schools
+    const displaySchools = filteredSchools !== null ? filteredSchools : schools;
+
     if (loading) {
-        return <div style={{ padding: '20px', textAlign: 'center' }}>Đang tải bản đồ...</div>;
+        return <div style={{ padding: '20px', textAlign: 'center' }}>Loading map...</div>;
     }
 
     if (error) {
-        return <div style={{ padding: '20px', color: 'red' }}>Lỗi: {error}</div>;
+        return <div style={{ padding: '20px', color: 'red' }}>Error: {error}</div>;
     }
     
     return (
@@ -100,8 +84,8 @@ const SchoolMap = () => {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             
-            {/* Hiển thị tất cả các trường học */}
-            {schools.map((school) => (
+            {/* Display schools */}
+            {displaySchools.map((school) => (
                 <Marker 
                     key={school.id} 
                     position={[school.latitude, school.longitude]}
@@ -113,25 +97,16 @@ const SchoolMap = () => {
                                 {school.name}
                             </h3>
                             <p style={{ margin: '5px 0', fontSize: '13px' }}>
-                                <strong>Loại:</strong> {school.school_type}
-                            </p>
-                            <p style={{ margin: '5px 0', fontSize: '13px' }}>
                                 <strong>Quận/Huyện:</strong> {school.district}
                             </p>
                             <p style={{ margin: '5px 0', fontSize: '13px' }}>
                                 <strong>Địa chỉ:</strong> {school.address}
                             </p>
-                            {school.phone && (
-                                <p style={{ margin: '5px 0', fontSize: '13px' }}>
-                                    <strong>Điện thoại:</strong> {school.phone}
-                                </p>
-                            )}
                         </div>
                     </Popup>
                 </Marker>
             ))}
             
-            <LocationMarker />
         </MapContainer>
     );
 };

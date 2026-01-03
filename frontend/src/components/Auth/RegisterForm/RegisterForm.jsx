@@ -1,19 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './RegisterForm.module.css';
+import Search from './Search';
 
-const RegisterForm = ({ onSubmit }) => {
+const RegisterForm = ({ onSubmit, loading }) => {
   const [formData, setFormData] = useState({
-    fullName: '',
+    first_name: '',
+    last_name: '',
     email: '',
-    role: 'Student',
-    workplace: 'Office Building',
+    phone: '',
+    birth_date: '',
+    sex: 'male',
+    health_status: 'Normal',
+    school_id: '',
     password: '',
     confirmPassword: '',
   });
+  const [schools, setSchools] = useState([]);
+  useEffect(() => {
+    fetch('http://localhost:8000/api/schools')
+      .then(res => res.json())
+      .then(data => setSchools(data))
+      .catch(err => console.error('Error fetching schools:', err));
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,22 +34,40 @@ const RegisterForm = ({ onSubmit }) => {
       alert('Passwords do not match!');
       return;
     }
+    if (!formData.school_id) {
+      alert('Please select a school');
+      return;
+    }
     onSubmit?.(formData);
   };
 
   return (
     <form onSubmit={handleSubmit} className={`${styles.form} form-slide-right`}>
-      <div className={styles.formGroup}>
-        <label className={styles.label}>Full Name</label>
-        <input
-          type="text"
-          name="fullName"
-          value={formData.fullName}
-          onChange={handleChange}
-          placeholder="Enter your full name"
-          className={styles.input}
-          required
-        />
+      <div className={styles.gridTwo}>
+        <div className={styles.formGroup}>
+          <label className={styles.label}>First Name</label>
+          <input
+            type="text"
+            name="first_name"
+            value={formData.first_name}
+            onChange={handleChange}
+            placeholder="First name"
+            className={styles.input}
+            required
+          />
+        </div>
+        <div className={styles.formGroup}>
+          <label className={styles.label}>Last Name</label>
+          <input
+            type="text"
+            name="last_name"
+            value={formData.last_name}
+            onChange={handleChange}
+            placeholder="Last name"
+            className={styles.input}
+            required
+          />
+        </div>
       </div>
 
       <div className={styles.formGroup}>
@@ -46,7 +77,7 @@ const RegisterForm = ({ onSubmit }) => {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          placeholder="Enter your email address"
+          placeholder="Enter your email"
           className={styles.input}
           required
         />
@@ -54,30 +85,67 @@ const RegisterForm = ({ onSubmit }) => {
 
       <div className={styles.gridTwo}>
         <div className={styles.formGroup}>
-          <label className={styles.label}>You are</label>
-          <select
-            name="role"
-            value={formData.role}
+          <label className={styles.label}>Phone</label>
+          <input
+            type="tel"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            placeholder="Phone number"
+            className={styles.input}
+            required
+          />
+        </div>
+        <div className={styles.formGroup}>
+          <label className={styles.label}>Birth Date</label>
+          <input
+            type="date"
+            name="birth_date"
+            value={formData.birth_date}
             onChange={handleChange}
             className={styles.input}
+            required
+          />
+        </div>
+      </div>
+
+      <div className={styles.gridTwo}>
+        <div className={styles.formGroup}>
+          <label className={styles.label}>Gender</label>
+          <select
+            name="sex"
+            value={formData.sex}
+            onChange={handleChange}
+            className={styles.input}
+            required
           >
-            <option>Student</option>
-            <option>Facility Manager</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
           </select>
         </div>
         <div className={styles.formGroup}>
-          <label className={styles.label}>You work at</label>
-          <select
-            name="workplace"
-            value={formData.workplace}
+          <label className={styles.label}>Health Status</label>
+          <input
+            type="text"
+            name="health_status"
+            value={formData.health_status}
             onChange={handleChange}
+            placeholder="Health status"
             className={styles.input}
-          >
-            <option>Office Building</option>
-            <option>School</option>
-            <option>Hospital</option>
-          </select>
+            required
+          />
         </div>
+      </div>
+
+      <div className={styles.formGroup}>
+        <label className={styles.label}>School</label>
+          <Search schools={schools} 
+                  name="school_id"
+                  value={formData.school_id}
+                  onChange={handleChange}
+                  className={styles.input}
+                  required
+          />
       </div>
 
       <div className={styles.gridTwo}>
@@ -88,7 +156,7 @@ const RegisterForm = ({ onSubmit }) => {
             name="password"
             value={formData.password}
             onChange={handleChange}
-            placeholder="Create a password"
+            placeholder="Create password"
             className={styles.input}
             required
           />
@@ -100,23 +168,16 @@ const RegisterForm = ({ onSubmit }) => {
             name="confirmPassword"
             value={formData.confirmPassword}
             onChange={handleChange}
-            placeholder="Confirm your password"
+            placeholder="Confirm password"
             className={styles.input}
             required
           />
         </div>
       </div>
 
-      <button type="submit" className={styles.submitButton}>
-        Create Account
+      <button type="submit" className={styles.submitButton} disabled={loading}>
+        {loading ? 'Creating Account...' : 'Create Account'}
       </button>
-
-      <p className={styles.terms}>
-        By creating an account, you agree to our{' '}
-        <a href="#" className={styles.link}>Terms of Service</a>{' '}
-        and{' '}
-        <a href="#" className={styles.link}>Privacy Policy</a>
-      </p>
     </form>
   );
 };

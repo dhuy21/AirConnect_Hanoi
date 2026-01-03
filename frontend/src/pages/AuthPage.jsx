@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Wind } from "lucide-react";
 import imageSignin from "../assets/images/Signin.jpeg";
 import imageLogin from "../assets/images/Login.jpeg";
 import { AuthToggle, LoginForm, RegisterForm, SocialLogin } from "../components";
@@ -9,32 +8,90 @@ import "./AuthPage.css";
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleLoginSubmit = (formData) => {
-    console.log("Login:", formData);
-    if(formData.email === "admin@gmail.com" && formData.password === "azerty") {
-      navigate(routes.adminDashboard);
-    } else if(formData.email === "school@gmail.com" && formData.password === "azerty") {
-      navigate(routes.schoolDashboard);
-    } else {
+  const handleLoginSubmit = async (formData) => {
+    setLoading(true);
+    setError("");
+    try {
+      const response = await fetch('http://localhost:8000/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.detail || 'Login failed');
+      }
+
+      localStorage.setItem('student_token', data.access_token);
+      localStorage.setItem('student_id', data.student_id);
+      localStorage.setItem('student_name', data.name);
       navigate(routes.userDashboard);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleRegisterSubmit = (formData) => {
-    console.log("Register:", formData);
-    // TODO: Implement register logic
+  const handleRegisterSubmit = async (formData) => {
+    setLoading(true);
+    setError("");
+    try {
+      const schoolId = parseInt(formData.school_id);
+      if (!formData.school_id || isNaN(schoolId) || schoolId <= 0) {
+        setError("Please select a valid school");
+        setLoading(false);
+        return;
+      }
+
+      const response = await fetch('http://localhost:8000/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          first_name: formData.first_name,
+          last_name: formData.last_name,
+          email: formData.email,
+          password: formData.password,
+          phone: formData.phone,
+          birth_date: formData.birth_date,
+          sex: formData.sex,
+          health_status: formData.health_status,
+          school_id: schoolId,
+        }),
+      });
+
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.detail || 'Registration failed');
+      }
+
+      localStorage.setItem('student_token', data.access_token);
+      localStorage.setItem('student_id', data.student_id);
+      localStorage.setItem('student_name', data.name);
+      navigate(routes.userDashboard);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSocialLogin = (provider) => {
     console.log(`${provider} login clicked`);
-    // TODO: Implement social login
   };
 
   const handleFacebookLogin = () => {
     console.log('Facebook login clicked');
-    // TODO: Implement Facebook login
   };
 
   return (
@@ -79,12 +136,19 @@ const AuthPage = () => {
           )}
         </div>
 
+        {/* Error Message */}
+        {error && (
+          <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+            {error}
+          </div>
+        )}
+
         {/* Forms */}
         <div key={isLogin ? 'login' : 'register'}>
           {isLogin ? (
-            <LoginForm onSubmit={handleLoginSubmit} />
+            <LoginForm onSubmit={handleLoginSubmit} loading={loading} />
           ) : (
-            <RegisterForm onSubmit={handleRegisterSubmit} />
+            <RegisterForm onSubmit={handleRegisterSubmit} loading={loading} />
           )}
         </div>
 

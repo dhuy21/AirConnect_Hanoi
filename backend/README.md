@@ -1,105 +1,228 @@
-# AirConnect Hanoi - Backend
+# 🌍 AirConnect Hanoi - Backend API
 
-Backend API cho dự án AirConnect Hanoi sử dụng FastAPI + PostgreSQL.
+Backend API pour le projet **AirConnect Hanoi** - Une plateforme de visualisation et d'analyse de la qualité de l'air autour des écoles de Hanoi.
 
-## Cài đặt
+**Stack technique**: FastAPI + PostgreSQL + PostGIS
 
-### 1. Cài đặt PostgreSQL
+---
+
+## 📋 Table des matières
+
+- [Technologies utilisées](#-technologies-utilisées)
+- [Installation](#-installation)
+- [Configuration](#-configuration)
+- [Utilisation](#-utilisation)
+- [Structure du projet](#-structure-du-projet)
+
+---
+
+## 🚀 Technologies utilisées
+
+| Technologie | Version | Usage |
+|------------|---------|-------|
+| **Python** | 3.12+ | Langage principal |
+| **FastAPI** | 0.104.1 | Framework web moderne et rapide |
+| **PostgreSQL** | 16+ | Base de données relationnelle |
+| **PostGIS** | 3.4+ | Extension spatiale pour PostgreSQL |
+| **SQLAlchemy** | 2.0.23 | ORM pour Python |
+| **GeoAlchemy2** | 0.14.2 | Extension SQLAlchemy pour PostGIS |
+| **Uvicorn** | 0.24.0 | Serveur ASGI |
+
+
+---
+
+## 📦 Installation
+
+### Prérequis
+
+- Python 3.12+
+- PostgreSQL 16+
+
+### 1. Installation de PostgreSQL + PostGIS
 
 ```bash
 # Ubuntu/Debian
 sudo apt update
-sudo apt install postgresql postgresql-contrib
+sudo apt install postgresql-16 postgresql-contrib
+sudo apt install postgresql-16-postgis-3
 
-# Khởi động PostgreSQL
+# Démarrage du service
 sudo systemctl start postgresql
 sudo systemctl enable postgresql
 ```
 
-### 2. Tạo Database
+### 2. Création de la base de données
 
 ```bash
-# Đăng nhập vào PostgreSQL
+# Connexion à PostgreSQL
 sudo -u postgres psql
 
-# Trong PostgreSQL console:
+# Dans le console PostgreSQL:
 CREATE DATABASE airconnect_hanoi;
-CREATE USER airconnect_user WITH PASSWORD 'your_password';
+CREATE USER airconnect_user WITH PASSWORD 'airconnecthn1209';
 GRANT ALL PRIVILEGES ON DATABASE airconnect_hanoi TO airconnect_user;
 \q
 ```
 
-### 3. Cấu hình Environment
+### 3. Activation de PostGIS
 
 ```bash
-# Copy file .env.example
-cp .env.example .env
+# Activer l'extension PostGIS dans la database
+sudo -u postgres psql airconnect_hanoi -c "CREATE EXTENSION IF NOT EXISTS postgis;"
 
-# Sửa file .env với thông tin database của bạn
-# DATABASE_URL=postgresql://airconnect_user:your_password@localhost:5432/airconnect_hanoi
+# Vérifier l'installation
+sudo -u postgres psql airconnect_hanoi -c "SELECT PostGIS_version();"
 ```
 
-### 4. Cài đặt Python Dependencies
+
+### 4. Configuration de l'environnement Python
 
 ```bash
-# Tạo virtual environment
+# Création de l'environnement virtuel
 python3 -m venv venv
 
-# Kích hoạt virtual environment
+# Activation
 source venv/bin/activate  # Linux/Mac
-# hoặc
+# ou
 venv\Scripts\activate  # Windows
 
-# Cài đặt packages
+# Installation des dépendances
 pip install -r requirements.txt
 ```
 
-### 5. Seed Database với dữ liệu trường học
+---
 
-```bash
-python seed_schools.py
+## ⚙️ Configuration
+
+### Fichier `.env`
+
+Créez un fichier `.env` à la racine du dossier `backend/` :
+
+```env
+DATABASE_URL=postgresql://airconnect_user:airconnecthn1209@localhost:5432/airconnect_hanoi
 ```
 
-### 6. Chạy Backend Server
+> ⚠️ **Important**: Ne commitez JAMAIS le fichier `.env` dans Git (déjà dans `.gitignore`)
+
+---
+
+## 🎯 Utilisation
+
+
+### 1. Initialisation de la base de données
 
 ```bash
+cd backend/app/db
+python init_db.py
+
+Il va créer la base de données et les tables avec PostGIS.
+```
+
+
+### 2. Seed the data
+
+```bash
+cd backend/scripts
+python seed_data.py
+```
+> ⚠️ **Important**:  seed_data.py is only executed once for adding the records for the tables: admin, school, student, air_quality, post, submission, review, solution, help, view.
+
+
+### 3. Démarrage du serveur
+
+```bash
+cd backend/app
 uvicorn main:app --reload --port 8000
 ```
 
-Server sẽ chạy tại: http://localhost:8000
+Le serveur sera accessible sur: **http://localhost:8000**
 
-## API Endpoints
+---
 
-- `GET /` - Health check
-- `GET /api/schools` - Lấy danh sách tất cả trường học
-- `GET /api/schools/{id}` - Lấy thông tin một trường học
-- `POST /api/schools` - Thêm trường học mới
 
-## API Documentation
+## Documentation interactive
 
-Sau khi chạy server, truy cập:
-- Swagger UI: http://localhost:8000/docs
-- ReDoc: http://localhost:8000/redoc
+- **Swagger UI**: [http://localhost:8000/docs](http://localhost:8000/docs)
+- **ReDoc**: [http://localhost:8000/redoc](http://localhost:8000/redoc)
 
-## Cấu trúc thư mục
 
-```
-backend/
-├── main.py           # Entry point, FastAPI app
-├── database.py       # Database connection
-├── models.py         # SQLAlchemy models
-├── schemas.py        # Pydantic schemas
-├── seed_schools.py   # Script để seed dữ liệu
-├── requirements.txt  # Python dependencies
-└── .env             # Environment variables (không commit)
-```
+**Paramètres**:
+- `latitude` (float, required): Latitude du point de recherche
+- `longitude` (float, required): Longitude du point de recherche
+- `radius` (float, optional): Rayon de recherche en mètres (défaut: 2000m = 2km)
 
-## Testing
+> 💡 L'index spatial GIST est **essentiel** pour une application en production!
+
+
+
+
+### 🔍 Vérifier les tables dans PostgreSQL
+
+Pour vous connecter à PostgreSQL et vérifier si les tables existent :
+
+####  Connexion avec l'utilisateur `airconnect_user`
 
 ```bash
-# Test API bằng curl
-curl http://localhost:8000/api/schools
-
-# Hoặc mở browser tại http://localhost:8000/docs để test interactive
+# Se connecter avec l'utilisateur de l'application
+psql -U airconnect_user -d airconnect_hanoi -h localhost
+# Mot de passe: airconnecthn1209
 ```
 
+#### Commandes SQL utiles une fois connecté :
+
+```sql
+-- Lister toutes les tables de la base de données
+\dt
+
+-- Lister toutes les tables avec plus de détails
+\dt+
+
+-- Vérifier si une table spécifique existe
+SELECT EXISTS (
+   SELECT FROM information_schema.tables 
+   WHERE table_schema = 'public' 
+   AND table_name = 'schools'
+);
+
+-- Lister toutes les tables avec leur schéma
+SELECT table_name, table_schema 
+FROM information_schema.tables 
+WHERE table_schema = 'public'
+ORDER BY table_name;
+
+-- Voir la structure d'une table
+\d schools
+
+-- Voir toutes les colonnes d'une table
+\d+ schools
+
+-- Compter les enregistrements dans une table
+SELECT COUNT(*) FROM schools;
+
+-- Voir quelques enregistrements
+SELECT * FROM schools LIMIT 5;
+
+-- Vérifier si PostGIS est activé
+SELECT PostGIS_version();
+
+-- Quitter PostgreSQL
+\q
+```
+
+---
+
+## 📚 Ressources
+
+- [Documentation FastAPI](https://fastapi.tiangolo.com/)
+- [Documentation PostGIS](https://postgis.net/documentation/)
+- [GeoAlchemy2 Documentation](https://geoalchemy-2.readthedocs.io/)
+- [SQLAlchemy Documentation](https://docs.sqlalchemy.org/)
+
+---
+
+
+## 👥 Auteurs
+
+Projet AirConnect Hanoi - 2025
+
+---
