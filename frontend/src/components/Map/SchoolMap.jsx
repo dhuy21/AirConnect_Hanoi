@@ -43,7 +43,13 @@ const SchoolMap = ({ filteredSchools = null }) => {
     useEffect(() => {
         const fetchSchools = async () => {
             try {
-                const response = await fetch(`${BACKEND_URL}/api/schools`);
+                const apiUrl = BACKEND_URL ? `${BACKEND_URL}/api/schools` : '/api/schools';
+                const response = await fetch(apiUrl, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
                 if (!response.ok) {
                     throw new Error('Cannot load school list');
                 }

@@ -14,7 +14,8 @@ load_dotenv(dotenv_path=env_file)
 DATABASE_URL = os.getenv("DATABASE_URL")
 BACKEND_URL = os.getenv("BACKEND_URL")
 FRONTEND_URL = os.getenv("FRONTEND_URL")
-
+VITE_BACKEND_URL = os.getenv("VITE_BACKEND_URL")
+DOMAIN = os.getenv("DOMAIN")
 if not DATABASE_URL:
     raise ValueError("DATABASE_URL environment variable is not set")
 

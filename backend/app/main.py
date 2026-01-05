@@ -13,10 +13,14 @@ app = FastAPI(title="AirConnect Hanoi API")
 
 # CORS - allow React frontend to call API
 from app.core.config import FRONTEND_URL
-
+# Allow all origins in development (useful for tunneling)
+# In production, you should restrict this to specific origins
+origins = [
+    FRONTEND_URL,
+]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[FRONTEND_URL],
+    allow_origins=["*"],  # Allow all origins for tunneling compatibility
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

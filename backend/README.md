@@ -57,6 +57,10 @@ sudo systemctl enable postgresql
 # Connexion à PostgreSQL
 sudo -u postgres psql
 
+Superuser postgres authenficate by peer authentication
+
+This means: you only need to log in using your PostgreSQL system username; no password is required.
+
 # Dans le console PostgreSQL:
 CREATE DATABASE airconnect_hanoi;
 CREATE USER airconnect_user WITH PASSWORD 'airconnecthn1209';
