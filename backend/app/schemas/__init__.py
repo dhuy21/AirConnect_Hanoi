@@ -10,7 +10,8 @@ from app.schemas import (
     solution,
     help,
     view,
-    apply
+    apply,
+    feedback
 )
 
 __all__ = [
@@ -24,6 +25,7 @@ __all__ = [
     "solution",
     "help",
     "view",
-    "apply"
+    "apply",
+    "feedback"
 ]
 

@@ -73,7 +73,7 @@ const AdminDashboardLayout = ({ children }) => {
           />
           <SidebarItem
             icon={MessageSquare}
-            label="Community Forum"
+            label="Feedback"
             to={routes.feedback}
             active={path === routes.feedback}
           />

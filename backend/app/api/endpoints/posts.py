@@ -10,14 +10,10 @@ router = APIRouter()
 
 @router.get("/", response_model=List[PostResponse])
 def get_all_posts(
-    limit: int = Query(50, description="Limit results"),
-    post_type: Optional[PostType] = Query(None, description="Filter by post type"),
     db: Session = Depends(get_db)
 ):
     """Get recent posts"""
-    posts = post_service.get_all_posts(db, limit)
-    if post_type:
-        posts = [p for p in posts if p.type == post_type]
+    posts = post_service.get_all_posts(db)
     return posts
 
 @router.get("/school/{school_id}", response_model=List[PostResponse])
@@ -27,6 +23,14 @@ def get_posts_by_school(
 ):
     """Get all posts by a school"""
     return post_service.get_posts_by_school(db, school_id)
+
+@router.get("/{post_id}", response_model=PostResponse)
+def get_post_by_id(
+    post_id: int,
+    db: Session = Depends(get_db)
+):
+    """Get a post by id"""
+    return post_service.get_post_by_id(db, post_id)
 
 @router.post("/", response_model=PostResponse)
 def create_post(

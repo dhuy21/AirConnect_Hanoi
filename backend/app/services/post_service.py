@@ -7,11 +7,15 @@ def get_posts_by_school(db: Session, school_id: int):
         Post.school_id == school_id
     ).order_by(Post.published_at.desc()).all()
 
-def get_all_posts(db: Session, limit: int = 50):
+def get_all_posts(db: Session):
     """Get recent posts"""
     return db.query(Post).order_by(
         Post.published_at.desc()
-    ).limit(limit).all()
+    ).all()
+
+def get_post_by_id(db: Session, post_id: int):
+    """Get a post by id"""
+    return db.query(Post).filter(Post.id == post_id).first()
 
 def create_post(db: Session, post_data: dict):
     """Create new post"""

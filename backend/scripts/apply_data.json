@@ -1,0 +1,68 @@
+[
+  {
+    "solution_id": 1,
+    "air_quality_id": 1,
+    "applied_at": "2024-01-05T10:00:00"
+  },
+  {
+    "solution_id": 1,
+    "air_quality_id": 2,
+    "applied_at": "2024-01-06T11:30:00"
+  },
+  {
+    "solution_id": 2,
+    "air_quality_id": 3,
+    "applied_at": "2024-01-07T09:00:00"
+  },
+  {
+    "solution_id": 3,
+    "air_quality_id": 4,
+    "applied_at": "2024-01-08T14:00:00"
+  },
+  {
+    "solution_id": 3,
+    "air_quality_id": 5,
+    "applied_at": "2024-01-09T10:15:00"
+  },
+  {
+    "solution_id": 4,
+    "air_quality_id": 6,
+    "applied_at": "2024-01-10T08:30:00"
+  },
+  {
+    "solution_id": 4,
+    "air_quality_id": 7,
+    "applied_at": "2024-01-11T13:00:00"
+  },
+  {
+    "solution_id": 5,
+    "air_quality_id": 8,
+    "applied_at": "2024-01-12T11:00:00"
+  },
+  {
+    "solution_id": 6,
+    "air_quality_id": 9,
+    "applied_at": "2024-01-13T09:45:00"
+  },
+  {
+    "solution_id": 7,
+    "air_quality_id": 10,
+    "applied_at": "2024-01-14T10:00:00"
+  },
+  {
+    "solution_id": 8,
+    "air_quality_id": 11,
+    "applied_at": "2024-01-15T14:30:00"
+  },
+  {
+    "solution_id": 9,
+    "air_quality_id": 12,
+    "applied_at": "2024-01-16T08:00:00"
+  },
+  {
+    "solution_id": 10,
+    "air_quality_id": 13,
+    "applied_at": "2024-01-17T12:00:00"
+  }
+]
+

@@ -1,8 +1,6 @@
-import { useState, useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { BACKEND_URL } from '../../config/env';
 
 // Fix default icon issue in React Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
@@ -33,49 +31,11 @@ const userIcon = new L.Icon({
 });
 
 
-const SchoolMap = ({ filteredSchools = null }) => {
+const SchoolMap = ({ filteredSchools = [] }) => {
     const hanoiCenter = [21.0285, 105.8542];
-    const [schools, setSchools] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    // Fetch school list from API
-    useEffect(() => {
-        const fetchSchools = async () => {
-            try {
-                const apiUrl = BACKEND_URL ? `${BACKEND_URL}/api/schools` : '/api/schools';
-                const response = await fetch(apiUrl, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-                if (!response.ok) {
-                    throw new Error('Cannot load school list');
-                }
-                const data = await response.json();
-                setSchools(data);
-                setLoading(false);
-            } catch (err) {
-                setError(err.message);
-                setLoading(false);
-                console.error('Error fetching schools:', err);
-            }
-        };
-
-        fetchSchools();
-    }, []);
-
-    // Use filtered schools if provided, otherwise use all schools
-    const displaySchools = filteredSchools !== null ? filteredSchools : schools;
-
-    if (loading) {
-        return <div style={{ padding: '20px', textAlign: 'center' }}>Loading map...</div>;
-    }
-
-    if (error) {
-        return <div style={{ padding: '20px', color: 'red' }}>Error: {error}</div>;
-    }
+    
+    // Schools are passed from parent component (MapPage)
+    // No need to fetch here - data comes from props
     
     return (
         <MapContainer 
@@ -92,7 +52,7 @@ const SchoolMap = ({ filteredSchools = null }) => {
             />
             
             {/* Display schools */}
-            {displaySchools.map((school) => (
+            {filteredSchools.map((school) => (
                 <Marker 
                     key={school.id} 
                     position={[school.latitude, school.longitude]}

@@ -1,0 +1,87 @@
+[
+  {
+    "submission_id": 1,
+    "admin_id": 1,
+    "decision": "accepted",
+    "date": "2024-01-16T10:00:00",
+    "note": "Approved. This request aligns with our mission to support schools in air quality monitoring. We will connect this school with appropriate resources."
+  },
+  {
+    "submission_id": 1,
+    "admin_id": 2,
+    "decision": "accepted",
+    "date": "2024-01-16T11:30:00",
+    "note": "Second review: Approved. Recommendation forwarded to technical support team."
+  },
+  {
+    "submission_id": 2,
+    "admin_id": 1,
+    "decision": "accepted",
+    "date": "2024-01-17T09:00:00",
+    "note": "Excellent initiative. This offer will benefit multiple schools. Approved for publication."
+  },
+  {
+    "submission_id": 3,
+    "admin_id": 3,
+    "decision": "pending",
+    "date": "2024-01-18T14:00:00",
+    "note": "Under review. Need to verify budget constraints and available resources before approval."
+  },
+  {
+    "submission_id": 4,
+    "admin_id": 2,
+    "decision": "accepted",
+    "date": "2024-01-19T10:15:00",
+    "note": "Approved. HVAC expertise is in high demand. This offer will help many schools improve their systems."
+  },
+  {
+    "submission_id": 5,
+    "admin_id": 1,
+    "decision": "accepted",
+    "date": "2024-01-20T08:30:00",
+    "note": "Approved. Educational materials are valuable resources. We will help facilitate connections between schools."
+  },
+  {
+    "submission_id": 6,
+    "admin_id": 4,
+    "decision": "accepted",
+    "date": "2024-01-21T13:00:00",
+    "note": "Approved. Resource sharing during high pollution periods is exactly the kind of collaboration we encourage."
+  },
+  {
+    "submission_id": 7,
+    "admin_id": 3,
+    "decision": "accepted",
+    "date": "2024-01-22T11:00:00",
+    "note": "Approved. Technical support requests are high priority. Assigned to our data management team."
+  },
+  {
+    "submission_id": 8,
+    "admin_id": 2,
+    "decision": "accepted",
+    "date": "2024-01-23T09:45:00",
+    "note": "Approved. Mobile app solutions are innovative. This offer will help modernize air quality monitoring."
+  },
+  {
+    "submission_id": 9,
+    "admin_id": 1,
+    "decision": "pending",
+    "date": "2024-01-24T10:00:00",
+    "note": "Under review. Health monitoring programs require careful consideration of privacy and data management."
+  },
+  {
+    "submission_id": 10,
+    "admin_id": 5,
+    "decision": "accepted",
+    "date": "2024-01-25T14:30:00",
+    "note": "Approved. Facilitating connections with experts is a valuable service. This will benefit many schools."
+  },
+  {
+    "submission_id": 11,
+    "admin_id": 1,
+    "decision": "accepted",
+    "date": "2024-01-26T08:00:00",
+    "note": "Approved. Mask distribution programs are essential for student protection. We will provide full support."
+  }
+]
+

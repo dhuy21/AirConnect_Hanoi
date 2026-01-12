@@ -1,0 +1,73 @@
+[
+  {
+    "type": "improving_facilities",
+    "content": "Install HEPA filters with MERV 13+ rating in all HVAC systems. Replace filters every 3 months or when pressure drop exceeds 1.5 inches. Regular maintenance ensures optimal filtration efficiency.",
+    "note": "This solution has been proven to reduce PM2.5 levels by 30-50% in indoor environments. Initial cost is moderate but provides long-term benefits.",
+    "status": "important",
+    "created_at": "2024-01-01T10:00:00"
+  },
+  {
+    "type": "improving_facilities",
+    "content": "Implement natural ventilation strategies by installing operable windows and cross-ventilation systems. Schedule ventilation during low-pollution hours (typically early morning). Use CO2 monitors to determine optimal ventilation timing.",
+    "note": "Cost-effective solution with minimal ongoing expenses. Most effective when combined with outdoor air quality monitoring.",
+    "status": "normal",
+    "created_at": "2024-01-02T11:00:00"
+  },
+  {
+    "type": "improving_facilities",
+    "content": "Deploy portable air purifiers with HEPA and activated carbon filters in high-traffic areas. Recommended: 1 unit per 50-100 sq meters. Ensure CADR rating matches room size for optimal performance.",
+    "note": "Quick implementation option suitable for immediate relief. Higher operational costs due to electricity consumption and filter replacements.",
+    "status": "important",
+    "created_at": "2024-01-03T09:30:00"
+  },
+  {
+    "type": "research_and_development",
+    "content": "Establish a comprehensive air quality monitoring network using IoT sensors. Deploy sensors in classrooms, hallways, and outdoor areas. Implement real-time data collection and alert systems for proactive management.",
+    "note": "Enables data-driven decision making and early intervention. Initial investment required but provides valuable long-term insights.",
+    "status": "critical",
+    "created_at": "2024-01-04T14:00:00"
+  },
+  {
+    "type": "improving_facilities",
+    "content": "Create green walls and indoor plant installations. Plants like spider plants, peace lilies, and snake plants can help reduce VOCs. Place strategically in corridors and common areas.",
+    "note": "Aesthetic and functional solution that also improves student well-being. Low maintenance requirements once established.",
+    "status": "normal",
+    "created_at": "2024-01-05T10:15:00"
+  },
+  {
+    "type": "research_and_development",
+    "content": "Develop and implement a student health monitoring program. Track respiratory symptoms, absenteeism patterns, and correlate with air quality data. Use findings to adjust interventions and protocols.",
+    "note": "Provides evidence-based insights for continuous improvement. Requires careful data management and privacy considerations.",
+    "status": "important",
+    "created_at": "2024-01-06T13:30:00"
+  },
+  {
+    "type": "improving_facilities",
+    "content": "Upgrade HVAC systems with variable-speed drives and smart controls. Optimize air exchange rates based on occupancy and outdoor conditions. Implement demand-controlled ventilation strategies.",
+    "note": "Advanced solution with significant energy savings potential. Requires professional installation and may need building modifications.",
+    "status": "critical",
+    "created_at": "2024-01-07T08:45:00"
+  },
+  {
+    "type": "other",
+    "content": "Establish emergency protocols for high-pollution days. Include: indoor activity modifications, mask distribution, reduced outdoor time, and communication plans with parents. Create clear AQI thresholds for action.",
+    "note": "Essential protective measure for student safety. Low cost, high impact solution that can be implemented immediately.",
+    "status": "critical",
+    "created_at": "2024-01-08T11:00:00"
+  },
+  {
+    "type": "research_and_development",
+    "content": "Conduct air quality audits and source identification studies. Identify specific pollution sources (indoor and outdoor). Develop targeted reduction strategies based on audit findings.",
+    "note": "Foundation for effective air quality management. Helps prioritize interventions and allocate resources efficiently.",
+    "status": "important",
+    "created_at": "2024-01-09T09:00:00"
+  },
+  {
+    "type": "improving_facilities",
+    "content": "Implement source control measures: use low-VOC materials, maintain proper storage of chemicals, ensure adequate exhaust ventilation in labs and kitchens. Reduce indoor pollution sources at the origin.",
+    "note": "Prevention-focused approach that addresses root causes. Often more cost-effective than treating symptoms.",
+    "status": "normal",
+    "created_at": "2024-01-10T10:30:00"
+  }
+]
+

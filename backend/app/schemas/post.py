@@ -5,6 +5,8 @@ from app.models.enums import PostType
 class PostBase(BaseModel):
     title: str
     type: PostType
+    description: str
+    image: str
     content: str
 
 class PostCreate(PostBase):

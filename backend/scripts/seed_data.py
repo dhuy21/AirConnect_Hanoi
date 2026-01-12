@@ -19,6 +19,13 @@ from app.models.admin import Admin
 from app.models.school import School
 from app.models.student import Student
 from app.models.air_quality import AirQuality
+from app.models.post import Post
+from app.models.submission import Submission
+from app.models.review import Review
+from app.models.solution import Solution
+from app.models.help import Help
+from app.models.view import View
+from app.models.apply import Apply
 import bcrypt
 
 
@@ -177,17 +184,194 @@ def seed_air_qualities(db: Session):
     return count
 
 
+def seed_posts(db: Session):
+    """Seed post data"""
+    print("\nSeeding posts...")
+    data = load_json('posts_data.json')
+    if not data:
+        return 0
+    
+    count = 0
+    for post_data in data:
+        post = Post(
+            title=post_data['title'],
+            type=post_data['type'],
+            description=post_data['description'],
+            image=post_data['image'],
+            content=post_data['content'],
+            school_id=post_data['school_id'],
+            published_at=datetime.fromisoformat(post_data['published_at'].replace('Z', '+00:00'))
+        )
+        db.add(post)
+        count += 1
+    
+    db.commit()
+    print(f"Added {count} posts")
+    return count
+
+
+def seed_submissions(db: Session):
+    """Seed submission data"""
+    print("\nSeeding submissions...")
+    data = load_json('submissions_data.json')
+    if not data:
+        return 0
+    
+    count = 0
+    for submission_data in data:
+        submission = Submission(
+            type=submission_data['type'],
+            content=submission_data['content'],
+            from_school_id=submission_data['from_school_id']
+        )
+        db.add(submission)
+        count += 1
+    
+    db.commit()
+    print(f"Added {count} submissions")
+    return count
+
+
+def seed_reviews(db: Session):
+    """Seed review data"""
+    print("\nSeeding reviews...")
+    data = load_json('reviews_data.json')
+    if not data:
+        return 0
+    
+    count = 0
+    for review_data in data:
+        review = Review(
+            submission_id=review_data['submission_id'],
+            admin_id=review_data['admin_id'],
+            decision=review_data['decision'],
+            date=datetime.fromisoformat(review_data['date'].replace('Z', '+00:00')),
+            note=review_data.get('note')
+        )
+        db.add(review)
+        count += 1
+    
+    db.commit()
+    print(f"Added {count} reviews")
+    return count
+
+
+def seed_solutions(db: Session):
+    """Seed solution data"""
+    print("\nSeeding solutions...")
+    data = load_json('solutions_data.json')
+    if not data:
+        return 0
+    
+    count = 0
+    for solution_data in data:
+        solution = Solution(
+            type=solution_data['type'],
+            content=solution_data['content'],
+            note=solution_data.get('note'),
+            status=solution_data['status'],
+            created_at=datetime.fromisoformat(solution_data['created_at'].replace('Z', '+00:00'))
+        )
+        db.add(solution)
+        count += 1
+    
+    db.commit()
+    print(f"Added {count} solutions")
+    return count
+
+
+def seed_help(db: Session):
+    """Seed help data"""
+    print("\nSeeding help...")
+    data = load_json('help_data.json')
+    if not data:
+        return 0
+    
+    count = 0
+    for help_data in data:
+        help_record = Help(
+            from_school_id=help_data['from_school_id'],
+            to_school_id=help_data['to_school_id'],
+            type=help_data['type'],
+            content=help_data['content'],
+            status=help_data['status'],
+            created_at=datetime.fromisoformat(help_data['created_at'].replace('Z', '+00:00'))
+        )
+        db.add(help_record)
+        count += 1
+    
+    db.commit()
+    print(f"Added {count} help records")
+    return count
+
+
+def seed_views(db: Session):
+    """Seed view data"""
+    print("\nSeeding views...")
+    data = load_json('views_data.json')
+    if not data:
+        return 0
+    
+    count = 0
+    for view_data in data:
+        view = View(
+            post_id=view_data['post_id'],
+            student_id=view_data['student_id'],
+            rate=view_data['rate'],
+            rated_at=datetime.fromisoformat(view_data['rated_at'].replace('Z', '+00:00'))
+        )
+        db.add(view)
+        count += 1
+    
+    db.commit()
+    print(f"Added {count} views")
+    return count
+
+
+def seed_apply(db: Session):
+    """Seed apply data"""
+    print("\nSeeding apply...")
+    data = load_json('apply_data.json')
+    if not data:
+        return 0
+    
+    count = 0
+    for apply_data in data:
+        apply_record = Apply(
+            solution_id=apply_data['solution_id'],
+            air_quality_id=apply_data['air_quality_id'],
+            applied_at=datetime.fromisoformat(apply_data['applied_at'].replace('Z', '+00:00'))
+        )
+        db.add(apply_record)
+        count += 1
+    
+    db.commit()
+    print(f"Added {count} apply records")
+    return count
+
+
 def seed_all():
     """Seed all data in correct order"""
     db = SessionLocal()
     try:
         print("Starting database seeding...")
         
-        # Seed in order: admins -> schools -> students -> air_qualities
+        # Seed in order respecting foreign key dependencies
         admin_count = seed_admins(db)
         school_count = seed_schools(db)
         student_count = seed_students(db)
         air_quality_count = seed_air_qualities(db)
+        
+        # Seed models that depend on above
+        post_count = seed_posts(db)
+        submission_count = seed_submissions(db)
+        solution_count = seed_solutions(db)
+        
+        # Seed junction tables (composite keys)
+        review_count = seed_reviews(db)
+        help_count = seed_help(db)
+        view_count = seed_views(db)
+        apply_count = seed_apply(db)
         
         print("\n" + "="*50)
         print("Seeding Summary:")
@@ -195,6 +379,13 @@ def seed_all():
         print(f"  - Schools: {school_count}")
         print(f"  - Students: {student_count}")
         print(f"  - Air Quality: {air_quality_count}")
+        print(f"  - Posts: {post_count}")
+        print(f"  - Submissions: {submission_count}")
+        print(f"  - Solutions: {solution_count}")
+        print(f"  - Reviews: {review_count}")
+        print(f"  - Help: {help_count}")
+        print(f"  - Views: {view_count}")
+        print(f"  - Apply: {apply_count}")
         print("="*50)
         print("\nSeeding complete!")
         

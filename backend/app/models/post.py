@@ -10,6 +10,8 @@ class Post(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String(255), nullable=False)
     type = Column(Enum(PostType), nullable=False)
+    description = Column(String(255), nullable=False)
+    image = Column(String(255), nullable=False)
     content = Column(Text, nullable=False)
     published_at = Column(DateTime, nullable=False)
 

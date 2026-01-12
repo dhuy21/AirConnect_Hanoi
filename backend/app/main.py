@@ -7,17 +7,13 @@ sys.path.insert(0, str(backend_dir))
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api.endpoints import schools, submissions, air_quality, posts, reviews, stats, auth
+from app.api.endpoints import schools, submissions, air_quality, posts, reviews, stats, auth, feedback
 
 app = FastAPI(title="AirConnect Hanoi API")
 
 # CORS - allow React frontend to call API
-from app.core.config import FRONTEND_URL
 # Allow all origins in development (useful for tunneling)
 # In production, you should restrict this to specific origins
-origins = [
-    FRONTEND_URL,
-]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Allow all origins for tunneling compatibility
@@ -37,4 +33,5 @@ app.include_router(air_quality.router, prefix="/api/air-quality", tags=["air-qua
 app.include_router(posts.router, prefix="/api/posts", tags=["posts"])
 app.include_router(reviews.router, prefix="/api/reviews", tags=["reviews"])
 app.include_router(stats.router, prefix="/api/stats", tags=["stats"])
+app.include_router(feedback.router, prefix="/api/feedback", tags=["feedback"])
 

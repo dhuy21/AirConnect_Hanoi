@@ -71,12 +71,6 @@ const UserDashboardLayout = ({ children }) => {
             active={path === routes.map} 
           />
           <SidebarItem
-            icon={MessageSquare}
-            label="Community Forum"
-            to={routes.feedback}
-            active={path === routes.feedback}
-          />
-          <SidebarItem
             icon={BookOpen}
             label="Resource Hub"
             to={routes.resources}

@@ -18,7 +18,7 @@ const RegisterForm = ({ onSubmit, loading }) => {
   });
   const [schools, setSchools] = useState([]);
   useEffect(() => {
-    fetch(`${BACKEND_URL}/api/schools`)
+    fetch(`${BACKEND_URL}/api/schools/`)
       .then(res => res.json())
       .then(data => setSchools(data))
       .catch(err => console.error('Error fetching schools:', err));

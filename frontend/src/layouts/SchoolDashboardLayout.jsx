@@ -90,24 +90,6 @@ const SchoolDashboardLayout = ({ children }) => {
             to={routes.schoolDashboard}
             //active={path === routes.schoolDashboard}
           />
-          <SidebarItem 
-            icon={Map} 
-            label="Map" 
-            to={routes.map} 
-            active={path === routes.map} 
-          />
-          <SidebarItem
-            icon={MessageSquare}
-            label="Community Forum"
-            to={routes.feedback}
-            active={path === routes.feedback}
-          />
-          <SidebarItem
-            icon={BookOpen}
-            label="Resource Hub"
-            to={routes.resources}
-            active={path === routes.resources}
-          />
           <SidebarItem
             icon={Settings}
             label="Settings"

@@ -4,7 +4,8 @@ from app.services import (
     submission_service,
     review_service,
     post_service,
-    student_service
+    student_service,
+    feedback_service
 )
 
 __all__ = [
@@ -13,6 +14,7 @@ __all__ = [
     "submission_service",
     "review_service",
     "post_service",
-    "student_service"
+    "student_service",
+    "feedback_service"
 ]
 

@@ -23,9 +23,11 @@ class HelpStatus(str, Enum):
     OTHER = "other"
 
 class PostType(str, Enum):
+    CASE_STUDY = "case_study"
+    BEST_PRACTICE = "best_practice"
+    RESEARCH = "research"
     NEWS = "news"
-    EVENT = "event"
-    EXPERIENCE = "experience"
+    GUIDE = "guide"
     OTHER = "other"
 
 class Decision(str, Enum):

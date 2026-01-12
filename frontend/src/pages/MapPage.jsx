@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { SchoolMap } from "../components";
-import Search from "../components/Map/Search";
-import Filter from "../components/Map/Filter";
+import { SchoolMap, Filter, Search } from "../components";
 import { BACKEND_URL } from "../config/env";
 
 const criteriaList = [
@@ -28,7 +26,7 @@ const MapPage = () => {
   useEffect(() => {
     const fetchSchools = async () => {
       try {
-        const apiUrl = BACKEND_URL ? `${BACKEND_URL}/api/schools` : '/api/schools';
+        const apiUrl = BACKEND_URL ? `${BACKEND_URL}/api/schools/` : '/api/schools/';
         const response = await fetch(apiUrl);
         if (!response.ok) {
           throw new Error('Cannot load school list');
@@ -68,9 +66,9 @@ const MapPage = () => {
     const hasSearch = searchTerm.trim().length > 0;
     const hasFilters = Object.values(filters).some((levels) => levels && levels.length > 0);
     
-    // If no filters and no search, return null to show all schools
+    // If no filters and no search, return all schools
     if (!hasSearch && !hasFilters) {
-      return null;
+      return allSchools;
     }
 
     let result = allSchools;
@@ -114,13 +112,21 @@ const MapPage = () => {
         />
 
         <div className="flex-1 bg-gray-200 relative md:ml-[22rem] overflow-hidden">
-          <div className="absolute inset-0 z-0 overflow-hidden">
-            <SchoolMap filteredSchools={filteredSchools} />
-          </div>
+          {loading ? (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-gray-600 text-lg">Loading map...</div>
+            </div>
+          ) : (
+            <>
+              <div className="absolute inset-0 z-0 overflow-hidden">
+                <SchoolMap filteredSchools={filteredSchools} />
+              </div>
 
-          <div className="absolute top-4 left-1/2 -translate-x-1/2 md:left-96 md:translate-x-0 w-full max-w-md px-4 z-10">
-            <Search schools={allSchools} onSearchChange={handleSearchChange} />
-          </div>
+              <div className="absolute top-4 left-1/2 -translate-x-1/2 md:left-96 md:translate-x-0 w-full max-w-md px-4 z-10">
+                <Search items={allSchools} onSearchChange={handleSearchChange} placeholder="Search for a school..." />
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

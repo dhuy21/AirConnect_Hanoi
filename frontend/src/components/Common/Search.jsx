@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Search as SearchIcon, X } from 'lucide-react';
 
-const Search = ({ schools, onSearchChange }) => {
+const Search = ({ items, onSearchChange, placeholder }) => {
     const [searchTerm, setSearchTerm] = useState('');
 
     const handleSearch = (e) => {
@@ -24,7 +24,7 @@ const Search = ({ schools, onSearchChange }) => {
                 type="text"
                 value={searchTerm}
                 onChange={handleSearch}
-                placeholder="Search for a school..."
+                placeholder={placeholder}
                 className="w-full pl-12 pr-10 px-5 py-3 rounded-full shadow-lg border border-gray-200 outline-none focus:ring-2 focus:ring-teal-500 bg-white"
             />
             {searchTerm && (
