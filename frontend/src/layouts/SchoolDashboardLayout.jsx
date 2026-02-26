@@ -1,7 +1,8 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/images/Logo.png";
 import routes from "../config/routes";
+import { logout } from "../utils/auth";
 import {
   LayoutDashboard,
   FilePlus,
@@ -31,6 +32,7 @@ const SidebarItem = ({ icon: Icon, label, to, active }) => (
 
 const SchoolDashboardLayout = ({ children }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const path = location.pathname;
   const schoolName = localStorage.getItem("school_name") || "School";
   
@@ -47,6 +49,10 @@ const SchoolDashboardLayout = ({ children }) => {
     return name.charAt(0).toUpperCase() + name.charAt(0).toUpperCase();
   };
   const schoolInitials = getInitials(schoolName);
+
+  const handleLogout = () => {
+    logout(navigate);
+  };
 
   return (
     <div className="flex min-h-screen bg-gray-50 font-sans">
@@ -99,7 +105,10 @@ const SchoolDashboardLayout = ({ children }) => {
         </div>
 
         <div className="p-4 border-t border-gray-100">
-          <button className="flex items-center gap-3 px-4 py-3 text-gray-500 hover:text-red-600 w-full">
+          <button 
+            onClick={handleLogout}
+            className="flex items-center gap-3 px-4 py-3 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors w-full"
+          >
             <LogOut className="w-5 h-5" />
             <span>Logout</span>
           </button>
