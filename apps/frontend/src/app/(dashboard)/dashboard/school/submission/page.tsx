@@ -2,16 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { LayoutDashboard, FilePlus, BarChart3, Settings, ChevronDown, ChevronUp, Megaphone, Building2, Activity, ShieldCheck, CheckCircle } from 'lucide-react';
+import { ChevronDown, ChevronUp, Megaphone, Building2, Activity, ShieldCheck, CheckCircle } from 'lucide-react';
 import DashboardSidebar from '@/components/layout/DashboardSidebar';
 import { apiFetch } from '@/lib/api';
-
-const sidebarItems = [
-  { icon: LayoutDashboard, label: 'Dashboard', href: '/dashboard/school' },
-  { icon: FilePlus, label: 'New Submission', href: '/dashboard/school/submission' },
-  { icon: BarChart3, label: 'My Progress', href: '/dashboard/school' },
-  { icon: Settings, label: 'Settings', href: '/dashboard/school' },
-];
+import { ROUTES } from '@/lib/routes';
+import { AUTH_KEYS } from '@/lib/auth';
+import { schoolSidebarItems } from '../sidebar-items';
 
 const criteriaConfig = [
   { icon: Megaphone, title: 'Proactive Responses', required: true, key: 'proactive_responses' },
@@ -40,7 +36,7 @@ export default function NewSubmission() {
   );
 
   useEffect(() => {
-    setSchoolName(localStorage.getItem('school_name') || 'School');
+    setSchoolName(localStorage.getItem(AUTH_KEYS.SCHOOL_NAME) || 'School');
   }, []);
 
   const updateCriterion = (key: string, field: keyof CriterionState, value: string) => {
@@ -71,7 +67,7 @@ export default function NewSubmission() {
         body: JSON.stringify({ type: 'request', content }),
       });
       setSuccess(true);
-      setTimeout(() => router.push('/dashboard/school'), 2000);
+      setTimeout(() => router.push(ROUTES.DASHBOARD_SCHOOL), 2000);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to submit');
     } finally {
@@ -81,7 +77,7 @@ export default function NewSubmission() {
 
   if (success) {
     return (
-      <DashboardSidebar items={sidebarItems} userName={schoolName} userRole="School User" avatarColor="bg-teal-800">
+      <DashboardSidebar items={schoolSidebarItems} userName={schoolName} userRole="School User" avatarColor="bg-teal-800">
         <div className="flex flex-col items-center justify-center py-20">
           <CheckCircle className="w-16 h-16 text-green-500 mb-4" />
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Submission Successful!</h2>
@@ -92,7 +88,7 @@ export default function NewSubmission() {
   }
 
   return (
-    <DashboardSidebar items={sidebarItems} userName={schoolName} userRole="School User" avatarColor="bg-teal-800">
+    <DashboardSidebar items={schoolSidebarItems} userName={schoolName} userRole="School User" avatarColor="bg-teal-800">
       <div>
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-gray-900">Update Your Air Pollution Mitigation Efforts</h1>

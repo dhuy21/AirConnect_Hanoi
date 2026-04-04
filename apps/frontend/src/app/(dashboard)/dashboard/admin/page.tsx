@@ -6,13 +6,15 @@ import { Users, School, FileText, TrendingUp } from 'lucide-react';
 import DashboardSidebar from '@/components/layout/DashboardSidebar';
 import { apiFetch } from '@/lib/api';
 import { StatsData, SubmissionData } from '@/lib/types';
+import { ROUTES } from '@/lib/routes';
+import { AUTH_KEYS } from '@/lib/auth';
 
 const sidebarItems = [
-  { icon: LayoutDashboard, label: 'Dashboard', href: '/dashboard/admin' },
-  { icon: Map, label: 'Map', href: '/map' },
-  { icon: MessageSquare, label: 'Feedback', href: '/feedback' },
-  { icon: BookOpen, label: 'Resource Hub', href: '/resources' },
-  { icon: Settings, label: 'Settings', href: '/dashboard/admin' },
+  { icon: LayoutDashboard, label: 'Dashboard', href: ROUTES.DASHBOARD_ADMIN },
+  { icon: Map, label: 'Map', href: ROUTES.MAP },
+  { icon: MessageSquare, label: 'Feedback', href: ROUTES.FEEDBACK },
+  { icon: BookOpen, label: 'Resource Hub', href: ROUTES.RESOURCES },
+  { icon: Settings, label: 'Settings', href: ROUTES.DASHBOARD_ADMIN },
 ];
 
 const defaultStats: StatsData = {
@@ -40,7 +42,7 @@ export default function AdminDashboard() {
   };
 
   useEffect(() => {
-    setUserName(localStorage.getItem('admin_username') || localStorage.getItem('admin_name') || 'Admin');
+    setUserName(localStorage.getItem(AUTH_KEYS.ADMIN_USERNAME) || localStorage.getItem(AUTH_KEYS.ADMIN_NAME) || 'Admin');
     fetchData();
   }, []);
 

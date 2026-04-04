@@ -1,19 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { LayoutDashboard, FilePlus, BarChart3, Settings } from 'lucide-react';
 import { ClipboardCheck, PieChart, Clock } from 'lucide-react';
 import DashboardSidebar from '@/components/layout/DashboardSidebar';
 import AirQualityCard from '@/components/ui/AirQualityCard';
 import { apiFetch } from '@/lib/api';
 import { SubmissionData, AirQualityData, ReviewData } from '@/lib/types';
-
-const sidebarItems = [
-  { icon: LayoutDashboard, label: 'Dashboard', href: '/dashboard/school' },
-  { icon: FilePlus, label: 'New Submission', href: '/dashboard/school/submission' },
-  { icon: BarChart3, label: 'My Progress', href: '/dashboard/school' },
-  { icon: Settings, label: 'Settings', href: '/dashboard/school' },
-];
+import { AUTH_KEYS } from '@/lib/auth';
+import { schoolSidebarItems } from './sidebar-items';
 
 export default function SchoolDashboard() {
   const [schoolName, setSchoolName] = useState('School');
@@ -23,9 +17,9 @@ export default function SchoolDashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const name = localStorage.getItem('school_name');
+    const name = localStorage.getItem(AUTH_KEYS.SCHOOL_NAME);
     if (name) setSchoolName(name);
-    const schoolId = localStorage.getItem('school_id');
+    const schoolId = localStorage.getItem(AUTH_KEYS.SCHOOL_ID);
     if (!schoolId) { setLoading(false); return; }
 
     Promise.all([
@@ -75,7 +69,7 @@ export default function SchoolDashboard() {
   };
 
   return (
-    <DashboardSidebar items={sidebarItems} userName={schoolName} userRole="School User" avatarColor="bg-teal-800">
+    <DashboardSidebar items={schoolSidebarItems} userName={schoolName} userRole="School User" avatarColor="bg-teal-800">
       <div className="animate-fade-in">
         <h1 className="text-3xl font-bold text-gray-900 mb-2 animate-slide-down">Welcome back, {schoolName}!</h1>
         <p className="text-gray-500 mb-8">Here&apos;s an overview of your air quality mitigation efforts and submission statuses.</p>
