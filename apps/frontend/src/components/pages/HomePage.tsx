@@ -47,7 +47,7 @@ export default function HomePage() {
 
         <div className="flex-1 w-full animate-fade-in">
           <div className="rounded-3xl overflow-hidden shadow-2xl relative aspect-video animate-float group">
-            <Image src="/images/Home.jpeg" alt="Hanoi" fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
+            <Image src="/images/Home.jpeg" alt="Hanoi" fill sizes="100vw" className="object-cover group-hover:scale-110 transition-transform duration-700" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
           </div>
         </div>

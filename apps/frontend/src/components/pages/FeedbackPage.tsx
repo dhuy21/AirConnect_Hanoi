@@ -65,7 +65,7 @@ export default function FeedbackPage() {
 
         <div className="bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col lg:flex-row">
           <div className="hidden lg:block lg:w-2/5 relative">
-            <Image src="https://images.unsplash.com/photo-1599235934749-c55a3e6f15f9?q=80&w=2070&auto=format&fit=crop" alt="Community" fill className="object-cover" />
+            <Image src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=2070&auto=format&fit=crop" alt="Community" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 45vw" />
             <div className="absolute inset-0 bg-gradient-to-t from-teal-900/80 to-transparent flex items-end p-12">
               <div className="text-white">
                 <p className="text-sm font-medium text-teal-200">Community</p>

@@ -8,7 +8,7 @@ export default function Footer() {
     <footer className="bg-gray-50 border-t border-gray-200 pt-12 pb-8 px-6">
       <div className="max-w-7xl mx-auto relative flex flex-col md:flex-row justify-center items-center gap-6">
         <div className="md:absolute md:left-0 flex items-center gap-2">
-          <Image src="/images/Logo.png" alt="AirConnect Hanoi" width={48} height={48} />
+          <Image src="/images/Logo.png" alt="AirConnect Hanoi" width={48} height={48} style={{ width: 'auto', height: 'auto' }} />
           <span className="text-lg font-bold text-teal-900">AirConnect Hanoi</span>
         </div>
         <div className="flex gap-8 text-xs text-gray-500 font-medium">

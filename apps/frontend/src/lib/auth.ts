@@ -44,11 +44,13 @@ export const storeAuthData = (data: AuthResponse): void => {
   if (data.name) localStorage.setItem(`${prefix}_name`, data.name);
   if (data.username) localStorage.setItem(`${prefix}_username`, data.username);
   if (data.school_id) localStorage.setItem(AUTH_KEYS.SCHOOL_ID, String(data.school_id));
+  document.cookie = `auth_token=${data.access_token}; path=/; max-age=${7 * 24 * 60 * 60}; SameSite=Lax`;
 };
 
 export const clearAuthData = (): void => {
   if (typeof window === 'undefined') return;
   Object.values(AUTH_KEYS).forEach(key => localStorage.removeItem(key));
+  document.cookie = 'auth_token=; path=/; max-age=0';
 };
 
 export const logout = (): void => {
