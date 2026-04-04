@@ -76,7 +76,7 @@ export default function AuthPage() {
   return (
     <div className={`min-h-screen flex bg-white transition-all duration-700 ${isLogin ? 'flex-row' : 'flex-row-reverse'}`}>
       <div className="hidden lg:block w-[45%] relative overflow-hidden">
-        <Image src={isLogin ? '/images/Login.jpeg' : '/images/Signin.jpeg'} alt="City" fill className="object-cover" />
+        <Image src={isLogin ? '/images/Login.jpeg' : '/images/Signin.jpeg'} alt="City" fill sizes="45vw" className="object-cover" />
         <div className="absolute bottom-20 left-12 text-white max-w-xl">
           <h2 className="text-5xl font-bold mb-4 leading-tight">{isLogin ? 'Welcome Back to' : 'Join'} AirConnect Hanoi</h2>
         </div>

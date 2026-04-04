@@ -35,7 +35,7 @@ export default function DashboardSidebar({ items, userName, userRole, avatarColo
   const sidebarContent = (
     <>
       <div className="p-6 flex items-center gap-2">
-        <Image src="/images/Logo.png" alt="AirConnect Hanoi" width={48} height={48} />
+        <Image src="/images/Logo.png" alt="AirConnect Hanoi" width={48} height={48} style={{ width: 'auto', height: 'auto' }} />
         <span className="text-xl font-bold text-gray-800">AirConnect</span>
       </div>
 

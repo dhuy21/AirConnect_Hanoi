@@ -11,7 +11,8 @@
     "build:backend": "turbo run build --filter=@airconnect/backend",
     "db:up": "docker compose up -d db",
     "db:down": "docker compose stop db",
-    "db:logs": "docker compose logs -f db"
+    "db:logs": "docker compose logs -f db",
+    "db:seed": "pnpm --filter @airconnect/backend seed"
   },
   "devDependencies": {
     "turbo": "^2.4.0"

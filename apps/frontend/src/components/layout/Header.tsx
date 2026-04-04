@@ -49,7 +49,7 @@ export default function Header() {
     <header className="w-full py-4 px-6 bg-white sticky top-0 z-50 border-b border-gray-100 opacity-90">
       <div className="flex justify-between items-center">
         <Link href="/" className="flex items-center gap-2">
-          <Image src="/images/Logo.png" alt="AirConnect Hanoi" width={48} height={48} />
+          <Image src="/images/Logo.png" alt="AirConnect Hanoi" width={48} height={48} style={{ width: 'auto', height: 'auto' }} />
           <span className="text-xl font-bold text-gray-800 tracking-tight">AirConnect Hanoi</span>
         </Link>
 
