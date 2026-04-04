@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { isLoggedIn, getUserRole } from '@/lib/auth';
+import { ROUTES, ROLE_DASHBOARD_MAP } from '@/lib/routes';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -11,19 +12,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   useEffect(() => {
     if (!isLoggedIn()) {
-      router.replace('/auth');
+      router.replace(ROUTES.AUTH);
       return;
     }
 
     const role = getUserRole();
-    const roleRouteMap: Record<string, string> = {
-      admin: '/dashboard/admin',
-      school: '/dashboard/school',
-      student: '/dashboard/user',
-    };
-
-    if (role && !pathname.startsWith(roleRouteMap[role])) {
-      router.replace(roleRouteMap[role]);
+    if (role && !pathname.startsWith(ROLE_DASHBOARD_MAP[role])) {
+      router.replace(ROLE_DASHBOARD_MAP[role]);
       return;
     }
 

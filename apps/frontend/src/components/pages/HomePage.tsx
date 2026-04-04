@@ -6,6 +6,7 @@ import { BookOpen, BarChart3, Users, Sparkles } from 'lucide-react';
 import { PopButton } from '@/components/buttons/PopButton';
 import { PulseButton } from '@/components/buttons/PulseButton';
 import { WaveCard } from '@/components/wave-card/WaveCard';
+import { ROUTES } from '@/lib/routes';
 
 const FEATURE_CARDS = [
   { id: 'knowledge-base', icon: BookOpen, title: 'Shared Knowledge Base', description: 'Access a curated library of best practices, case studies, and proven strategies from peers.' },
@@ -39,8 +40,8 @@ export default function HomePage() {
             The collaborative hub for Hanoi&apos;s facility managers to share best practices and combat air pollution in our city.
           </p>
           <div className="flex flex-wrap gap-4 pt-4">
-            <PopButton variant="green" onClick={() => router.push('/auth?mode=register')}>Join us</PopButton>
-            <PopButton variant="teal" onClick={() => router.push('/auth')}>Login</PopButton>
+            <PopButton variant="green" onClick={() => router.push(`${ROUTES.AUTH}?mode=register`)}>Join us</PopButton>
+            <PopButton variant="teal" onClick={() => router.push(ROUTES.AUTH)}>Login</PopButton>
           </div>
         </div>
 
@@ -92,7 +93,7 @@ export default function HomePage() {
             <p className="text-teal-100 mb-8 max-w-2xl mx-auto text-lg">
               Join AirConnect Hanoi today and become part of a community dedicated to creating a healthier, more breathable city for everyone.
             </p>
-            <PulseButton variant="green" onClick={() => router.push('/auth?mode=register')}>Join us now</PulseButton>
+            <PulseButton variant="green" onClick={() => router.push(`${ROUTES.AUTH}?mode=register`)}>Join us now</PulseButton>
           </div>
         </div>
       </section>

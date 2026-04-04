@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { apiFetch } from '@/lib/api';
 import { AuthResponse, School } from '@/lib/types';
 import { storeAuthData } from '@/lib/auth';
+import { ROLE_DASHBOARD_MAP, ROUTES } from '@/lib/routes';
 
 export default function AuthPage() {
   const router = useRouter();
@@ -42,8 +43,7 @@ export default function AuthPage() {
       });
 
       storeAuthData(data);
-      const routes: Record<string, string> = { admin: '/dashboard/admin', school: '/dashboard/school', student: '/dashboard/user' };
-      router.push(routes[data.role] || '/dashboard/user');
+      router.push(ROLE_DASHBOARD_MAP[data.role] ?? ROUTES.DASHBOARD_USER);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed');
     } finally {
@@ -65,7 +65,7 @@ export default function AuthPage() {
       });
 
       storeAuthData(data);
-      router.push('/dashboard/user');
+      router.push(ROUTES.DASHBOARD_USER);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Registration failed');
     } finally {

@@ -1,11 +1,13 @@
+import { AUTH_KEYS } from './auth';
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
 function getAuthToken(): string | null {
   if (typeof window === 'undefined') return null;
   return (
-    localStorage.getItem('student_token') ||
-    localStorage.getItem('admin_token') ||
-    localStorage.getItem('school_token')
+    localStorage.getItem(AUTH_KEYS.STUDENT_TOKEN) ||
+    localStorage.getItem(AUTH_KEYS.ADMIN_TOKEN) ||
+    localStorage.getItem(AUTH_KEYS.SCHOOL_TOKEN)
   );
 }
 

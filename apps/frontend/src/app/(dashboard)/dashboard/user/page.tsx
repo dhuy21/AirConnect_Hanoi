@@ -5,12 +5,14 @@ import { LayoutDashboard, Map, BookOpen, Settings, Bell, Share2, AlertTriangle, 
 import DashboardSidebar from '@/components/layout/DashboardSidebar';
 import { apiFetch } from '@/lib/api';
 import { AirQualityData, School } from '@/lib/types';
+import { ROUTES } from '@/lib/routes';
+import { AUTH_KEYS } from '@/lib/auth';
 
 const sidebarItems = [
-  { icon: LayoutDashboard, label: 'Dashboard', href: '/dashboard/user' },
-  { icon: Map, label: 'Map', href: '/map' },
-  { icon: BookOpen, label: 'Resource Hub', href: '/resources' },
-  { icon: Settings, label: 'Settings', href: '/dashboard/user' },
+  { icon: LayoutDashboard, label: 'Dashboard', href: ROUTES.DASHBOARD_USER },
+  { icon: Map, label: 'Map', href: ROUTES.MAP },
+  { icon: BookOpen, label: 'Resource Hub', href: ROUTES.RESOURCES },
+  { icon: Settings, label: 'Settings', href: ROUTES.DASHBOARD_USER },
 ];
 
 export default function UserDashboard() {
@@ -20,8 +22,8 @@ export default function UserDashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const name = localStorage.getItem('student_name');
-    const schoolId = localStorage.getItem('school_id');
+    const name = localStorage.getItem(AUTH_KEYS.STUDENT_NAME);
+    const schoolId = localStorage.getItem(AUTH_KEYS.SCHOOL_ID);
     if (name) setUserName(name);
 
     if (schoolId) {

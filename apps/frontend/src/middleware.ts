@@ -1,12 +1,11 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-
-const PUBLIC_PATHS = ['/', '/auth', '/map', '/resources', '/feedback'];
+import { PUBLIC_PATHS, ROUTES } from '@/lib/routes';
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  if (PUBLIC_PATHS.some(p => pathname === p) || pathname.startsWith('/_next') || pathname.startsWith('/images') || pathname.startsWith('/api')) {
+  if ((PUBLIC_PATHS as readonly string[]).includes(pathname) || pathname.startsWith('/_next') || pathname.startsWith('/images') || pathname.startsWith('/api')) {
     return NextResponse.next();
   }
 
@@ -16,7 +15,7 @@ export function middleware(request: NextRequest) {
       request.headers.get('authorization');
 
     if (!hasToken) {
-      const loginUrl = new URL('/auth', request.url);
+      const loginUrl = new URL(ROUTES.AUTH, request.url);
       loginUrl.searchParams.set('redirect', pathname);
       return NextResponse.redirect(loginUrl);
     }

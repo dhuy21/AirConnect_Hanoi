@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { LogOut, Menu, X } from 'lucide-react';
 import { isLoggedIn, getDashboardRoute, logout } from '@/lib/auth';
+import { ROUTES } from '@/lib/routes';
 
 export default function Header() {
   const pathname = usePathname();
@@ -21,13 +22,13 @@ export default function Header() {
 
   useEffect(() => { setMobileOpen(false); }, [pathname]);
 
-  const dashboardRoute = loggedIn ? getDashboardRoute() : '/';
+  const dashboardRoute = loggedIn ? getDashboardRoute() : ROUTES.HOME;
 
   const navItems = [
-    { label: loggedIn ? 'Dashboard' : 'Home', route: loggedIn ? dashboardRoute : '/' },
-    { label: 'Map', route: '/map' },
-    { label: 'Resources', route: '/resources' },
-    { label: 'Feedback', route: '/feedback' },
+    { label: loggedIn ? 'Dashboard' : 'Home', route: loggedIn ? dashboardRoute : ROUTES.HOME },
+    { label: 'Map', route: ROUTES.MAP },
+    { label: 'Resources', route: ROUTES.RESOURCES },
+    { label: 'Feedback', route: ROUTES.FEEDBACK },
   ];
 
   useEffect(() => {

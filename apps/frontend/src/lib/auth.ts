@@ -1,4 +1,5 @@
 import { AuthResponse } from './types';
+import { ROLE_DASHBOARD_MAP, ROUTES } from './routes';
 
 export const AUTH_KEYS = {
   STUDENT_TOKEN: 'student_token',
@@ -32,12 +33,7 @@ export const getUserRole = (): 'student' | 'admin' | 'school' | null => {
 
 export const getDashboardRoute = (): string => {
   const role = getUserRole();
-  switch (role) {
-    case 'admin': return '/dashboard/admin';
-    case 'school': return '/dashboard/school';
-    case 'student': return '/dashboard/user';
-    default: return '/';
-  }
+  return role ? (ROLE_DASHBOARD_MAP[role] ?? ROUTES.HOME) : ROUTES.HOME;
 };
 
 export const storeAuthData = (data: AuthResponse): void => {
@@ -47,7 +43,7 @@ export const storeAuthData = (data: AuthResponse): void => {
   localStorage.setItem(`${prefix}_id`, String(data.user_id));
   if (data.name) localStorage.setItem(`${prefix}_name`, data.name);
   if (data.username) localStorage.setItem(`${prefix}_username`, data.username);
-  if (data.school_id) localStorage.setItem('school_id', String(data.school_id));
+  if (data.school_id) localStorage.setItem(AUTH_KEYS.SCHOOL_ID, String(data.school_id));
 };
 
 export const clearAuthData = (): void => {
@@ -57,5 +53,5 @@ export const clearAuthData = (): void => {
 
 export const logout = (): void => {
   clearAuthData();
-  window.location.href = '/';
+  window.location.href = ROUTES.HOME;
 };
