@@ -1,0 +1,12 @@
+export { School } from './school.entity';
+export { Student } from './student.entity';
+export { Admin } from './admin.entity';
+export { AirQuality } from './air-quality.entity';
+export { Post } from './post.entity';
+export { Submission } from './submission.entity';
+export { Review } from './review.entity';
+export { Feedback } from './feedback.entity';
+export { Solution } from './solution.entity';
+export { Help } from './help.entity';
+export { Rating } from './rating.entity';
+export { Apply } from './apply.entity';

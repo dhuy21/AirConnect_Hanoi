@@ -1,0 +1,31 @@
+{
+  "name": "airconnect-hanoi",
+  "private": true,
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "dev:frontend": "turbo run dev --filter=@airconnect/frontend",
+    "dev:backend": "turbo run dev --filter=@airconnect/backend",
+    "build:frontend": "turbo run build --filter=@airconnect/frontend",
+    "build:backend": "turbo run build --filter=@airconnect/backend",
+    "db:up": "docker compose up -d db",
+    "db:down": "docker compose stop db",
+    "db:logs": "docker compose logs -f db"
+  },
+  "devDependencies": {
+    "turbo": "^2.4.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@nestjs/core",
+      "bcrypt",
+      "sharp",
+      "unrs-resolver"
+    ]
+  },
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=18"
+  }
+}
