@@ -11,7 +11,7 @@ import { ROUTES } from '@/lib/routes';
 const FEATURE_CARDS = [
   { id: 'knowledge-base', icon: BookOpen, title: 'Shared Knowledge Base', description: 'Access a curated library of best practices, case studies, and proven strategies from peers.' },
   { id: 'air-quality', icon: BarChart3, title: 'Live Air Quality Insights', description: 'Get real-time data and alerts for your facilities to make informed, proactive decisions.' },
-  { id: 'community', icon: Users, title: 'Community & Expert Network', description: 'Connect with experts, participate in forums, and collaborate on solutions with fellow managers.' },
+  { id: 'community', icon: Users, title: 'Community & Expert Network', description: 'Connect with experts, participate in forums, and collaborate on solutions with managers.' },
 ];
 
 export default function HomePage() {

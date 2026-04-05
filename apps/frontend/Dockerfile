@@ -7,11 +7,12 @@ COPY . .
 RUN pnpm run build
 
 FROM node:20-alpine
-RUN corepack enable && corepack prepare pnpm@10 --activate
 WORKDIR /app
-COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+USER node
 EXPOSE 3000
-CMD ["pnpm", "start"]
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+CMD ["node", "server.js"]

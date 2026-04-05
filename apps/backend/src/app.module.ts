@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ThrottlerModule } from '@nestjs/throttler';
+import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { getDatabaseConfig } from './config/database.config';
+import { envValidationSchema } from './config/env.validation';
 import { THROTTLE_GLOBAL } from './common/constants';
 import { AuthModule } from './modules/auth/auth.module';
 import { SchoolModule } from './modules/school/school.module';
@@ -17,12 +19,15 @@ import { HelpModule } from './modules/help/help.module';
 import { SolutionModule } from './modules/solution/solution.module';
 import { RatingModule } from './modules/rating/rating.module';
 import { ApplyModule } from './modules/apply/apply.module';
+import { HealthModule } from './modules/health/health.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '../../.env',
+      validationSchema: envValidationSchema,
+      validationOptions: { abortEarly: true },
     }),
     ThrottlerModule.forRoot([THROTTLE_GLOBAL]),
     TypeOrmModule.forRootAsync({
@@ -43,6 +48,10 @@ import { ApplyModule } from './modules/apply/apply.module';
     SolutionModule,
     RatingModule,
     ApplyModule,
+    HealthModule,
+  ],
+  providers: [
+    { provide: APP_GUARD, useClass: ThrottlerGuard },
   ],
 })
 export class AppModule {}
