@@ -3,6 +3,18 @@ import * as bcrypt from 'bcrypt';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as dotenv from 'dotenv';
+import { Admin } from './entities/admin.entity';
+import { School } from './entities/school.entity';
+import { Student } from './entities/student.entity';
+import { Post } from './entities/post.entity';
+import { Submission } from './entities/submission.entity';
+import { Review } from './entities/review.entity';
+import { AirQuality } from './entities/air-quality.entity';
+import { Rating } from './entities/rating.entity';
+import { Help } from './entities/help.entity';
+import { Solution } from './entities/solution.entity';
+import { Apply } from './entities/apply.entity';
+import { Feedback } from './entities/feedback.entity';
 
 dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 
@@ -19,11 +31,14 @@ async function seed() {
     process.exit(1);
   }
 
+  const requiresSsl = dbUrl.includes('railway') || dbUrl.includes('rlwy');
   const ds = new DataSource({
     type: 'postgres',
     url: dbUrl,
+    entities: [Admin, School, Student, Post, Submission, Review, AirQuality, Rating, Help, Solution, Apply, Feedback],
     synchronize: true,
     logging: false,
+    ssl: requiresSsl ? { rejectUnauthorized: false } : false,
   });
 
   await ds.initialize();
