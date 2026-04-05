@@ -7,11 +7,17 @@ export const getDatabaseConfig = (configService: ConfigService): TypeOrmModuleOp
     throw new Error('DATABASE_URL environment variable is required');
   }
 
+  const isProduction = configService.get<string>('NODE_ENV') === 'production';
+  const requiresSsl = dbUrl.includes('sslmode=require') || isProduction;
+
   return {
     type: 'postgres',
     url: dbUrl,
     autoLoadEntities: true,
-    synchronize: configService.get<string>('NODE_ENV') === 'development',
-    logging: configService.get<string>('NODE_ENV') === 'development',
+    synchronize: !isProduction,
+    logging: !isProduction,
+    ssl: requiresSsl ? { rejectUnauthorized: false } : false,
+    migrations: ['dist/migrations/*.js'],
+    migrationsRun: isProduction,
   };
 };

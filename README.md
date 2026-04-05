@@ -87,9 +87,34 @@ Chỉ cần database để dev local với Nest/Next chạy trên máy:
 pnpm db:up
 ```
 
+## Production Deploy (Railway)
+
+### Services to create on Railway
+
+1. **PostgreSQL** — add PostgreSQL plugin (PostGIS extension: run `CREATE EXTENSION postgis` via Railway's query tab)
+2. **Backend** — deploy from `apps/backend`, set root directory to `apps/backend`
+3. **Frontend** — deploy from `apps/frontend`, set root directory to `apps/frontend`
+
+### Required env vars on Railway
+
+| Service | Variable | Value |
+|---------|----------|-------|
+| Backend | `DATABASE_URL` | Auto-injected by Railway PostgreSQL plugin |
+| Backend | `PORT` | `3001` (or Railway's `$PORT`) |
+| Backend | `NODE_ENV` | `production` |
+| Backend | `JWT_SECRET` | Strong random string (32+ chars) |
+| Backend | `JWT_EXPIRATION` | `7d` |
+| Backend | `CORS_ORIGINS` | Frontend public URL (e.g. `https://airconnect.up.railway.app`) |
+| Frontend | `NEXT_PUBLIC_API_URL` | Backend public URL (e.g. `https://airconnect-api.up.railway.app`) |
+
+### Notes
+- Swagger docs are **disabled** in production (`NODE_ENV=production`)
+- Database migrations run automatically on startup in production
+- Health check endpoint: `GET /api/health`
+
 ## API Documentation
 
-When the API is running, Swagger docs are available at:
+When the API is running in development, Swagger docs are available at:
 - http://localhost:3001/api/docs
 
 ## Key Features
