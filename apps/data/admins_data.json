@@ -1,0 +1,48 @@
+[
+  {
+    "id": 1,
+    "type": "super",
+    "username": "admin_super",
+    "password": "admin@##",
+    "phone": "+84 24 1234 5678",
+    "email": "admin.super@airconnecthanoi.org",
+    "created_at": "2024-01-01T08:00:00"
+  },
+  {
+    "id": 2,
+    "type": "normal",
+    "username": "admin_nguyen",
+    "password": "admin@##",
+    "phone": "+84 24 1234 5679",
+    "email": "admin.nguyen@airconnecthanoi.org",
+    "created_at": "2024-01-01T08:00:00"
+  },
+  {
+    "id": 3,
+    "type": "normal",
+    "username": "admin_tran",
+    "password": "admin@##",
+    "phone": "+84 24 1234 5680",
+    "email": "admin.tran@airconnecthanoi.org",
+    "created_at": "2024-01-01T08:00:00"
+  },
+  {
+    "id": 4,
+    "type": "normal",
+    "username": "admin_le",
+    "password": "admin@##",
+    "phone": "+84 24 1234 5681",
+    "email": "admin.le@airconnecthanoi.org",
+    "created_at": "2024-01-01T08:00:00"
+  },
+  {
+    "id": 5,
+    "type": "normal",
+    "username": "admin_pham",
+    "password": "admin@##",
+    "phone": "+84 24 1234 5682",
+    "email": "admin.pham@airconnecthanoi.org",
+    "created_at": "2024-01-01T08:00:00"
+  }
+]
+

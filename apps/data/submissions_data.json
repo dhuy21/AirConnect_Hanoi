@@ -1,0 +1,63 @@
+[
+  {
+    "type": "request",
+    "content": "Our school urgently needs assistance with installing air quality monitoring sensors. We have limited technical expertise and would appreciate guidance or help from another school with experience in this area.",
+    "from_school_id": 1
+  },
+  {
+    "type": "offer",
+    "content": "We have successfully implemented a green wall system and are willing to share our experience, suppliers, and maintenance protocols with other schools interested in similar solutions.",
+    "from_school_id": 2
+  },
+  {
+    "type": "request",
+    "content": "Requesting information about cost-effective air purifier options suitable for large classrooms (50+ students). Budget constraints are a major consideration.",
+    "from_school_id": 3
+  },
+  {
+    "type": "offer",
+    "content": "Our facility management team has expertise in HVAC optimization. We can provide consultation and support to other schools looking to improve their ventilation systems.",
+    "from_school_id": 4
+  },
+  {
+    "type": "request",
+    "content": "We need help developing educational materials about air quality awareness for students. Looking for resources or collaboration with schools that have existing programs.",
+    "from_school_id": 5
+  },
+  {
+    "type": "offer",
+    "content": "We have extra N95 masks in stock and can share them with schools facing supply shortages during high pollution periods. Contact us for coordination.",
+    "from_school_id": 6
+  },
+  {
+    "type": "request",
+    "content": "Seeking technical assistance for interpreting air quality data and setting up alert systems. We have sensors but need help with data management.",
+    "from_school_id": 7
+  },
+  {
+    "type": "offer",
+    "content": "We've developed a mobile app for real-time air quality monitoring and alerts. Happy to share the solution and provide training to interested schools.",
+    "from_school_id": 8
+  },
+  {
+    "type": "request",
+    "content": "Our school needs guidance on establishing a health monitoring program for tracking air quality-related symptoms among students. Looking for best practices and templates.",
+    "from_school_id": 9
+  },
+  {
+    "type": "offer",
+    "content": "We have partnerships with local air quality experts and can facilitate connections for other schools needing professional consultations or assessments.",
+    "from_school_id": 10
+  },
+  {
+    "type": "request",
+    "content": "Requesting support for implementing a mask distribution program. We need help with procurement, distribution logistics, and student education strategies.",
+    "from_school_id": 11
+  },
+  {
+    "type": "other",
+    "content": "We'd like to organize a workshop for school administrators to share experiences and learn from each other about air quality management challenges and solutions.",
+    "from_school_id": 12
+  }
+]
+
