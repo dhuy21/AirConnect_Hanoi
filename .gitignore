@@ -86,3 +86,16 @@ Desktop.ini
 .vercel
 .cache/
 .eslintcache
+
+# ============================================
+# Playwright / E2E (Phase 6)
+# ============================================
+playwright-report/
+test-results/
+.playwright/
+
+# ============================================
+# Sentry
+# ============================================
+.sentryclirc
+

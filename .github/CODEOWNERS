@@ -1,0 +1,32 @@
+# =============================================================================
+# CODEOWNERS — AirConnect Hanoi
+# =============================================================================
+# Docs: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-security/customizing-your-repository/about-code-owners
+#
+# Mỗi PR chạm vào file/thư mục tương ứng sẽ tự động request review từ owner.
+# Kết hợp với Branch Protection: "Require review from Code Owners".
+# =============================================================================
+
+# Default — owner toàn repo
+*                              @dhuy21
+
+# Infrastructure & CI/CD
+/.github/                      @dhuy21
+/docker/                       @dhuy21
+docker-compose.yml             @dhuy21
+/apps/*/railway.toml           @dhuy21
+/apps/*/Dockerfile             @dhuy21
+
+# Backend
+/apps/backend/                 @dhuy21
+
+# Frontend
+/apps/frontend/                @dhuy21
+
+# Shared packages (tạo ở Phase 4)
+/packages/                     @dhuy21
+
+# Root configs
+/turbo.json                    @dhuy21
+/pnpm-workspace.yaml           @dhuy21
+/package.json                  @dhuy21

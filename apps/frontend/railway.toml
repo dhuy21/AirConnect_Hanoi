@@ -1,0 +1,53 @@
+# =====================================================================
+# Railway Config-as-Code — Frontend (Next.js)
+# =====================================================================
+# Docs: https://docs.railway.com/reference/config-as-code
+#
+# Setup trên Railway (một lần duy nhất cho service Frontend):
+#   Service Settings -> "Config-as-code File Path" -> apps/frontend/railway.toml
+#
+# Next.js dùng `output: "standalone"` (xem next.config.ts).
+# Build emit ra: apps/frontend/.next/standalone/apps/frontend/server.js
+# Static assets & public/ phải được copy vào thư mục standalone để server.js
+# serve được. Đây là convention chuẩn của Next standalone trong monorepo.
+# =====================================================================
+
+[build]
+builder = "RAILPACK"
+buildCommand = """
+corepack enable && \
+pnpm install --frozen-lockfile && \
+pnpm --filter @airconnect/frontend build && \
+cp -r apps/frontend/.next/static apps/frontend/.next/standalone/apps/frontend/.next/static && \
+cp -r apps/frontend/public apps/frontend/.next/standalone/apps/frontend/public\
+"""
+watchPatterns = [
+  "apps/frontend/**",
+  "packages/**",
+  "pnpm-lock.yaml",
+  "package.json",
+  "turbo.json",
+  "apps/frontend/railway.toml",
+]
+
+[deploy]
+# HOSTNAME phải = 0.0.0.0 (set ở Service Variables trên Railway).
+# PORT để Railway inject — KHÔNG hardcode ở đây hay Variables.
+startCommand = "node apps/frontend/.next/standalone/apps/frontend/server.js"
+healthcheckPath = "/"
+healthcheckTimeout = 120
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 5
+overlapSeconds = 30
+drainingSeconds = 15
+
+[environments.production.deploy]
+restartPolicyType = "ALWAYS"
+restartPolicyMaxRetries = 10
+
+[environments.staging.deploy]
+restartPolicyType = "ON_FAILURE"
+
+[environments.pr.deploy]
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 2
