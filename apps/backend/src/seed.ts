@@ -12,8 +12,12 @@
  *   pnpm --filter @airconnect/backend seed            # append-only (safe)
  *   pnpm --filter @airconnect/backend seed -- --reset # truncate + re-seed
  *
- * Or via Railway one-off run (against a remote environment):
- *   railway run --service "Backend Server" --environment staging \
+ * Or against a remote Railway environment FROM your local machine.
+ * You MUST target the database service (PostGIS), not the Backend service,
+ * otherwise `railway run` injects DATABASE_URL pointing to the internal
+ * hostname `*.railway.internal` which does not resolve outside the mesh.
+ *
+ *   railway run --service PostGIS --environment staging \
  *     pnpm --filter @airconnect/backend seed -- --reset
  *
  * Design rules:
@@ -95,6 +99,31 @@ function loadJson<T>(filename: string): T {
   return JSON.parse(fs.readFileSync(full, 'utf-8')) as T;
 }
 
+/**
+ * Extract host:port from a postgres:// URL for logging purposes, without
+ * leaking the credentials. Returns "unknown" if parsing fails.
+ */
+function describeTarget(dbUrl: string): string {
+  try {
+    const u = new URL(dbUrl);
+    return `${u.hostname}:${u.port || '5432'}`;
+  } catch {
+    return 'unknown';
+  }
+}
+
+/**
+ * Railway private hostnames (`*.railway.internal`) only resolve from inside
+ * the Railway network mesh. If the seed script is invoked from a developer
+ * laptop via `railway run --service "Backend Server"`, DATABASE_URL will
+ * point at an internal host and DNS will fail with ENOTFOUND.
+ *
+ * We surface a clearer, actionable message instead of the raw DNS error.
+ */
+function isInternalRailwayHost(hostname: string): boolean {
+  return hostname.endsWith('.railway.internal');
+}
+
 function buildDataSource(dbUrl: string): DataSource {
   const requiresSsl =
     dbUrl.includes('sslmode=require') ||
@@ -134,8 +163,29 @@ async function seed() {
     process.exit(1);
   }
 
+  const target = describeTarget(dbUrl);
+  const hostname = (() => {
+    try { return new URL(dbUrl).hostname; } catch { return ''; }
+  })();
+  const isLocal = !!process.stdout.isTTY && !process.env.RAILWAY_ENVIRONMENT_NAME;
+
+  if (isLocal && isInternalRailwayHost(hostname)) {
+    console.error(
+      `[seed] DATABASE_URL points at an internal Railway hostname (${hostname}).\n` +
+        '[seed]   Internal hostnames only resolve from inside Railway.\n' +
+        '[seed]   When running from your laptop, target the database service\n' +
+        '[seed]   (which exposes a public proxy URL), e.g.:\n' +
+        '[seed]\n' +
+        '[seed]     railway run --service PostGIS --environment staging \\\n' +
+        '[seed]       pnpm --filter @airconnect/backend seed -- --reset\n',
+    );
+    process.exit(1);
+  }
+
   const mode = flags.reset ? 'RESET' : 'IDEMPOTENT';
-  console.log(`[seed] Mode: ${mode} | Deployment env: ${deploymentEnv}`);
+  console.log(
+    `[seed] Mode: ${mode} | Deployment env: ${deploymentEnv} | Target: ${target}`,
+  );
 
   const ds = buildDataSource(dbUrl);
   await ds.initialize();

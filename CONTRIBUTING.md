@@ -109,6 +109,43 @@ pnpm db:migrate
 
 **Never** edit an already-applied migration. Create a new one on top.
 
+### Seeding a remote Railway environment
+
+Seeding (or destructively resetting) a remote environment is a **manual**,
+auditable operation — never part of automated deploys.
+
+**Important — internal vs public database URLs:**
+
+Railway databases expose two connection strings:
+
+| Variable | Hostname pattern | Reachable from |
+|---|---|---|
+| `DATABASE_URL` on **Backend Server** service | `*.railway.internal` | Only services running inside Railway |
+| `DATABASE_URL` on the **database** service (e.g. `PostGIS`) | `*.proxy.rlwy.net` | Anywhere (public proxy, SSL) |
+
+`railway run --service <svc>` copies `<svc>`'s env vars to your local shell.
+If you target the Backend service, you will get an internal hostname that
+your laptop cannot resolve (`ENOTFOUND *.railway.internal`). **Always target
+the database service** for one-off admin tasks run from your machine.
+
+Helper scripts (already wired up):
+
+```bash
+pnpm railway:seed:staging          # idempotent seed against staging DB
+pnpm railway:seed:staging:reset    # truncate + re-seed staging DB
+```
+
+Under the hood they execute:
+
+```bash
+railway run --service PostGIS --environment staging \
+  pnpm --filter @airconnect/backend seed [-- --reset]
+```
+
+Production is additionally protected by a `--allow-production` guard inside
+the seed script; this flag should only ever be passed for the first-time
+bootstrap of a freshly-provisioned empty database.
+
 ---
 
 ## Branching strategy
