@@ -66,6 +66,30 @@ function parseFlags(argv: string[]): CliFlags {
   };
 }
 
+/**
+ * Resolve the actual deployment environment.
+ *
+ * `NODE_ENV` is NOT the right signal here: Railway (and most PaaS) set
+ * `NODE_ENV=production` for every non-dev deployment (staging, PR preview,
+ * production…) because it controls *library* behaviour — tree-shaking,
+ * disabling React/webpack dev warnings, etc. Using it for business-logic
+ * gating would incorrectly block staging operations too.
+ *
+ * Resolution order (authoritative → fallback):
+ *   1. APP_ENV                     — app-controlled, explicit override.
+ *   2. RAILWAY_ENVIRONMENT_NAME    — injected by Railway for every service.
+ *                                    Values: "production" | "staging" | "pr-*".
+ *   3. NODE_ENV                    — last resort (only useful locally).
+ */
+function resolveDeploymentEnv(): string {
+  return (
+    process.env.APP_ENV ??
+    process.env.RAILWAY_ENVIRONMENT_NAME ??
+    process.env.NODE_ENV ??
+    'development'
+  );
+}
+
 function loadJson<T>(filename: string): T {
   const full = path.join(DATA_DIR, filename);
   return JSON.parse(fs.readFileSync(full, 'utf-8')) as T;
@@ -94,23 +118,24 @@ function buildDataSource(dbUrl: string): DataSource {
 async function seed() {
   const flags = parseFlags(process.argv.slice(2));
   const dbUrl = process.env.DATABASE_URL;
-  const nodeEnv = process.env.NODE_ENV ?? 'development';
+  const deploymentEnv = resolveDeploymentEnv();
 
   if (!dbUrl) {
     console.error('[seed] DATABASE_URL is not set');
     process.exit(1);
   }
 
-  if (nodeEnv === 'production' && !flags.allowProduction) {
+  if (deploymentEnv === 'production' && !flags.allowProduction) {
     console.error(
-      '[seed] Refusing to run in production. Pass --allow-production to override ' +
-        '(intended for first-time bootstrap of an empty database only).',
+      '[seed] Refusing to run against the PRODUCTION environment.\n' +
+        '[seed]   Pass --allow-production explicitly to override\n' +
+        '[seed]   (intended for the first-time bootstrap of an empty DB).',
     );
     process.exit(1);
   }
 
   const mode = flags.reset ? 'RESET' : 'IDEMPOTENT';
-  console.log(`[seed] Mode: ${mode} | Env: ${nodeEnv}`);
+  console.log(`[seed] Mode: ${mode} | Deployment env: ${deploymentEnv}`);
 
   const ds = buildDataSource(dbUrl);
   await ds.initialize();
