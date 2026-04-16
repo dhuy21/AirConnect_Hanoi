@@ -11,7 +11,10 @@ services:
       - '${POSTGRES_PORT:-5432}:5432'
     volumes:
       - pgdata:/var/lib/postgresql/data
-      - ./docker/postgres/init-postgis.sh:/docker-entrypoint-initdb.d/01-postgis.sh:ro
+    # NOTE: the PostGIS extension is created by the first TypeORM migration
+    # (apps/backend/src/migrations/*-CreatePostgisExtension.ts) so there is no
+    # need for an init-script mount. This keeps a single source of truth for
+    # schema across local, staging, and production.
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}']
       interval: 10s

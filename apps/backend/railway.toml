@@ -26,18 +26,22 @@ watchPatterns = [
 ]
 
 [deploy]
-# CWD khi chạy = repo root, vì shared monorepo không set Root Directory
+# CWD at runtime = repo root (shared monorepo, no Root Directory set).
 startCommand = "node apps/backend/dist/main"
 healthcheckPath = "/api/health"
 healthcheckTimeout = 120
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 5
-# Zero-downtime deploy tuning (Railway zero-downtime)
+# Zero-downtime deploy tuning.
 overlapSeconds = 30
 drainingSeconds = 15
 
-# Pre-deploy command sẽ được bật ở Phase 2 (sau khi có migrations):
-# preDeployCommand = ["pnpm --filter @airconnect/backend migration:run"]
+# Database migrations (TypeORM) are applied by the pre-deploy command.
+# Railway guarantees it runs exactly once per deployment, BEFORE the new
+# container starts serving traffic, so multiple replicas never race on
+# schema changes. The script uses compiled JS to avoid shipping ts-node
+# to production images (see apps/backend/package.json).
+preDeployCommand = ["pnpm --filter @airconnect/backend migration:run:prod"]
 
 # ---------------------------------------------------------------------
 # Production-specific overrides

@@ -59,18 +59,55 @@ pnpm install
 cp .env.example .env
 # -> chỉnh POSTGRES_PASSWORD, JWT_SECRET (tối thiểu 32 ký tự random)
 
-# 3. Chạy DB
+# 3. Chạy Postgres + PostGIS (Docker)
 pnpm db:up
 
-# 4. Seed dữ liệu (một lần)
-pnpm db:seed
+# 4. Apply migrations (creates PostGIS extension + all tables)
+pnpm db:migrate
 
-# 5. Chạy dev (cả FE + BE song song qua Turborepo)
+# 5. Seed dữ liệu
+pnpm db:seed          # idempotent — safe to re-run, keeps existing rows
+# hoặc: pnpm db:seed:reset   # truncate + re-seed (dev/demo only)
+
+# 6. Chạy dev (cả FE + BE song song qua Turborepo)
 pnpm dev
 ```
 
 - Backend: http://localhost:3001 (Swagger: `/api/docs`)
 - Frontend: http://localhost:3000
+
+### Database workflows
+
+| Command | Description |
+|---|---|
+| `pnpm db:up` / `pnpm db:down` | Start / stop the local Postgres container |
+| `pnpm db:migrate` | Apply pending TypeORM migrations |
+| `pnpm db:migrate:show` | List applied vs pending migrations |
+| `pnpm db:migrate:revert` | Revert the last applied migration |
+| `pnpm db:seed` | Idempotent seed (insert-if-missing, safe to re-run) |
+| `pnpm db:seed:reset` | Truncate seeded tables then re-seed (destructive) |
+| `pnpm db:reset` | Drop + migrate + reseed (full local reset) |
+
+### Creating a new migration
+
+After changing one or more entities:
+
+```bash
+# 1. Rebuild so the CLI compares current entities against the live DB
+pnpm --filter @airconnect/backend build
+
+# 2. Generate the migration (picks a name describing the change)
+pnpm --filter @airconnect/backend migration:generate \
+  src/migrations/AddWhateverColumn
+
+# 3. Review the generated file carefully (delete noise, edit data fixes)
+# 4. Apply locally:
+pnpm db:migrate
+
+# 5. Commit the migration file alongside the entity change.
+```
+
+**Never** edit an already-applied migration. Create a new one on top.
 
 ---
 
