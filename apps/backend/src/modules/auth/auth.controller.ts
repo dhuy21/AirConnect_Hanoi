@@ -3,7 +3,12 @@ import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
 import { AuthService } from './auth.service';
 import { THROTTLE_AUTH } from '../../common/constants';
-import { LoginStudentDto, LoginAdminDto, LoginSchoolDto, RegisterStudentDto } from './dto';
+import {
+  LoginStudentDto,
+  LoginAdminDto,
+  LoginSchoolDto,
+  RegisterStudentDto,
+} from './dto';
 
 @ApiTags('auth')
 @Controller('auth')

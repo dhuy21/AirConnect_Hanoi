@@ -135,8 +135,18 @@ function buildDataSource(dbUrl: string): DataSource {
     type: 'postgres',
     url: dbUrl,
     entities: [
-      Admin, School, Student, Post, Submission, Review,
-      AirQuality, Rating, Help, Solution, Apply, Feedback,
+      Admin,
+      School,
+      Student,
+      Post,
+      Submission,
+      Review,
+      AirQuality,
+      Rating,
+      Help,
+      Solution,
+      Apply,
+      Feedback,
     ],
     synchronize: false,
     logging: false,
@@ -165,9 +175,14 @@ async function seed() {
 
   const target = describeTarget(dbUrl);
   const hostname = (() => {
-    try { return new URL(dbUrl).hostname; } catch { return ''; }
+    try {
+      return new URL(dbUrl).hostname;
+    } catch {
+      return '';
+    }
   })();
-  const isLocal = !!process.stdout.isTTY && !process.env.RAILWAY_ENVIRONMENT_NAME;
+  const isLocal =
+    !!process.stdout.isTTY && !process.env.RAILWAY_ENVIRONMENT_NAME;
 
   if (isLocal && isInternalRailwayHost(hostname)) {
     console.error(
@@ -201,9 +216,18 @@ async function seed() {
     if (flags.reset) {
       // FK-safe truncation order: leaf tables first, roots last.
       const tables = [
-        'applies', 'ratings', 'reviews', 'submissions', 'posts',
-        'air_qualities', 'helps', 'solutions', 'students', 'feedbacks',
-        'admins', 'schools',
+        'applies',
+        'ratings',
+        'reviews',
+        'submissions',
+        'posts',
+        'air_qualities',
+        'helps',
+        'solutions',
+        'students',
+        'feedbacks',
+        'admins',
+        'schools',
       ];
       for (const t of tables) {
         await q(`TRUNCATE TABLE "${t}" RESTART IDENTITY CASCADE`);
@@ -229,7 +253,8 @@ async function seed() {
     // --------------------------------------------------------------------
     // 2. Schools — geometry(Point, 4326) built from longitude/latitude
     // --------------------------------------------------------------------
-    const schools = loadJson<Array<Record<string, unknown>>>('schools_data.json');
+    const schools =
+      loadJson<Array<Record<string, unknown>>>('schools_data.json');
     for (const s of schools) {
       const hash = await bcrypt.hash(s.password as string, BCRYPT_ROUNDS);
       await q(
@@ -243,11 +268,22 @@ async function seed() {
          )
          ON CONFLICT (id) DO NOTHING`,
         [
-          s.id, s.type, s.name,
-          s.longitude, s.latitude,
-          s.address, s.district, hash, s.situation,
-          s.email, s.phone,
-          s.score_1, s.score_2, s.score_3, s.score_4, s.score_5,
+          s.id,
+          s.type,
+          s.name,
+          s.longitude,
+          s.latitude,
+          s.address,
+          s.district,
+          hash,
+          s.situation,
+          s.email,
+          s.phone,
+          s.score_1,
+          s.score_2,
+          s.score_3,
+          s.score_4,
+          s.score_5,
           s.created_at,
         ],
       );
@@ -257,7 +293,8 @@ async function seed() {
     // --------------------------------------------------------------------
     // 3. Students
     // --------------------------------------------------------------------
-    const students = loadJson<Array<Record<string, unknown>>>('students_data.json');
+    const students =
+      loadJson<Array<Record<string, unknown>>>('students_data.json');
     for (const s of students) {
       const hash = await bcrypt.hash(s.password as string, BCRYPT_ROUNDS);
       await q(
@@ -268,8 +305,17 @@ async function seed() {
          VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
          ON CONFLICT (id) DO NOTHING`,
         [
-          s.id, s.first_name, s.last_name, s.sex, s.birth_date,
-          s.email, s.phone, s.health_status, hash, s.created_at, s.school_id,
+          s.id,
+          s.first_name,
+          s.last_name,
+          s.sex,
+          s.birth_date,
+          s.email,
+          s.phone,
+          s.health_status,
+          hash,
+          s.created_at,
+          s.school_id,
         ],
       );
     }
@@ -278,7 +324,9 @@ async function seed() {
     // --------------------------------------------------------------------
     // 4. Solutions  (must precede applies)
     // --------------------------------------------------------------------
-    const solutions = loadJson<Array<Record<string, unknown>>>('solutions_data.json');
+    const solutions = loadJson<Array<Record<string, unknown>>>(
+      'solutions_data.json',
+    );
     for (let i = 0; i < solutions.length; i++) {
       const s = solutions[i];
       await q(
@@ -302,7 +350,16 @@ async function seed() {
          )
          VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
          ON CONFLICT (id) DO NOTHING`,
-        [i + 1, p.title, p.type, p.description, p.image, p.content, p.published_at, p.school_id],
+        [
+          i + 1,
+          p.title,
+          p.type,
+          p.description,
+          p.image,
+          p.content,
+          p.published_at,
+          p.school_id,
+        ],
       );
     }
     console.log(`[seed] Posts        : ${posts.length} rows processed`);
@@ -310,7 +367,9 @@ async function seed() {
     // --------------------------------------------------------------------
     // 6. Submissions  (must precede reviews)
     // --------------------------------------------------------------------
-    const submissions = loadJson<Array<Record<string, unknown>>>('submissions_data.json');
+    const submissions = loadJson<Array<Record<string, unknown>>>(
+      'submissions_data.json',
+    );
     for (let i = 0; i < submissions.length; i++) {
       const s = submissions[i];
       await q(
@@ -325,7 +384,9 @@ async function seed() {
     // --------------------------------------------------------------------
     // 7. Air qualities  (must precede applies)
     // --------------------------------------------------------------------
-    const airQualities = loadJson<Array<Record<string, unknown>>>('air_qualities_data.json');
+    const airQualities = loadJson<Array<Record<string, unknown>>>(
+      'air_qualities_data.json',
+    );
     for (const a of airQualities) {
       await q(
         `INSERT INTO air_qualities (
@@ -333,7 +394,18 @@ async function seed() {
          )
          VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
          ON CONFLICT (id) DO NOTHING`,
-        [a.id, a.aqi, a.pm25, a.pm10, a.co2, a.temp, a.humidity, a.wind_speed, a.measured_at, a.school_id],
+        [
+          a.id,
+          a.aqi,
+          a.pm25,
+          a.pm10,
+          a.co2,
+          a.temp,
+          a.humidity,
+          a.wind_speed,
+          a.measured_at,
+          a.school_id,
+        ],
       );
     }
     console.log(`[seed] Air qualities: ${airQualities.length} rows processed`);
@@ -341,7 +413,8 @@ async function seed() {
     // --------------------------------------------------------------------
     // 8. Reviews — composite PK (submission_id, admin_id)
     // --------------------------------------------------------------------
-    const reviews = loadJson<Array<Record<string, unknown>>>('reviews_data.json');
+    const reviews =
+      loadJson<Array<Record<string, unknown>>>('reviews_data.json');
     for (const r of reviews) {
       await q(
         `INSERT INTO reviews (submission_id, admin_id, decision, date, note)
@@ -355,7 +428,8 @@ async function seed() {
     // --------------------------------------------------------------------
     // 9. Ratings — composite PK (post_id, student_id)
     // --------------------------------------------------------------------
-    const ratings = loadJson<Array<Record<string, unknown>>>('ratings_data.json');
+    const ratings =
+      loadJson<Array<Record<string, unknown>>>('ratings_data.json');
     for (const r of ratings) {
       await q(
         `INSERT INTO ratings (post_id, student_id, rate, rated_at)
@@ -375,7 +449,14 @@ async function seed() {
         `INSERT INTO helps (from_school_id, to_school_id, type, content, status, created_at)
          VALUES ($1,$2,$3,$4,$5,$6)
          ON CONFLICT (from_school_id, to_school_id) DO NOTHING`,
-        [h.from_school_id, h.to_school_id, h.type, h.content, h.status, h.created_at],
+        [
+          h.from_school_id,
+          h.to_school_id,
+          h.type,
+          h.content,
+          h.status,
+          h.created_at,
+        ],
       );
     }
     console.log(`[seed] Helps        : ${helps.length} rows processed`);
@@ -399,8 +480,13 @@ async function seed() {
     // does not collide with seeded IDs.
     // --------------------------------------------------------------------
     const seqTables = [
-      'admins', 'schools', 'students', 'solutions',
-      'posts', 'submissions', 'air_qualities',
+      'admins',
+      'schools',
+      'students',
+      'solutions',
+      'posts',
+      'submissions',
+      'air_qualities',
     ];
     for (const t of seqTables) {
       await q(

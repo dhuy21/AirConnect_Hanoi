@@ -1,5 +1,9 @@
 import {
-  Entity, Column, ManyToOne, JoinColumn, PrimaryColumn, CreateDateColumn,
+  Entity,
+  ManyToOne,
+  JoinColumn,
+  PrimaryColumn,
+  CreateDateColumn,
 } from 'typeorm';
 import { Solution } from './solution.entity';
 import { AirQuality } from './air-quality.entity';

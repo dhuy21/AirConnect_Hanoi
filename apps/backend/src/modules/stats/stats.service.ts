@@ -11,8 +11,10 @@ import { ReviewDecision } from '../../common/enums';
 export class StatsService {
   constructor(
     @InjectRepository(School) private readonly schoolRepo: Repository<School>,
-    @InjectRepository(Student) private readonly studentRepo: Repository<Student>,
-    @InjectRepository(Submission) private readonly subRepo: Repository<Submission>,
+    @InjectRepository(Student)
+    private readonly studentRepo: Repository<Student>,
+    @InjectRepository(Submission)
+    private readonly subRepo: Repository<Submission>,
     @InjectRepository(Review) private readonly reviewRepo: Repository<Review>,
   ) {}
 
@@ -23,11 +25,12 @@ export class StatsService {
       this.subRepo.count(),
     ]);
 
-    const [pendingReviews, approvedSubmissions, rejectedSubmissions] = await Promise.all([
-      this.reviewRepo.count({ where: { decision: ReviewDecision.PENDING } }),
-      this.reviewRepo.count({ where: { decision: ReviewDecision.ACCEPTED } }),
-      this.reviewRepo.count({ where: { decision: ReviewDecision.REJECTED } }),
-    ]);
+    const [pendingReviews, approvedSubmissions, rejectedSubmissions] =
+      await Promise.all([
+        this.reviewRepo.count({ where: { decision: ReviewDecision.PENDING } }),
+        this.reviewRepo.count({ where: { decision: ReviewDecision.ACCEPTED } }),
+        this.reviewRepo.count({ where: { decision: ReviewDecision.REJECTED } }),
+      ]);
 
     return {
       total_schools: totalSchools,

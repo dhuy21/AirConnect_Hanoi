@@ -1,4 +1,10 @@
-import { IsNumber, IsString, IsNotEmpty, IsEnum, IsOptional } from 'class-validator';
+import {
+  IsNumber,
+  IsString,
+  IsNotEmpty,
+  IsEnum,
+  IsOptional,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { HelpType, HelpStatus } from '../../../common/enums';
 
@@ -8,7 +14,9 @@ export class CreateHelpDto {
   @ApiProperty({ enum: HelpType }) @IsEnum(HelpType) type: HelpType;
   @ApiProperty() @IsString() @IsNotEmpty() content: string;
   @ApiProperty({ enum: HelpStatus, required: false })
-  @IsOptional() @IsEnum(HelpStatus) status?: HelpStatus;
+  @IsOptional()
+  @IsEnum(HelpStatus)
+  status?: HelpStatus;
 }
 
 export class UpdateHelpStatusDto {

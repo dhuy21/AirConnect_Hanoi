@@ -1,4 +1,13 @@
-import { Controller, Get, Post as HttpPost, Body, Param, UseGuards, Req, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post as HttpPost,
+  Body,
+  Param,
+  UseGuards,
+  Req,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { Request } from 'express';
 import { PostService } from './post.service';
@@ -37,7 +46,10 @@ export class PostController {
   @Roles(UserRole.SCHOOL)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Create a post (school only)' })
-  create(@Body() dto: CreatePostDto, @Req() req: Request & { user: JwtPayload }) {
+  create(
+    @Body() dto: CreatePostDto,
+    @Req() req: Request & { user: JwtPayload },
+  ) {
     return this.postService.create({ ...dto, school_id: req.user.id });
   }
 }

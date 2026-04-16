@@ -1,5 +1,10 @@
 import {
-  Entity, Column, ManyToOne, JoinColumn, PrimaryColumn, CreateDateColumn,
+  Entity,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  PrimaryColumn,
+  CreateDateColumn,
 } from 'typeorm';
 import { Post } from './post.entity';
 import { Student } from './student.entity';
