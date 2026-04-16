@@ -12,7 +12,12 @@
     "db:up": "docker compose up -d db",
     "db:down": "docker compose stop db",
     "db:logs": "docker compose logs -f db",
-    "db:seed": "pnpm --filter @airconnect/backend seed"
+    "db:seed": "pnpm --filter @airconnect/backend seed",
+    "db:seed:reset": "pnpm --filter @airconnect/backend seed -- --reset",
+    "db:migrate": "pnpm --filter @airconnect/backend migration:run",
+    "db:migrate:show": "pnpm --filter @airconnect/backend migration:show",
+    "db:migrate:revert": "pnpm --filter @airconnect/backend migration:revert",
+    "db:reset": "docker exec -i airconnect_hanoi-db-1 psql -U airconnect_user -d airconnect_hanoi -c \"DROP SCHEMA public CASCADE; CREATE SCHEMA public; GRANT ALL ON SCHEMA public TO airconnect_user;\" && pnpm db:migrate && pnpm db:seed:reset"
   },
   "devDependencies": {
     "turbo": "^2.4.0"
