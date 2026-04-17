@@ -6,12 +6,16 @@ export class SchoolResponseDto {
   @ApiProperty({ enum: SchoolType }) type: SchoolType;
   @ApiProperty() name: string;
   @ApiProperty() address: string;
-  @ApiProperty({ required: false }) district: string | null;
+  @ApiProperty({ type: String, nullable: true, required: false })
+  district: string | null;
   @ApiProperty() latitude: number;
   @ApiProperty() longitude: number;
-  @ApiProperty({ required: false }) situation: string | null;
-  @ApiProperty({ required: false }) email: string | null;
-  @ApiProperty({ required: false }) phone: string | null;
+  @ApiProperty({ type: String, nullable: true, required: false })
+  situation: string | null;
+  @ApiProperty({ type: String, nullable: true, required: false })
+  email: string | null;
+  @ApiProperty({ type: String, nullable: true, required: false })
+  phone: string | null;
   @ApiProperty() score_1: number;
   @ApiProperty() score_2: number;
   @ApiProperty() score_3: number;

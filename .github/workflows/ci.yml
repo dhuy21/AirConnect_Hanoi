@@ -64,3 +64,48 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm turbo run test
+
+  openapi-drift:
+    name: OpenAPI contract drift
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgis/postgis:16-3.4
+        env:
+          POSTGRES_USER: airconnect
+          POSTGRES_PASSWORD: airconnect
+          POSTGRES_DB: airconnect_ci
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U airconnect"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      # Minimal env for the backend to bootstrap. Nothing is persisted and no
+      # HTTP port is bound; the script just needs TypeORM to initialise.
+      DATABASE_URL: postgresql://airconnect:airconnect@localhost:5432/airconnect_ci
+      JWT_SECRET: ci-openapi-drift-jwt-secret-not-used-anywhere
+      NODE_ENV: development
+      CORS_ORIGINS: http://localhost:3000
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Build shared-types (needed by backend imports)
+        run: pnpm --filter @airconnect/shared-types build
+      - name: Export OpenAPI + regenerate types
+        run: pnpm openapi:codegen
+      - name: Fail if committed spec or generated types drifted
+        run: |
+          if ! git diff --exit-code -- \
+              packages/shared-types/openapi.json \
+              packages/shared-types/src/generated; then
+            echo "::error::OpenAPI contract or generated types are out of date."
+            echo "Run 'pnpm openapi:codegen' locally and commit the result."
+            exit 1
+          fi
