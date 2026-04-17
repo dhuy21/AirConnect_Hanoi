@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Param, Query, UseGuards, Req, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Query,
+  UseGuards,
+  Req,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { Request } from 'express';
 import { AirQualityService } from './air-quality.service';
@@ -31,8 +41,17 @@ export class AirQualityController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.SCHOOL, UserRole.ADMIN)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Create air quality measurement (school/admin only)' })
-  create(@Body() dto: CreateAirQualityDto, @Req() req: Request & { user: JwtPayload }) {
-    return this.aqService.create({ ...dto, school_id: req.user.role === UserRole.SCHOOL ? req.user.id : dto.school_id });
+  @ApiOperation({
+    summary: 'Create air quality measurement (school/admin only)',
+  })
+  create(
+    @Body() dto: CreateAirQualityDto,
+    @Req() req: Request & { user: JwtPayload },
+  ) {
+    return this.aqService.create({
+      ...dto,
+      school_id:
+        req.user.role === UserRole.SCHOOL ? req.user.id : dto.school_id,
+    });
   }
 }

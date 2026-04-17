@@ -1,5 +1,8 @@
 import {
-  Entity, PrimaryGeneratedColumn, Column, CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
   OneToMany,
 } from 'typeorm';
 import { Apply } from './apply.entity';

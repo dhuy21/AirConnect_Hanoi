@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Param, Query, UseGuards, Req, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Query,
+  UseGuards,
+  Req,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { Request } from 'express';
 import { SubmissionService } from './submission.service';
@@ -33,7 +43,10 @@ export class SubmissionController {
   @UseGuards(RolesGuard)
   @Roles(UserRole.SCHOOL)
   @ApiOperation({ summary: 'Create a submission (school only)' })
-  create(@Body() dto: CreateSubmissionDto, @Req() req: Request & { user: JwtPayload }) {
+  create(
+    @Body() dto: CreateSubmissionDto,
+    @Req() req: Request & { user: JwtPayload },
+  ) {
     return this.subService.create({ ...dto, from_school_id: req.user.id });
   }
 }

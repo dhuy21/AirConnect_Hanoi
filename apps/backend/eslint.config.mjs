@@ -29,7 +29,27 @@ export default tseslint.config(
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-floating-promises': 'warn',
       '@typescript-eslint/no-unsafe-argument': 'warn',
-      "prettier/prettier": ["error", { endOfLine: "auto" }],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+      ],
+      // Relaxed to 'warn' as a pragmatic ratchet: TypeORM query runner and
+      // raw JSON fixtures return `any`, generating noise we accept for now.
+      // Tech debt — tighten back to 'error' once services return typed DTOs.
+      '@typescript-eslint/no-unsafe-assignment': 'warn',
+      '@typescript-eslint/no-unsafe-call': 'warn',
+      '@typescript-eslint/no-unsafe-member-access': 'warn',
+      '@typescript-eslint/no-unsafe-return': 'warn',
+      'prettier/prettier': ['error', { endOfLine: 'auto' }],
+    },
+  },
+  {
+    // Scripts (seed, migrations CLI) interact with raw JSON fixtures and
+    // dynamic SQL; we keep the stricter rules off in this narrow scope.
+    files: ['src/seed.ts', 'src/migrations/**/*.ts'],
+    rules: {
+      '@typescript-eslint/no-floating-promises': 'off',
+      '@typescript-eslint/require-await': 'off',
     },
   },
 );

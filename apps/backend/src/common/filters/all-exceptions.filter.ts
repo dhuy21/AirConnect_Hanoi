@@ -1,4 +1,11 @@
-import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus, Logger } from '@nestjs/common';
+import {
+  ExceptionFilter,
+  Catch,
+  ArgumentsHost,
+  HttpException,
+  HttpStatus,
+  Logger,
+} from '@nestjs/common';
 import { Response } from 'express';
 
 @Catch()
@@ -17,11 +24,16 @@ export class AllExceptionsFilter implements ExceptionFilter {
       const exResponse = exception.getResponse();
       message = typeof exResponse === 'string' ? exResponse : exResponse;
     } else {
-      this.logger.error('Unhandled exception', exception instanceof Error ? exception.stack : String(exception));
+      this.logger.error(
+        'Unhandled exception',
+        exception instanceof Error ? exception.stack : String(exception),
+      );
     }
 
-    response.status(status).json(
-      typeof message === 'object' ? message : { statusCode: status, message },
-    );
+    response
+      .status(status)
+      .json(
+        typeof message === 'object' ? message : { statusCode: status, message },
+      );
   }
 }

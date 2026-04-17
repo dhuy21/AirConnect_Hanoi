@@ -14,7 +14,13 @@ export class ReviewService {
     return this.reviewRepo.find({ where: { submission_id: submissionId } });
   }
 
-  async create(data: { decision: ReviewDecision; note?: string; submission_id: number; admin_id: number; date?: Date }) {
+  async create(data: {
+    decision: ReviewDecision;
+    note?: string;
+    submission_id: number;
+    admin_id: number;
+    date?: Date;
+  }) {
     const review = this.reviewRepo.create({
       ...data,
       date: data.date ?? new Date(),

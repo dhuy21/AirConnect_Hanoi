@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Patch, Body, Param, UseGuards, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Patch,
+  Body,
+  Param,
+  UseGuards,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { SolutionService } from './solution.service';
 import { CreateSolutionDto, UpdateSolutionDto } from './dto';
@@ -38,7 +47,10 @@ export class SolutionController {
   @Roles(UserRole.ADMIN)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Update a solution (admin only)' })
-  update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateSolutionDto) {
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: UpdateSolutionDto,
+  ) {
     return this.solService.update(id, dto);
   }
 }

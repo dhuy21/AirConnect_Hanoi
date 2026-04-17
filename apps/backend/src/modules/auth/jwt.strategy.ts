@@ -18,10 +18,23 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: { sub: number; role: UserRole; email?: string; username?: string }) {
+  // Passport expects `validate` to be async; we keep the signature even
+  // though the current implementation is synchronous.
+  // eslint-disable-next-line @typescript-eslint/require-await
+  async validate(payload: {
+    sub: number;
+    role: UserRole;
+    email?: string;
+    username?: string;
+  }) {
     if (!payload.sub) {
       throw new UnauthorizedException();
     }
-    return { id: payload.sub, role: payload.role, email: payload.email, username: payload.username };
+    return {
+      id: payload.sub,
+      role: payload.role,
+      email: payload.email,
+      username: payload.username,
+    };
   }
 }
