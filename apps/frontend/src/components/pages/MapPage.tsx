@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import { apiFetch } from '@/lib/api';
+import { schoolControllerGetAllSchools } from '@/lib/api-client';
 import { School } from '@/lib/types';
 
 const SchoolMap = dynamic(() => import('@/components/map/SchoolMap'), { ssr: false });
@@ -31,8 +31,8 @@ export default function MapPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    apiFetch<School[]>('/api/schools/')
-      .then(setAllSchools)
+    schoolControllerGetAllSchools()
+      .then(({ data }) => setAllSchools(data ?? []))
       .catch(console.error)
       .finally(() => setLoading(false));
   }, []);

@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiOkResponse } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
 import { AuthService } from './auth.service';
 import { THROTTLE_AUTH } from '../../common/constants';
@@ -9,6 +9,7 @@ import {
   LoginSchoolDto,
   RegisterStudentDto,
 } from './dto';
+import { AuthResponseDto } from './dto/auth-response.dto';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -18,25 +19,29 @@ export class AuthController {
 
   @Post('login/student')
   @ApiOperation({ summary: 'Student login' })
-  loginStudent(@Body() dto: LoginStudentDto) {
+  @ApiOkResponse({ type: AuthResponseDto })
+  loginStudent(@Body() dto: LoginStudentDto): Promise<AuthResponseDto> {
     return this.authService.loginStudent(dto.email, dto.password);
   }
 
   @Post('login/admin')
   @ApiOperation({ summary: 'Admin login' })
-  loginAdmin(@Body() dto: LoginAdminDto) {
+  @ApiOkResponse({ type: AuthResponseDto })
+  loginAdmin(@Body() dto: LoginAdminDto): Promise<AuthResponseDto> {
     return this.authService.loginAdmin(dto.username, dto.password);
   }
 
   @Post('login/school')
   @ApiOperation({ summary: 'School login' })
-  loginSchool(@Body() dto: LoginSchoolDto) {
+  @ApiOkResponse({ type: AuthResponseDto })
+  loginSchool(@Body() dto: LoginSchoolDto): Promise<AuthResponseDto> {
     return this.authService.loginSchool(dto.email, dto.password);
   }
 
   @Post('register/student')
   @ApiOperation({ summary: 'Register new student' })
-  registerStudent(@Body() dto: RegisterStudentDto) {
+  @ApiOkResponse({ type: AuthResponseDto })
+  registerStudent(@Body() dto: RegisterStudentDto): Promise<AuthResponseDto> {
     return this.authService.registerStudent(dto);
   }
 }

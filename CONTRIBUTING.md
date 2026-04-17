@@ -13,6 +13,7 @@ project — branching, commit, PR, test, deploy.
 - [Branching strategy](#branching-strategy)
 - [Commit convention](#commit-convention)
 - [Pull Request flow](#pull-request-flow)
+- [Shared types & API contract](#shared-types--api-contract)
 - [Testing](#testing)
 - [Deployment (Railway)](#deployment-railway)
 - [Báo cáo bug / đề xuất feature](#báo-cáo-bug--đề-xuất-feature)
@@ -25,11 +26,12 @@ Monorepo với **pnpm workspaces + Turborepo**:
 
 ```
 apps/
-  backend/   — NestJS 11 + TypeORM + PostgreSQL/PostGIS
-  frontend/  — Next.js 16 (App Router) + Tailwind CSS + React Leaflet
-  data/      — seed data JSON
-packages/    — (Phase 4) shared-types, api-client, config
-docker/      — local Postgres init scripts
+  backend/     — NestJS 11 + TypeORM + PostgreSQL/PostGIS
+  frontend/    — Next.js 16 (App Router) + Tailwind CSS + React Leaflet
+  data/        — seed data JSON
+packages/
+  shared-types/ — enums + OpenAPI-generated API types & SDK
+docker/        — local Postgres init scripts
 ```
 
 Triển khai trên **Railway** với 3 environments: `production`, `staging`, và
@@ -209,6 +211,32 @@ chore(infra): add railway.toml config-as-code
 7. Request review từ `@dhuy21` (CODEOWNERS tự động).
 8. Merge squash (giữ history clean).
 9. Branch tự xoá sau merge (Railway cũng auto-cleanup PR env).
+
+---
+
+## Shared types & API contract
+
+Backend và frontend chia sẻ types qua `packages/shared-types`. Khi bạn sửa
+DTO, entity, hoặc thêm endpoint mới trên backend, phải regenerate contract:
+
+```bash
+# Cần docker db đang chạy (pnpm db:up) vì script boot NestJS thật
+pnpm openapi:codegen
+git add packages/shared-types/openapi.json packages/shared-types/src/generated
+```
+
+Rules:
+
+- Mỗi endpoint public phải có `@ApiOkResponse({ type: XxxResponseDto })` (hoặc
+  `type: [XxxResponseDto]` cho array). Không annotate → type là `unknown`
+  ở FE.
+- Frontend gọi endpoint qua SDK đã generate: `import { authControllerLoginStudent } from '@/lib/api-client'`.
+  Không dùng `fetch()` raw.
+- Enum mới phải khai báo trong `packages/shared-types/src/enums.ts` đầu tiên,
+  rồi `export * from '@airconnect/shared-types/enums'` ở backend.
+
+CI chạy `pnpm openapi:codegen` và fail PR nếu contract committed khác với
+kết quả regenerate. Chi tiết ADR: [`docs/adr/0001-shared-types-from-openapi.md`](docs/adr/0001-shared-types-from-openapi.md).
 
 ---
 

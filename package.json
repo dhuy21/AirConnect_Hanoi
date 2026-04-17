@@ -22,6 +22,8 @@
     "db:migrate:show": "pnpm --filter @airconnect/backend migration:show",
     "db:migrate:revert": "pnpm --filter @airconnect/backend migration:revert",
     "db:reset": "docker exec -i airconnect_hanoi-db-1 psql -U airconnect_user -d airconnect_hanoi -c \"DROP SCHEMA public CASCADE; CREATE SCHEMA public; GRANT ALL ON SCHEMA public TO airconnect_user;\" && pnpm db:migrate && pnpm db:seed:reset",
+    "openapi:export": "pnpm --filter @airconnect/backend openapi:export",
+    "openapi:codegen": "pnpm --filter @airconnect/shared-types codegen:from-backend",
     "railway:seed:staging": "railway run --service PostGIS --environment staging pnpm --filter @airconnect/backend seed",
     "railway:seed:staging:reset": "railway run --service PostGIS --environment staging pnpm --filter @airconnect/backend seed -- --reset"
   },
@@ -32,6 +34,7 @@
     "onlyBuiltDependencies": [
       "@nestjs/core",
       "bcrypt",
+      "esbuild",
       "sharp",
       "unrs-resolver"
     ]

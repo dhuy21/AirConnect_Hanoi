@@ -1,21 +1,16 @@
-export interface School {
-  id: number;
-  name: string;
-  type: string;
-  address: string;
-  district: string | null;
-  latitude: number;
-  longitude: number;
-  situation: string | null;
-  email: string | null;
-  phone: string | null;
-  score_1: number;
-  score_2: number;
-  score_3: number;
-  score_4: number;
-  score_5: number;
-  created_at: string;
-}
+// Some types now come from the single source of truth (`@airconnect/shared-types`),
+// generated from the backend OpenAPI contract.
+//
+// The remaining interfaces below describe endpoints whose controllers still
+// lack `@ApiOkResponse({ type: ... })` decorators. They will be removed once
+// those controllers are annotated in a follow-up PR — see CONTRIBUTING.md.
+import type {
+  SchoolResponseDto,
+  AuthResponseDto,
+} from '@airconnect/shared-types/api';
+
+export type School = SchoolResponseDto;
+export type AuthResponse = AuthResponseDto;
 
 export interface StudentData {
   id: number;
@@ -71,17 +66,6 @@ export interface StatsData {
   pending_reviews: number;
   approved_submissions: number;
   rejected_submissions: number;
-}
-
-export interface AuthResponse {
-  access_token: string;
-  token_type: string;
-  user_id: number;
-  role: string;
-  email?: string;
-  username?: string;
-  name?: string;
-  school_id?: number;
 }
 
 export interface FeedbackData {

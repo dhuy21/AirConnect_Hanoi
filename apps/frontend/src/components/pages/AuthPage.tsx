@@ -3,8 +3,15 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
-import { apiFetch } from '@/lib/api';
-import { AuthResponse, School } from '@/lib/types';
+import {
+  authControllerLoginAdmin,
+  authControllerLoginSchool,
+  authControllerLoginStudent,
+  authControllerRegisterStudent,
+  schoolControllerGetAllSchools,
+} from '@/lib/api-client';
+import type { AuthResponseDto } from '@airconnect/shared-types/api';
+import { School } from '@/lib/types';
 import { storeAuthData } from '@/lib/auth';
 import { ROLE_DASHBOARD_MAP, ROUTES } from '@/lib/routes';
 
@@ -18,7 +25,9 @@ export default function AuthPage() {
   const [schools, setSchools] = useState<School[]>([]);
 
   useEffect(() => {
-    apiFetch<School[]>('/api/schools/').then(setSchools).catch(() => {});
+    schoolControllerGetAllSchools()
+      .then(({ data }) => setSchools(data ?? []))
+      .catch(() => {});
   }, []);
 
   const [loginForm, setLoginForm] = useState({ email: '', username: '', password: '' });
@@ -32,15 +41,24 @@ export default function AuthPage() {
     setLoading(true);
     setError('');
     try {
-      const endpoint = userType === 'admin' ? '/api/auth/login/admin' : userType === 'school' ? '/api/auth/login/school' : '/api/auth/login/student';
-      const body = userType === 'admin'
-        ? { username: loginForm.username, password: loginForm.password }
-        : { email: loginForm.email, password: loginForm.password };
-
-      const data = await apiFetch<AuthResponse>(endpoint, {
-        method: 'POST',
-        body: JSON.stringify(body),
-      });
+      let data: AuthResponseDto | undefined;
+      if (userType === 'admin') {
+        const res = await authControllerLoginAdmin({
+          body: { username: loginForm.username, password: loginForm.password },
+        });
+        data = res.data;
+      } else if (userType === 'school') {
+        const res = await authControllerLoginSchool({
+          body: { email: loginForm.email, password: loginForm.password },
+        });
+        data = res.data;
+      } else {
+        const res = await authControllerLoginStudent({
+          body: { email: loginForm.email, password: loginForm.password },
+        });
+        data = res.data;
+      }
+      if (!data) throw new Error('Empty auth response');
 
       storeAuthData(data);
       router.push(ROLE_DASHBOARD_MAP[data.role] ?? ROUTES.DASHBOARD_USER);
@@ -59,12 +77,22 @@ export default function AuthPage() {
       const schoolId = parseInt(registerForm.school_id);
       if (!schoolId || schoolId <= 0) { setError('Please select a valid school'); setLoading(false); return; }
 
-      const data = await apiFetch<AuthResponse>('/api/auth/register/student', {
-        method: 'POST',
-        body: JSON.stringify({ ...registerForm, school_id: schoolId }),
+      const res = await authControllerRegisterStudent({
+        body: {
+          first_name: registerForm.first_name,
+          last_name: registerForm.last_name,
+          email: registerForm.email,
+          password: registerForm.password,
+          phone: registerForm.phone,
+          birth_date: registerForm.birth_date,
+          sex: registerForm.sex as 'male' | 'female',
+          health_status: registerForm.health_status,
+          school_id: schoolId,
+        },
       });
+      if (!res.data) throw new Error('Empty auth response');
 
-      storeAuthData(data);
+      storeAuthData(res.data);
       router.push(ROUTES.DASHBOARD_USER);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Registration failed');

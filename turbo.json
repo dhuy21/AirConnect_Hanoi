@@ -19,6 +19,10 @@
     "test": {
       "dependsOn": ["^build"],
       "outputs": ["coverage/**"]
+    },
+    "codegen": {
+      "outputs": ["src/generated/**"],
+      "inputs": ["openapi.json"]
     }
   }
 }
