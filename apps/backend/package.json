@@ -22,6 +22,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "seed": "ts-node -r tsconfig-paths/register src/seed.ts",
+    "openapi:export": "ts-node -r tsconfig-paths/register src/scripts/export-openapi.ts",
     "migration:generate": "typeorm-ts-node-commonjs migration:generate -d src/config/typeorm-cli.config.ts",
     "migration:create": "typeorm-ts-node-commonjs migration:create",
     "migration:run": "typeorm-ts-node-commonjs migration:run -d src/config/typeorm-cli.config.ts",
@@ -30,6 +31,7 @@
     "migration:show": "typeorm-ts-node-commonjs migration:show -d src/config/typeorm-cli.config.ts"
   },
   "dependencies": {
+    "@airconnect/shared-types": "workspace:*",
     "@nest-lab/throttler-storage-redis": "^1.2.0",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.3",
