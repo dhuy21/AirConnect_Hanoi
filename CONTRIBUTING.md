@@ -59,8 +59,8 @@ pnpm install
 cp .env.example .env
 # -> chỉnh POSTGRES_PASSWORD, JWT_SECRET (tối thiểu 32 ký tự random)
 
-# 3. Chạy Postgres + PostGIS (Docker)
-pnpm db:up
+# 3. Chạy Postgres + PostGIS + Redis (Docker)
+pnpm db:up          # starts postgis + redis services
 
 # 4. Apply migrations (creates PostGIS extension + all tables)
 pnpm db:migrate
@@ -72,6 +72,10 @@ pnpm db:seed          # idempotent — safe to re-run, keeps existing rows
 # 6. Chạy dev (cả FE + BE song song qua Turborepo)
 pnpm dev
 ```
+
+> Redis không bắt buộc ở local — nếu bạn `unset REDIS_URL`, throttler sẽ
+> tự fallback in-memory (single-process only). Nhưng staging/production
+> **bắt buộc** phải có Redis vì backend scale horizontal.
 
 - Backend: http://localhost:3001 (Swagger: `/api/docs`)
 - Frontend: http://localhost:3000
@@ -229,6 +233,18 @@ Target coverage khi Phase 6 hoàn thành: **≥ 60% critical modules**.
 - Config per-service được quản lý qua `apps/<service>/railway.toml`
   (config-as-code, versioned trong git).
 - Secrets / env variables quản lý qua Railway Service Variables (không commit).
+
+### Provisioning Redis trên Railway
+
+Mỗi environment (`staging`, `production`) cần một service Redis riêng:
+
+1. Project canvas → **+ New** → **Database** → **Redis** (template chính chủ).
+2. Khi service Redis đã up, vào Backend Server → **Variables** → **Add
+   Variable Reference** → chọn `${{Redis.REDIS_URL}}`. Railway sẽ tự
+   inject biến `REDIS_URL` (nội bộ, `*.railway.internal`).
+3. Lặp lại ở environment còn lại.
+
+Không cần commit URL: Railway quản lý credential rotation giúp.
 
 Chi tiết setup Railway: xem `docs/DEPLOYMENT.md` (sẽ được thêm ở Phase 6).
 

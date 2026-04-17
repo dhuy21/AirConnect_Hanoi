@@ -30,4 +30,15 @@ export const envValidationSchema = Joi.object({
   JWT_SECRET: Joi.string().min(8).required(),
   JWT_EXPIRATION: Joi.string().default('7d'),
   CORS_ORIGINS: Joi.string().default('http://localhost:3000'),
+
+  // Redis — optional in dev (falls back to in-memory throttler), required
+  // in staging/production via Railway Redis service injection.
+  REDIS_URL: Joi.string()
+    .uri({ scheme: ['redis', 'rediss'] })
+    .optional()
+    .allow(''),
+
+  // Throttler (global rate-limit). TTL in seconds.
+  THROTTLE_TTL: Joi.number().integer().min(1).default(60),
+  THROTTLE_LIMIT: Joi.number().integer().min(1).default(100),
 });

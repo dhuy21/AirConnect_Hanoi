@@ -2,10 +2,13 @@ import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
+import { ThrottlerModule, ThrottlerGuard, seconds } from '@nestjs/throttler';
+import { ThrottlerStorageRedisService } from '@nest-lab/throttler-storage-redis';
+import type Redis from 'ioredis';
 import { getDatabaseConfig } from './config/database.config';
 import { envValidationSchema } from './config/env.validation';
-import { THROTTLE_GLOBAL } from './common/constants';
+import { RedisModule } from './modules/redis/redis.module';
+import { REDIS_CLIENT } from './modules/redis/redis.constants';
 import { AuthModule } from './modules/auth/auth.module';
 import { SchoolModule } from './modules/school/school.module';
 import { StudentModule } from './modules/student/student.module';
@@ -30,7 +33,26 @@ import { HealthModule } from './modules/health/health.module';
       validationSchema: envValidationSchema,
       validationOptions: { abortEarly: true },
     }),
-    ThrottlerModule.forRoot([THROTTLE_GLOBAL]),
+    RedisModule,
+    // Global rate-limit.
+    //
+    // Storage is Redis-backed when REDIS_URL is set (production / staging),
+    // which makes the counter consistent across every backend replica.
+    // In local dev without Redis the module falls back to the default
+    // in-memory storage — fine for a single process.
+    ThrottlerModule.forRootAsync({
+      imports: [ConfigModule, RedisModule],
+      inject: [ConfigService, REDIS_CLIENT],
+      useFactory: (config: ConfigService, redis: Redis | null) => ({
+        throttlers: [
+          {
+            ttl: seconds(config.get<number>('THROTTLE_TTL', 60)),
+            limit: config.get<number>('THROTTLE_LIMIT', 100),
+          },
+        ],
+        storage: redis ? new ThrottlerStorageRedisService(redis) : undefined,
+      }),
+    }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: getDatabaseConfig,
