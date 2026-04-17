@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import path from "node:path";
 
 const securityHeaders = [
   { key: 'X-Frame-Options', value: 'DENY' },
@@ -9,6 +10,10 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  // pnpm monorepo: tell Next to trace from the repo root so `output: 'standalone'`
+  // bundles workspace packages (e.g. @airconnect/shared-types) living outside
+  // apps/frontend. Without this, Next warns and may ship an incomplete server.
+  outputFileTracingRoot: path.join(__dirname, '../../'),
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'images.unsplash.com' },

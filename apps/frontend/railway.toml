@@ -14,10 +14,12 @@
 
 [build]
 builder = "RAILPACK"
+# Topological filter builds @airconnect/shared-types before the frontend
+# (required since the generated API SDK is consumed from shared-types/dist).
 buildCommand = """
 corepack enable && \
 pnpm install --frozen-lockfile && \
-pnpm --filter @airconnect/frontend build && \
+pnpm exec turbo run build --filter=@airconnect/frontend... && \
 cp -r apps/frontend/.next/static apps/frontend/.next/standalone/apps/frontend/.next/static && \
 cp -r apps/frontend/public apps/frontend/.next/standalone/apps/frontend/public\
 """

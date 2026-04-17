@@ -14,7 +14,11 @@
 
 [build]
 builder = "RAILPACK"
-buildCommand = "corepack enable && pnpm install --frozen-lockfile && pnpm --filter @airconnect/backend build"
+# Turbo's topological filter (`...` suffix) builds workspace deps first
+# (e.g. @airconnect/shared-types via `dependsOn: ["^build"]` in turbo.json),
+# then the backend. Without this the backend compilation fails because
+# shared-types is only exported from its `dist/` output.
+buildCommand = "corepack enable && pnpm install --frozen-lockfile && pnpm exec turbo run build --filter=@airconnect/backend..."
 # Chỉ trigger build khi backend hoặc shared deps đổi (monorepo focused rebuild)
 watchPatterns = [
   "apps/backend/**",
