@@ -9,10 +9,16 @@ import {
   Req,
   ParseIntPipe,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiOkResponse,
+} from '@nestjs/swagger';
 import { Request } from 'express';
 import { AirQualityService } from './air-quality.service';
 import { CreateAirQualityDto } from './dto';
+import { AirQuality } from '../../entities/air-quality.entity';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../../common/decorators/roles.decorator';
@@ -27,12 +33,14 @@ export class AirQualityController {
 
   @Get()
   @ApiOperation({ summary: 'Get all air quality measurements' })
+  @ApiOkResponse({ type: [AirQuality] })
   getAll(@Query('limit') limit: number = DEFAULT_QUERY_LIMIT) {
     return this.aqService.getAll(+limit);
   }
 
   @Get('school/:schoolId')
   @ApiOperation({ summary: 'Get latest air quality for a school' })
+  @ApiOkResponse({ type: AirQuality })
   getBySchool(@Param('schoolId', ParseIntPipe) schoolId: number) {
     return this.aqService.getBySchool(schoolId);
   }
@@ -44,6 +52,7 @@ export class AirQualityController {
   @ApiOperation({
     summary: 'Create air quality measurement (school/admin only)',
   })
+  @ApiOkResponse({ type: AirQuality })
   create(
     @Body() dto: CreateAirQualityDto,
     @Req() req: Request & { user: JwtPayload },

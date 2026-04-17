@@ -3,8 +3,11 @@
 import { useEffect, useState } from 'react';
 import { LayoutDashboard, Map, BookOpen, Settings, Bell, Share2, AlertTriangle, CheckCircle } from 'lucide-react';
 import DashboardSidebar from '@/components/layout/DashboardSidebar';
-import { apiFetch } from '@/lib/api';
-import { AirQualityData, School } from '@/lib/types';
+import {
+  airQualityControllerGetBySchool,
+  schoolControllerGetAllSchools,
+} from '@/lib/api-client';
+import type { AirQuality } from '@airconnect/shared-types/api';
 import { ROUTES } from '@/lib/routes';
 import { AUTH_KEYS } from '@/lib/auth';
 
@@ -18,7 +21,7 @@ const sidebarItems = [
 export default function UserDashboard() {
   const [userName, setUserName] = useState('User');
   const [schoolName, setSchoolName] = useState('');
-  const [airQuality, setAirQuality] = useState<AirQualityData | null>(null);
+  const [airQuality, setAirQuality] = useState<AirQuality | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -27,14 +30,22 @@ export default function UserDashboard() {
     if (name) setUserName(name);
 
     if (schoolId) {
+      const id = parseInt(schoolId);
       Promise.all([
-        apiFetch<AirQualityData>(`/api/air-quality/school/${schoolId}`).catch(() => null),
-        apiFetch<School[]>('/api/schools/').catch(() => []),
-      ]).then(([aq, schools]) => {
-        setAirQuality(aq);
-        const school = schools?.find(s => s.id === parseInt(schoolId));
-        if (school) setSchoolName(school.name);
-      }).catch(console.error).finally(() => setLoading(false));
+        airQualityControllerGetBySchool({ path: { schoolId: id } })
+          .then(({ data }) => data ?? null)
+          .catch(() => null),
+        schoolControllerGetAllSchools()
+          .then(({ data }) => data ?? [])
+          .catch(() => []),
+      ])
+        .then(([aq, schools]) => {
+          setAirQuality(aq);
+          const school = schools.find((s) => s.id === id);
+          if (school) setSchoolName(school.name);
+        })
+        .catch(console.error)
+        .finally(() => setLoading(false));
     } else {
       setLoading(false);
     }

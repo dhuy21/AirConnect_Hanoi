@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChevronDown, ChevronUp, Megaphone, Building2, Activity, ShieldCheck, CheckCircle } from 'lucide-react';
 import DashboardSidebar from '@/components/layout/DashboardSidebar';
-import { apiFetch } from '@/lib/api';
+import { submissionControllerCreate } from '@/lib/api-client';
 import { ROUTES } from '@/lib/routes';
 import { AUTH_KEYS } from '@/lib/auth';
 import { schoolSidebarItems } from '../sidebar-items';
@@ -62,9 +62,8 @@ export default function NewSubmission() {
     }).join('\n\n');
 
     try {
-      await apiFetch('/api/submissions/', {
-        method: 'POST',
-        body: JSON.stringify({ type: 'request', content }),
+      await submissionControllerCreate({
+        body: { type: 'request', content },
       });
       setSuccess(true);
       setTimeout(() => router.push(ROUTES.DASHBOARD_SCHOOL), 2000);

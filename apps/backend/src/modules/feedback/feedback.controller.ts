@@ -10,9 +10,15 @@ import {
   UseGuards,
   ParseIntPipe,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiOkResponse,
+} from '@nestjs/swagger';
 import { FeedbackService } from './feedback.service';
 import { CreateFeedbackDto } from './dto';
+import { Feedback } from '../../entities/feedback.entity';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../../common/decorators/roles.decorator';
@@ -26,6 +32,7 @@ export class FeedbackController {
 
   @Post()
   @ApiOperation({ summary: 'Create feedback (public)' })
+  @ApiOkResponse({ type: Feedback })
   create(@Body() dto: CreateFeedbackDto) {
     return this.fbService.create(dto);
   }
@@ -35,6 +42,7 @@ export class FeedbackController {
   @Roles(UserRole.ADMIN)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get all feedbacks (admin only)' })
+  @ApiOkResponse({ type: [Feedback] })
   getAll(
     @Query('skip') skip: number = 0,
     @Query('limit') limit: number = DEFAULT_QUERY_LIMIT,
@@ -47,6 +55,7 @@ export class FeedbackController {
   @Roles(UserRole.ADMIN)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get unread feedbacks (admin only)' })
+  @ApiOkResponse({ type: [Feedback] })
   getUnread() {
     return this.fbService.getUnread();
   }
@@ -56,6 +65,7 @@ export class FeedbackController {
   @Roles(UserRole.ADMIN)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get feedback by ID (admin only)' })
+  @ApiOkResponse({ type: Feedback })
   getById(@Param('id', ParseIntPipe) id: number) {
     return this.fbService.getById(id);
   }
@@ -65,6 +75,7 @@ export class FeedbackController {
   @Roles(UserRole.ADMIN)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Mark feedback as read (admin only)' })
+  @ApiOkResponse({ type: Feedback })
   markAsRead(@Param('id', ParseIntPipe) id: number) {
     return this.fbService.markAsRead(id);
   }
