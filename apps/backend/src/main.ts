@@ -17,10 +17,12 @@ async function bootstrap() {
   app.use(compression());
 
   if (isProduction) {
-    (app.getHttpAdapter().getInstance() as any).set('trust proxy', 1);
+    app.getHttpAdapter().getInstance().set('trust proxy', 1);
   }
 
-  const allowedOrigins = configService.get<string>('CORS_ORIGINS', 'http://localhost:3000').split(',');
+  const allowedOrigins = configService
+    .get<string>('CORS_ORIGINS', 'http://localhost:3000')
+    .split(',');
   app.enableCors({
     origin: allowedOrigins,
     credentials: true,
@@ -42,7 +44,9 @@ async function bootstrap() {
   if (!isProduction) {
     const config = new DocumentBuilder()
       .setTitle('AirConnect Hanoi API')
-      .setDescription('API for AirConnect Hanoi - Air Quality Management Platform')
+      .setDescription(
+        'API for AirConnect Hanoi - Air Quality Management Platform',
+      )
       .setVersion('2.0')
       .addBearerAuth()
       .build();
@@ -53,6 +57,8 @@ async function bootstrap() {
 
   const port = configService.get<number>('PORT', 3001);
   await app.listen(port);
-  logger.log(`NestJS API running on port ${port} [${isProduction ? 'production' : 'development'}]`);
+  logger.log(
+    `NestJS API running on port ${port} [${isProduction ? 'production' : 'development'}]`,
+  );
 }
 bootstrap();

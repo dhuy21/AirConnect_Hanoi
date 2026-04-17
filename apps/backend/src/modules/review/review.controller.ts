@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Param, UseGuards, Req, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  UseGuards,
+  Req,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { Request } from 'express';
 import { ReviewService } from './review.service';
@@ -27,7 +36,10 @@ export class ReviewController {
   @Roles(UserRole.ADMIN)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Create a review (admin only)' })
-  create(@Body() dto: CreateReviewDto, @Req() req: Request & { user: JwtPayload }) {
+  create(
+    @Body() dto: CreateReviewDto,
+    @Req() req: Request & { user: JwtPayload },
+  ) {
     return this.reviewService.create({
       ...dto,
       admin_id: req.user.id,

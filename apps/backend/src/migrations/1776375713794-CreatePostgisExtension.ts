@@ -24,7 +24,7 @@ export class CreatePostgisExtension1776375713794 implements MigrationInterface {
     await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "postgis"`);
   }
 
-  public async down(queryRunner: QueryRunner): Promise<void> {
+  public async down(_queryRunner: QueryRunner): Promise<void> {
     // We intentionally DO NOT drop the extension in down().
     // Dropping `postgis` cascades into every dependent object (geometry
     // columns, GiST indexes, …) and is virtually never what a developer

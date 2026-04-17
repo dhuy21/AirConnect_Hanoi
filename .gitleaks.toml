@@ -1,0 +1,14 @@
+title = "AirConnect Hanoi gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Ignore well-known placeholders and seed fixtures"
+paths = [
+  ".env.example",
+  "apps/data/.*\\.json",
+]
+regexes = [
+  '''postgres://postgres:postgres@db:5432/airconnect_hanoi''',
+]

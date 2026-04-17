@@ -1,5 +1,10 @@
 import {
-  Entity, Column, ManyToOne, JoinColumn, PrimaryColumn, CreateDateColumn,
+  Entity,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  PrimaryColumn,
+  CreateDateColumn,
 } from 'typeorm';
 import { School } from './school.entity';
 import { HelpType, HelpStatus } from '../common/enums';

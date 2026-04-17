@@ -1,5 +1,9 @@
 import { Controller, Get } from '@nestjs/common';
-import { HealthCheck, HealthCheckService, TypeOrmHealthIndicator } from '@nestjs/terminus';
+import {
+  HealthCheck,
+  HealthCheckService,
+  TypeOrmHealthIndicator,
+} from '@nestjs/terminus';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { SkipThrottle } from '@nestjs/throttler';
 
@@ -16,8 +20,6 @@ export class HealthController {
   @HealthCheck()
   @ApiOperation({ summary: 'Health check' })
   check() {
-    return this.health.check([
-      () => this.db.pingCheck('database'),
-    ]);
+    return this.health.check([() => this.db.pingCheck('database')]);
   }
 }

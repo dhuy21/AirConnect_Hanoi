@@ -1,6 +1,4 @@
-import {
-  Entity, Column, ManyToOne, JoinColumn, PrimaryColumn,
-} from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn, PrimaryColumn } from 'typeorm';
 import { Submission } from './submission.entity';
 import { Admin } from './admin.entity';
 import { ReviewDecision } from '../common/enums';

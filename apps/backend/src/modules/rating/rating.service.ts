@@ -36,6 +36,9 @@ export class RatingService {
       .addSelect('COUNT(*)', 'count')
       .where('r.post_id = :postId', { postId })
       .getRawOne();
-    return { average: parseFloat(result.avg) || 0, count: parseInt(result.count) || 0 };
+    return {
+      average: parseFloat(result.avg) || 0,
+      count: parseInt(result.count) || 0,
+    };
   }
 }

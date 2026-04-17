@@ -25,7 +25,8 @@ import { HealthModule } from './modules/health/health.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: process.env.NODE_ENV === 'production' ? undefined : '../../.env',
+      envFilePath:
+        process.env.NODE_ENV === 'production' ? undefined : '../../.env',
       validationSchema: envValidationSchema,
       validationOptions: { abortEarly: true },
     }),
@@ -50,8 +51,6 @@ import { HealthModule } from './modules/health/health.module';
     ApplyModule,
     HealthModule,
   ],
-  providers: [
-    { provide: APP_GUARD, useClass: ThrottlerGuard },
-  ],
+  providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
 })
 export class AppModule {}

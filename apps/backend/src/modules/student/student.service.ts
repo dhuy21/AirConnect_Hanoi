@@ -11,8 +11,16 @@ export class StudentService {
   ) {}
 
   private readonly safeSelect: (keyof Student)[] = [
-    'id', 'first_name', 'last_name', 'email', 'phone',
-    'birth_date', 'sex', 'health_status', 'school_id', 'created_at',
+    'id',
+    'first_name',
+    'last_name',
+    'email',
+    'phone',
+    'birth_date',
+    'sex',
+    'health_status',
+    'school_id',
+    'created_at',
   ];
 
   async getStudentsBySchool(schoolId: number) {

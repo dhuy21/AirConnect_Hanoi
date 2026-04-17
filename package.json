@@ -5,6 +5,8 @@
     "dev": "turbo run dev",
     "build": "turbo run build",
     "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
     "dev:frontend": "turbo run dev --filter=@airconnect/frontend",
     "dev:backend": "turbo run dev --filter=@airconnect/backend",
     "build:frontend": "turbo run build --filter=@airconnect/frontend",

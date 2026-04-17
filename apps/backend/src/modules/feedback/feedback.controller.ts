@@ -1,4 +1,15 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param, Query, UseGuards, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Patch,
+  Delete,
+  Body,
+  Param,
+  Query,
+  UseGuards,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { FeedbackService } from './feedback.service';
 import { CreateFeedbackDto } from './dto';
@@ -24,7 +35,10 @@ export class FeedbackController {
   @Roles(UserRole.ADMIN)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get all feedbacks (admin only)' })
-  getAll(@Query('skip') skip: number = 0, @Query('limit') limit: number = DEFAULT_QUERY_LIMIT) {
+  getAll(
+    @Query('skip') skip: number = 0,
+    @Query('limit') limit: number = DEFAULT_QUERY_LIMIT,
+  ) {
     return this.fbService.getAll(+skip, +limit);
   }
 

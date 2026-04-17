@@ -22,7 +22,9 @@ import { ConfigService } from '@nestjs/config';
  *     routes the DB traffic over its private mesh; we still get
  *     transport encryption while tolerating self-signed chains.
  */
-export const getDatabaseConfig = (configService: ConfigService): TypeOrmModuleOptions => {
+export const getDatabaseConfig = (
+  configService: ConfigService,
+): TypeOrmModuleOptions => {
   const dbUrl = configService.get<string>('DATABASE_URL');
   if (!dbUrl) {
     throw new Error('DATABASE_URL environment variable is required');

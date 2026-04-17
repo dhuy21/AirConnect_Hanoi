@@ -1,6 +1,11 @@
 import {
-  Entity, PrimaryGeneratedColumn, Column, CreateDateColumn,
-  ManyToOne, OneToMany, JoinColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  ManyToOne,
+  OneToMany,
+  JoinColumn,
 } from 'typeorm';
 import { School } from './school.entity';
 import { Apply } from './apply.entity';
