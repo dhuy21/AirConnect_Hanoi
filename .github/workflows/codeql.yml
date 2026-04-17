@@ -1,0 +1,60 @@
+# CodeQL advanced setup.
+#
+# Runs on pushes and PRs targeting main/staging, plus a weekly schedule to
+# catch newly-disclosed vulnerability patterns against unchanged code.
+#
+# Languages:
+#   - javascript-typescript: NestJS backend + Next.js frontend
+#   - actions:               scan workflow files for CI-specific issues
+#     (exposed secrets, unsafe `${{ github.event.* }}` expansion, ...)
+#
+# Python was removed from the matrix after the legacy FastAPI backend
+# was retired. Will auto-drop from main once staging is merged in.
+name: CodeQL
+
+on:
+  push:
+    branches: [main, staging]
+  pull_request:
+    branches: [main, staging]
+  schedule:
+    # Wed 23:25 UTC — off-peak, same cadence as default setup
+    - cron: '25 23 * * 3'
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      packages: read
+      actions: read
+      contents: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: javascript-typescript
+            build-mode: none
+          - language: actions
+            build-mode: none
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
+          # security-extended adds additional precision-weighted queries
+          # (e.g. prototype pollution, SSRF variants). security-and-quality
+          # is noisier; we opt for extended only.
+          queries: security-extended
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v4
+        with:
+          category: /language:${{ matrix.language }}

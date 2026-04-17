@@ -2,126 +2,65 @@
 # Environment Variables
 # ============================================
 .env
-.env.local
-.env.*.local
-.env.development
-.env.production
-.env.development.local
-.env.test.local
-.env.production.local
+.env*
+!.env.example
 
 # ============================================
-# Python (Backend)
-# ============================================
-*.py[cod]
-*$py.class
-*.so
-.Python
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-
-# Virtual Environment
-venv/
-env/
-ENV/
-env.bak/
-venv.bak/
-.venv/
-
-# Python Testing
-.pytest_cache/
-.coverage
-htmlcov/
-.tox/
-*.cover
-.hypothesis/
-
-# Python Distribution / packaging
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# Python Tools
-.python-version
-.mypy_cache/
-.dmypy.json
-dmypy.json
-.pyre/
-celerybeat-schedule
-celerybeat.pid
-.ipynb_checkpoints
-
-# ============================================
-# Node.js / Frontend
+# Node.js / pnpm
 # ============================================
 node_modules/
 .pnp
-.pnp.js
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# pnpm store
+.pnpm-store/
+
+# pnpm workspace: only the root pnpm-lock.yaml is authoritative.
+# Reject stray npm/yarn lockfiles left over from pre-monorepo history.
+apps/*/package-lock.json
+apps/*/yarn.lock
+packages/*/package-lock.json
+packages/*/yarn.lock
 
 # Logs
-logs
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
 
 # Testing
-coverage
+coverage/
 *.lcov
 .nyc_output
 
-# Production builds
+# ============================================
+# Next.js
+# ============================================
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# ============================================
+# NestJS
+# ============================================
 dist/
-dist-ssr/
+
+# ============================================
+# Turborepo
+# ============================================
+.turbo/
+
+# ============================================
+# Build / Production
+# ============================================
 build/
-
-# Vite
-.vite/
-vite.config.js.timestamp-*
-
-# Cache
-.cache/
-.parcel-cache/
-.npm/
-.eslintcache
-.stylelintcache
-.rpt2_cache/
-.rts2_cache_cjs/
-.rts2_cache_es/
-.rts2_cache_umd/
-
-# Package managers
-.yarn-integrity
-.yarn/cache
-.yarn/unplugged
-.yarn/build-state.yml
-.yarn/install-state.gz
-.pnp.*
-*.tgz
-.node_repl_history
-
-# ============================================
-# Database
-# ============================================
-*.db
-*.sqlite
-*.sqlite3
 
 # ============================================
 # IDE / Editor
@@ -132,35 +71,38 @@ vite.config.js.timestamp-*
 .idea/
 *.swp
 *.swo
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
 *.sw?
-.vscode-test
 
 # ============================================
 # OS Files
 # ============================================
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
 Thumbs.db
-ehthumbs.db
 Desktop.ini
 *~
 
 # ============================================
-# Temporary Files
+# Misc
 # ============================================
+*.pem
 *.tmp
 *.temp
+*.db
+*.sqlite
+*.sqlite3
+.vercel
+.cache/
+.eslintcache
 
 # ============================================
-# Application Specific
+# Playwright / E2E (Phase 6)
 # ============================================
-# FastAPI / Uvicorn logs
-*.log
+playwright-report/
+test-results/
+.playwright/
+
+# ============================================
+# Sentry
+# ============================================
+.sentryclirc
 
