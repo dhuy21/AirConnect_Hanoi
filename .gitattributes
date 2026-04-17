@@ -1,0 +1,19 @@
+# Mark auto-generated / data artifacts so GitHub hides them from diff stats,
+# language breakdown, and "Files changed" noise in PRs. They stay in git for
+# reproducibility and CI drift checks, but are not counted as "code you wrote".
+
+# OpenAPI spec + typed SDK regenerated from NestJS controllers
+packages/shared-types/openapi.json       linguist-generated=true
+packages/shared-types/src/generated/**   linguist-generated=true
+
+# TypeORM migrations (scaffolded by `migration:generate`)
+apps/backend/src/migrations/**           linguist-generated=true
+
+# Seed fixtures
+apps/data/*.json                         linguist-generated=true
+
+# pnpm lockfile
+pnpm-lock.yaml                           linguist-generated=true
+
+# Normalize line endings across platforms
+* text=auto eol=lf

@@ -34,12 +34,8 @@ import { HealthModule } from './modules/health/health.module';
       validationOptions: { abortEarly: true },
     }),
     RedisModule,
-    // Global rate-limit.
-    //
-    // Storage is Redis-backed when REDIS_URL is set (production / staging),
-    // which makes the counter consistent across every backend replica.
-    // In local dev without Redis the module falls back to the default
-    // in-memory storage — fine for a single process.
+    // Rate-limit storage = Redis when REDIS_URL is set (multi-replica safe),
+    // in-memory fallback otherwise (single-process dev only).
     ThrottlerModule.forRootAsync({
       imports: [ConfigModule, RedisModule],
       inject: [ConfigService, REDIS_CLIENT],
