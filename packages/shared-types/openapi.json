@@ -1,0 +1,2891 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/auth/login/student": {
+      "post": {
+        "operationId": "AuthController_loginStudent",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginStudentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponseDto"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Student login",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/auth/login/admin": {
+      "post": {
+        "operationId": "AuthController_loginAdmin",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginAdminDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponseDto"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Admin login",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/auth/login/school": {
+      "post": {
+        "operationId": "AuthController_loginSchool",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginSchoolDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponseDto"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "School login",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/auth/register/student": {
+      "post": {
+        "operationId": "AuthController_registerStudent",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterStudentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponseDto"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Register new student",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/schools": {
+      "get": {
+        "operationId": "SchoolController_getAllSchools",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SchoolResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get all schools",
+        "tags": [
+          "schools"
+        ]
+      }
+    },
+    "/api/schools/nearby": {
+      "get": {
+        "operationId": "SchoolController_getNearbySchools",
+        "parameters": [
+          {
+            "name": "latitude",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "longitude",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "radius",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SchoolResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Find nearby schools using PostGIS",
+        "tags": [
+          "schools"
+        ]
+      }
+    },
+    "/api/students": {
+      "get": {
+        "operationId": "StudentController_getAllStudents",
+        "parameters": [
+          {
+            "name": "limit",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Student"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all students",
+        "tags": [
+          "students"
+        ]
+      }
+    },
+    "/api/students/school/{schoolId}": {
+      "get": {
+        "operationId": "StudentController_getStudentsBySchool",
+        "parameters": [
+          {
+            "name": "schoolId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Student"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get students by school",
+        "tags": [
+          "students"
+        ]
+      }
+    },
+    "/api/students/{id}": {
+      "get": {
+        "operationId": "StudentController_getStudentById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get student by ID",
+        "tags": [
+          "students"
+        ]
+      }
+    },
+    "/api/air-quality": {
+      "get": {
+        "operationId": "AirQualityController_getAll",
+        "parameters": [
+          {
+            "name": "limit",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AirQuality"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get all air quality measurements",
+        "tags": [
+          "air-quality"
+        ]
+      },
+      "post": {
+        "operationId": "AirQualityController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAirQualityDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AirQuality"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AirQuality"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create air quality measurement (school/admin only)",
+        "tags": [
+          "air-quality"
+        ]
+      }
+    },
+    "/api/air-quality/school/{schoolId}": {
+      "get": {
+        "operationId": "AirQualityController_getBySchool",
+        "parameters": [
+          {
+            "name": "schoolId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AirQuality"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get latest air quality for a school",
+        "tags": [
+          "air-quality"
+        ]
+      }
+    },
+    "/api/posts": {
+      "get": {
+        "operationId": "PostController_getAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Post"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get all posts",
+        "tags": [
+          "posts"
+        ]
+      },
+      "post": {
+        "operationId": "PostController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePostDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a post (school only)",
+        "tags": [
+          "posts"
+        ]
+      }
+    },
+    "/api/posts/school/{schoolId}": {
+      "get": {
+        "operationId": "PostController_getBySchool",
+        "parameters": [
+          {
+            "name": "schoolId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Post"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get posts by school",
+        "tags": [
+          "posts"
+        ]
+      }
+    },
+    "/api/posts/{id}": {
+      "get": {
+        "operationId": "PostController_getById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get post by ID",
+        "tags": [
+          "posts"
+        ]
+      }
+    },
+    "/api/submissions": {
+      "get": {
+        "operationId": "SubmissionController_getAll",
+        "parameters": [
+          {
+            "name": "limit",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Submission"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all submissions",
+        "tags": [
+          "submissions"
+        ]
+      },
+      "post": {
+        "operationId": "SubmissionController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSubmissionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Submission"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Submission"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a submission (school only)",
+        "tags": [
+          "submissions"
+        ]
+      }
+    },
+    "/api/submissions/school/{schoolId}": {
+      "get": {
+        "operationId": "SubmissionController_getBySchool",
+        "parameters": [
+          {
+            "name": "schoolId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Submission"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get submissions by school",
+        "tags": [
+          "submissions"
+        ]
+      }
+    },
+    "/api/reviews/submission/{submissionId}": {
+      "get": {
+        "operationId": "ReviewController_getBySubmission",
+        "parameters": [
+          {
+            "name": "submissionId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Review"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get reviews for a submission",
+        "tags": [
+          "reviews"
+        ]
+      }
+    },
+    "/api/reviews": {
+      "post": {
+        "operationId": "ReviewController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateReviewDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Review"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Review"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a review (admin only)",
+        "tags": [
+          "reviews"
+        ]
+      }
+    },
+    "/api/feedback": {
+      "post": {
+        "operationId": "FeedbackController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateFeedbackDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Feedback"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Feedback"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Create feedback (public)",
+        "tags": [
+          "feedback"
+        ]
+      },
+      "get": {
+        "operationId": "FeedbackController_getAll",
+        "parameters": [
+          {
+            "name": "skip",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Feedback"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all feedbacks (admin only)",
+        "tags": [
+          "feedback"
+        ]
+      }
+    },
+    "/api/feedback/unread": {
+      "get": {
+        "operationId": "FeedbackController_getUnread",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Feedback"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get unread feedbacks (admin only)",
+        "tags": [
+          "feedback"
+        ]
+      }
+    },
+    "/api/feedback/{id}": {
+      "get": {
+        "operationId": "FeedbackController_getById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Feedback"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get feedback by ID (admin only)",
+        "tags": [
+          "feedback"
+        ]
+      },
+      "delete": {
+        "operationId": "FeedbackController_delete",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Feedback"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete feedback (admin only)",
+        "tags": [
+          "feedback"
+        ]
+      }
+    },
+    "/api/feedback/{id}/read": {
+      "patch": {
+        "operationId": "FeedbackController_markAsRead",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Feedback"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Mark feedback as read (admin only)",
+        "tags": [
+          "feedback"
+        ]
+      }
+    },
+    "/api/stats": {
+      "get": {
+        "operationId": "StatsController_getStats",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatsResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get admin dashboard statistics",
+        "tags": [
+          "stats"
+        ]
+      }
+    },
+    "/api/helps": {
+      "post": {
+        "operationId": "HelpController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateHelpDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Help"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a help request between schools",
+        "tags": [
+          "helps"
+        ]
+      }
+    },
+    "/api/helps/school/{schoolId}": {
+      "get": {
+        "operationId": "HelpController_getBySchool",
+        "parameters": [
+          {
+            "name": "schoolId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Help"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get help requests for a school",
+        "tags": [
+          "helps"
+        ]
+      }
+    },
+    "/api/helps/{fromId}/{toId}/status": {
+      "patch": {
+        "operationId": "HelpController_updateStatus",
+        "parameters": [
+          {
+            "name": "fromId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "toId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateHelpStatusDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Help"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update help request status",
+        "tags": [
+          "helps"
+        ]
+      }
+    },
+    "/api/solutions": {
+      "get": {
+        "operationId": "SolutionController_getAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Solution"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get all solutions",
+        "tags": [
+          "solutions"
+        ]
+      },
+      "post": {
+        "operationId": "SolutionController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSolutionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Solution"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a solution (admin only)",
+        "tags": [
+          "solutions"
+        ]
+      }
+    },
+    "/api/solutions/{id}": {
+      "get": {
+        "operationId": "SolutionController_getById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Solution"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get solution by ID",
+        "tags": [
+          "solutions"
+        ]
+      },
+      "patch": {
+        "operationId": "SolutionController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSolutionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Solution"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update a solution (admin only)",
+        "tags": [
+          "solutions"
+        ]
+      }
+    },
+    "/api/ratings/post/{postId}": {
+      "get": {
+        "operationId": "RatingController_getByPost",
+        "parameters": [
+          {
+            "name": "postId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Rating"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get ratings for a post",
+        "tags": [
+          "ratings"
+        ]
+      }
+    },
+    "/api/ratings/post/{postId}/average": {
+      "get": {
+        "operationId": "RatingController_getAverageRating",
+        "parameters": [
+          {
+            "name": "postId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get average rating for a post",
+        "tags": [
+          "ratings"
+        ]
+      }
+    },
+    "/api/ratings": {
+      "post": {
+        "operationId": "RatingController_rate",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRatingDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Rating"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Rate a post (student only)",
+        "tags": [
+          "ratings"
+        ]
+      }
+    },
+    "/api/applies": {
+      "post": {
+        "operationId": "ApplyController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateApplyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Apply"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Apply a solution to an air quality record",
+        "tags": [
+          "applies"
+        ]
+      }
+    },
+    "/api/applies/solution/{solutionId}": {
+      "get": {
+        "operationId": "ApplyController_getBySolution",
+        "parameters": [
+          {
+            "name": "solutionId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Apply"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get applies for a solution",
+        "tags": [
+          "applies"
+        ]
+      }
+    },
+    "/api/applies/air-quality/{aqId}": {
+      "get": {
+        "operationId": "ApplyController_getByAirQuality",
+        "parameters": [
+          {
+            "name": "aqId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Apply"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get applies for an air quality record",
+        "tags": [
+          "applies"
+        ]
+      }
+    },
+    "/api/health": {
+      "get": {
+        "operationId": "HealthController_check",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The Health Check is successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "ok"
+                    },
+                    "info": {
+                      "type": "object",
+                      "example": {
+                        "database": {
+                          "status": "up"
+                        }
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "required": [
+                          "status"
+                        ],
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": true
+                      },
+                      "nullable": true
+                    },
+                    "error": {
+                      "type": "object",
+                      "example": {},
+                      "additionalProperties": {
+                        "type": "object",
+                        "required": [
+                          "status"
+                        ],
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": true
+                      },
+                      "nullable": true
+                    },
+                    "details": {
+                      "type": "object",
+                      "example": {
+                        "database": {
+                          "status": "up"
+                        }
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "required": [
+                          "status"
+                        ],
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The Health Check is not successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "info": {
+                      "type": "object",
+                      "example": {
+                        "database": {
+                          "status": "up"
+                        }
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "required": [
+                          "status"
+                        ],
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": true
+                      },
+                      "nullable": true
+                    },
+                    "error": {
+                      "type": "object",
+                      "example": {
+                        "redis": {
+                          "status": "down",
+                          "message": "Could not connect"
+                        }
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "required": [
+                          "status"
+                        ],
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": true
+                      },
+                      "nullable": true
+                    },
+                    "details": {
+                      "type": "object",
+                      "example": {
+                        "database": {
+                          "status": "up"
+                        },
+                        "redis": {
+                          "status": "down",
+                          "message": "Could not connect"
+                        }
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "required": [
+                          "status"
+                        ],
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Health check",
+        "tags": [
+          "health"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "AirConnect Hanoi API",
+    "description": "API for AirConnect Hanoi - Air Quality Management Platform",
+    "version": "2.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "LoginStudentDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "AuthResponseDto": {
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "type": "string"
+          },
+          "token_type": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": "number"
+          },
+          "role": {
+            "enum": [
+              "student",
+              "admin",
+              "school"
+            ],
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "school_id": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "access_token",
+          "token_type",
+          "user_id",
+          "role"
+        ]
+      },
+      "LoginAdminDto": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "username",
+          "password"
+        ]
+      },
+      "LoginSchoolDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "RegisterStudentDto": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "birth_date": {
+            "type": "string"
+          },
+          "sex": {
+            "type": "string",
+            "enum": [
+              "male",
+              "female"
+            ]
+          },
+          "health_status": {
+            "type": "string"
+          },
+          "school_id": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "first_name",
+          "last_name",
+          "email",
+          "password",
+          "phone",
+          "birth_date",
+          "sex",
+          "health_status",
+          "school_id"
+        ]
+      },
+      "SchoolResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "type": {
+            "enum": [
+              "primary",
+              "secondary",
+              "high_school",
+              "university"
+            ],
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "district": {
+            "type": "string",
+            "nullable": true
+          },
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
+          },
+          "situation": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "score_1": {
+            "type": "number"
+          },
+          "score_2": {
+            "type": "number"
+          },
+          "score_3": {
+            "type": "number"
+          },
+          "score_4": {
+            "type": "number"
+          },
+          "score_5": {
+            "type": "number"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "name",
+          "address",
+          "district",
+          "latitude",
+          "longitude",
+          "situation",
+          "email",
+          "phone",
+          "score_1",
+          "score_2",
+          "score_3",
+          "score_4",
+          "score_5",
+          "created_at"
+        ]
+      },
+      "Post": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "case_study",
+              "best_practice",
+              "research",
+              "news",
+              "guide",
+              "other"
+            ],
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "published_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "school_id": {
+            "type": "number"
+          },
+          "school": {
+            "$ref": "#/components/schemas/School"
+          },
+          "ratings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Rating"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "type",
+          "description",
+          "image",
+          "content",
+          "published_at",
+          "school_id",
+          "school",
+          "ratings"
+        ]
+      },
+      "Rating": {
+        "type": "object",
+        "properties": {
+          "post_id": {
+            "type": "number"
+          },
+          "student_id": {
+            "type": "number"
+          },
+          "rate": {
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "type": "string"
+          },
+          "rated_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "post": {
+            "$ref": "#/components/schemas/Post"
+          },
+          "student": {
+            "$ref": "#/components/schemas/Student"
+          }
+        },
+        "required": [
+          "post_id",
+          "student_id",
+          "rate",
+          "rated_at",
+          "post",
+          "student"
+        ]
+      },
+      "Student": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "sex": {
+            "enum": [
+              "male",
+              "female"
+            ],
+            "type": "string"
+          },
+          "birth_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "health_status": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "school_id": {
+            "type": "number"
+          },
+          "school": {
+            "$ref": "#/components/schemas/School"
+          },
+          "ratings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Rating"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "first_name",
+          "last_name",
+          "sex",
+          "birth_date",
+          "email",
+          "phone",
+          "health_status",
+          "password",
+          "created_at",
+          "school_id",
+          "school",
+          "ratings"
+        ]
+      },
+      "Admin": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "super",
+              "normal"
+            ]
+          },
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "reviews": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Review"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "username",
+          "password",
+          "phone",
+          "email",
+          "created_at",
+          "reviews"
+        ]
+      },
+      "Review": {
+        "type": "object",
+        "properties": {
+          "submission_id": {
+            "type": "number"
+          },
+          "admin_id": {
+            "type": "number"
+          },
+          "decision": {
+            "enum": [
+              "pending",
+              "accepted",
+              "rejected",
+              "other"
+            ],
+            "type": "string"
+          },
+          "date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "admin": {
+            "$ref": "#/components/schemas/Admin"
+          },
+          "submission": {
+            "$ref": "#/components/schemas/Submission"
+          }
+        },
+        "required": [
+          "submission_id",
+          "admin_id",
+          "decision",
+          "date",
+          "note",
+          "admin",
+          "submission"
+        ]
+      },
+      "Submission": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "type": {
+            "enum": [
+              "request",
+              "offer",
+              "other"
+            ],
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "from_school_id": {
+            "type": "number"
+          },
+          "school": {
+            "$ref": "#/components/schemas/School"
+          },
+          "reviews": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Review"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "content",
+          "created_at",
+          "from_school_id",
+          "school",
+          "reviews"
+        ]
+      },
+      "Solution": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "type": {
+            "enum": [
+              "improving_facilities",
+              "research_and_development",
+              "other"
+            ],
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "normal",
+              "important",
+              "critical",
+              "other"
+            ],
+            "type": "string"
+          },
+          "applies": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Apply"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "content",
+          "note",
+          "created_at",
+          "status",
+          "applies"
+        ]
+      },
+      "Apply": {
+        "type": "object",
+        "properties": {
+          "solution_id": {
+            "type": "number"
+          },
+          "air_quality_id": {
+            "type": "number"
+          },
+          "applied_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "solution": {
+            "$ref": "#/components/schemas/Solution"
+          },
+          "air_quality": {
+            "$ref": "#/components/schemas/AirQuality"
+          }
+        },
+        "required": [
+          "solution_id",
+          "air_quality_id",
+          "applied_at",
+          "solution",
+          "air_quality"
+        ]
+      },
+      "AirQuality": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "aqi": {
+            "type": "number"
+          },
+          "pm25": {
+            "type": "number"
+          },
+          "pm10": {
+            "type": "number"
+          },
+          "co2": {
+            "type": "number"
+          },
+          "temp": {
+            "type": "number"
+          },
+          "humidity": {
+            "type": "number"
+          },
+          "wind_speed": {
+            "type": "number"
+          },
+          "measured_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "school_id": {
+            "type": "number"
+          },
+          "school": {
+            "$ref": "#/components/schemas/School"
+          },
+          "applies": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Apply"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "aqi",
+          "pm25",
+          "pm10",
+          "co2",
+          "temp",
+          "humidity",
+          "wind_speed",
+          "measured_at",
+          "school_id",
+          "school",
+          "applies"
+        ]
+      },
+      "Help": {
+        "type": "object",
+        "properties": {
+          "from_school_id": {
+            "type": "number"
+          },
+          "to_school_id": {
+            "type": "number"
+          },
+          "type": {
+            "enum": [
+              "request",
+              "offer",
+              "other"
+            ],
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "pending",
+              "accepted",
+              "rejected",
+              "other"
+            ],
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "from_school": {
+            "$ref": "#/components/schemas/School"
+          },
+          "to_school": {
+            "$ref": "#/components/schemas/School"
+          }
+        },
+        "required": [
+          "from_school_id",
+          "to_school_id",
+          "type",
+          "content",
+          "status",
+          "created_at",
+          "from_school",
+          "to_school"
+        ]
+      },
+      "School": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "primary",
+              "secondary",
+              "high_school",
+              "university"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "location": {
+            "type": "object"
+          },
+          "address": {
+            "type": "string"
+          },
+          "district": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "situation": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "score_1": {
+            "type": "number"
+          },
+          "score_2": {
+            "type": "number"
+          },
+          "score_3": {
+            "type": "number"
+          },
+          "score_4": {
+            "type": "number"
+          },
+          "score_5": {
+            "type": "number"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "students": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Student"
+            }
+          },
+          "submissions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Submission"
+            }
+          },
+          "posts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Post"
+            }
+          },
+          "air_qualities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AirQuality"
+            }
+          },
+          "helps_from": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Help"
+            }
+          },
+          "helps_to": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Help"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "name",
+          "location",
+          "address",
+          "district",
+          "password",
+          "situation",
+          "email",
+          "phone",
+          "score_1",
+          "score_2",
+          "score_3",
+          "score_4",
+          "score_5",
+          "created_at",
+          "students",
+          "submissions",
+          "posts",
+          "air_qualities",
+          "helps_from",
+          "helps_to"
+        ]
+      },
+      "CreateAirQualityDto": {
+        "type": "object",
+        "properties": {
+          "aqi": {
+            "type": "number"
+          },
+          "pm25": {
+            "type": "number"
+          },
+          "pm10": {
+            "type": "number"
+          },
+          "co2": {
+            "type": "number"
+          },
+          "temp": {
+            "type": "number"
+          },
+          "humidity": {
+            "type": "number"
+          },
+          "wind_speed": {
+            "type": "number"
+          },
+          "school_id": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "aqi",
+          "school_id"
+        ]
+      },
+      "CreatePostDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "case_study",
+              "best_practice",
+              "research",
+              "news",
+              "guide",
+              "other"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "school_id": {
+            "type": "number"
+          },
+          "published_at": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "type",
+          "description",
+          "image",
+          "content",
+          "school_id"
+        ]
+      },
+      "CreateSubmissionDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateReviewDto": {
+        "type": "object",
+        "properties": {
+          "decision": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "accepted",
+              "rejected",
+              "other"
+            ]
+          },
+          "note": {
+            "type": "string"
+          },
+          "submission_id": {
+            "type": "number"
+          },
+          "date": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "decision",
+          "submission_id"
+        ]
+      },
+      "CreateFeedbackDto": {
+        "type": "object",
+        "properties": {
+          "full_name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "full_name",
+          "email",
+          "subject",
+          "message"
+        ]
+      },
+      "Feedback": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "full_name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "is_read": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "full_name",
+          "email",
+          "subject",
+          "message",
+          "phone",
+          "is_read",
+          "created_at"
+        ]
+      },
+      "StatsResponseDto": {
+        "type": "object",
+        "properties": {
+          "total_schools": {
+            "type": "number"
+          },
+          "total_students": {
+            "type": "number"
+          },
+          "total_submissions": {
+            "type": "number"
+          },
+          "pending_reviews": {
+            "type": "number"
+          },
+          "approved_submissions": {
+            "type": "number"
+          },
+          "rejected_submissions": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "total_schools",
+          "total_students",
+          "total_submissions",
+          "pending_reviews",
+          "approved_submissions",
+          "rejected_submissions"
+        ]
+      },
+      "CreateHelpDto": {
+        "type": "object",
+        "properties": {
+          "from_school_id": {
+            "type": "number"
+          },
+          "to_school_id": {
+            "type": "number"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "request",
+              "offer",
+              "other"
+            ]
+          },
+          "content": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "accepted",
+              "rejected",
+              "other"
+            ]
+          }
+        },
+        "required": [
+          "from_school_id",
+          "to_school_id",
+          "type",
+          "content"
+        ]
+      },
+      "UpdateHelpStatusDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "accepted",
+              "rejected",
+              "other"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "CreateSolutionDto": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "improving_facilities",
+              "research_and_development",
+              "other"
+            ]
+          },
+          "content": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "normal",
+              "important",
+              "critical",
+              "other"
+            ]
+          }
+        },
+        "required": [
+          "type",
+          "content",
+          "status"
+        ]
+      },
+      "UpdateSolutionDto": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "normal",
+              "important",
+              "critical",
+              "other"
+            ]
+          }
+        }
+      },
+      "CreateRatingDto": {
+        "type": "object",
+        "properties": {
+          "post_id": {
+            "type": "number"
+          },
+          "student_id": {
+            "type": "number"
+          },
+          "rate": {
+            "type": "string",
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
+            ]
+          }
+        },
+        "required": [
+          "post_id",
+          "student_id",
+          "rate"
+        ]
+      },
+      "CreateApplyDto": {
+        "type": "object",
+        "properties": {
+          "solution_id": {
+            "type": "number"
+          },
+          "air_quality_id": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "solution_id",
+          "air_quality_id"
+        ]
+      }
+    }
+  }
+}

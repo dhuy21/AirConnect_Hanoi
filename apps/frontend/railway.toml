@@ -1,0 +1,43 @@
+# Frontend (Next.js standalone) — Railway Config-as-Code.
+# Docs: https://docs.railway.com/reference/config-as-code
+
+[build]
+builder = "RAILPACK"
+# `...` filter builds @airconnect/shared-types first (workspace dep).
+# cp steps: Next standalone doesn't copy `.next/static` or `public/` itself.
+buildCommand = """
+corepack enable && \
+pnpm install --frozen-lockfile && \
+pnpm exec turbo run build --filter=@airconnect/frontend... && \
+cp -r apps/frontend/.next/static apps/frontend/.next/standalone/apps/frontend/.next/static && \
+cp -r apps/frontend/public apps/frontend/.next/standalone/apps/frontend/public\
+"""
+watchPatterns = [
+  "apps/frontend/**",
+  "packages/**",
+  "pnpm-lock.yaml",
+  "package.json",
+  "turbo.json",
+  "apps/frontend/railway.toml",
+]
+
+[deploy]
+# HOSTNAME=0.0.0.0 set via Service Variables; PORT injected by Railway.
+startCommand = "node apps/frontend/.next/standalone/apps/frontend/server.js"
+healthcheckPath = "/"
+healthcheckTimeout = 120
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 5
+overlapSeconds = 30
+drainingSeconds = 15
+
+[environments.production.deploy]
+restartPolicyType = "ALWAYS"
+restartPolicyMaxRetries = 10
+
+[environments.staging.deploy]
+restartPolicyType = "ON_FAILURE"
+
+[environments.pr.deploy]
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 2

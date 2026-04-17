@@ -1,0 +1,37 @@
+# Backend (NestJS) — Railway Config-as-Code.
+# Docs: https://docs.railway.com/reference/config-as-code
+
+[build]
+builder = "RAILPACK"
+# `...` filter = include workspace deps → shared-types builds before backend.
+buildCommand = "corepack enable && pnpm install --frozen-lockfile && pnpm exec turbo run build --filter=@airconnect/backend..."
+watchPatterns = [
+  "apps/backend/**",
+  "packages/**",
+  "pnpm-lock.yaml",
+  "package.json",
+  "turbo.json",
+  "apps/backend/railway.toml",
+]
+
+[deploy]
+startCommand = "node apps/backend/dist/main"
+healthcheckPath = "/api/health"
+healthcheckTimeout = 120
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 5
+overlapSeconds = 30
+drainingSeconds = 15
+# Runs once per deploy, before the new container serves traffic → no replica race.
+preDeployCommand = ["pnpm --filter @airconnect/backend migration:run:prod"]
+
+[environments.production.deploy]
+restartPolicyType = "ALWAYS"
+restartPolicyMaxRetries = 10
+
+[environments.staging.deploy]
+restartPolicyType = "ON_FAILURE"
+
+[environments.pr.deploy]
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 2

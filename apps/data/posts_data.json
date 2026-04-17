@@ -1,0 +1,452 @@
+[
+  {
+    "title": "Improving Air Quality with HEPA Filters - A Success Story",
+    "type": "case_study",
+    "description": "How our school reduced indoor air pollutants by 40% using HEPA filtration systems",
+    "image": "https://picsum.photos/id/1/800/600",
+    "content": "Our school faced significant challenges with indoor air quality, especially during high-pollution days. After installing HEPA filters in our HVAC system, we saw a dramatic 40% reduction in PM2.5 levels. This case study details our implementation process, costs, and the positive impact on student health. We started by conducting baseline measurements, identifying key pollution sources, and working with HVAC specialists to design a customized filtration solution. The installation took 3 weeks, and we immediately noticed improvements. Student attendance increased by 12% in the following months, and respiratory-related complaints decreased significantly. The total investment was approximately 50 million VND, but the health benefits far outweighed the costs.",
+    "school_id": 1,
+    "published_at": "2024-01-15T10:00:00"
+  },
+  {
+    "title": "Optimizing HVAC Systems for Better Air Quality",
+    "type": "best_practice",
+    "description": "Best practices for maintaining and optimizing HVAC systems to improve indoor air quality",
+    "image": "https://picsum.photos/id/2/800/600",
+    "content": "Proper HVAC maintenance is crucial for maintaining good indoor air quality. This guide covers MERV rating selection, filter replacement schedules, system calibration, and energy efficiency tips. Regular maintenance not only improves air quality but also reduces operational costs. We recommend checking filters monthly during high-pollution seasons and quarterly during normal periods. MERV 13 or higher filters are ideal for educational settings. Additionally, scheduling professional inspections twice a year helps identify issues early. Proper ventilation rates should maintain at least 15 cubic feet per minute per person. We've compiled a maintenance checklist that schools can follow to ensure optimal system performance throughout the year.",
+    "school_id": 2,
+    "published_at": "2023-12-20T14:30:00"
+  },
+  {
+    "title": "Air Quality Monitoring Network Setup Guide",
+    "type": "guide",
+    "description": "Step-by-step guide for setting up a real-time air quality monitoring network",
+    "image": "https://picsum.photos/id/3/800/600",
+    "content": "Setting up an air quality monitoring network in your facility is easier than you think. This comprehensive guide walks you through sensor selection, placement strategies, data collection, and interpretation. Learn how to create alerts and integrate monitoring into your daily operations. Start by identifying critical areas: classrooms, cafeterias, gymnasiums, and outdoor spaces. Each location requires different sensor types. We recommend installing PM2.5, PM10, CO2, and VOC sensors in high-traffic indoor areas. For outdoor monitoring, place sensors at least 2 meters above ground level, away from direct pollution sources. Data should be logged every 5-15 minutes and displayed on dashboards accessible to administrators. Set up automated alerts when AQI exceeds 150, triggering protocols like reducing outdoor activities or activating air purifiers.",
+    "school_id": 3,
+    "published_at": "2023-10-18T09:15:00"
+  },
+  {
+    "title": "Green Walls: Natural Air Purification Solution",
+    "type": "research",
+    "description": "Research findings on the effectiveness of green walls in reducing indoor air pollutants",
+    "image": "https://picsum.photos/id/4/800/600",
+    "content": "Our research team conducted a six-month study on the effectiveness of green walls in reducing indoor air pollutants. The results show significant reductions in CO2 levels and improved air quality indices. This article presents our methodology, findings, and recommendations for implementation. We installed green walls in 12 classrooms, each covering 8 square meters of wall space. The plants selected included pothos, spider plants, peace lilies, and English ivy - known for their air-purifying properties. Over six months, we measured 35% reduction in CO2 levels, 28% reduction in VOCs, and 22% reduction in airborne mold spores. Students also reported feeling more alert and focused. The maintenance required watering twice weekly and pruning monthly. The initial cost was 2 million VND per installation, with minimal ongoing expenses.",
+    "school_id": 4,
+    "published_at": "2024-01-10T11:00:00"
+  },
+  {
+    "title": "New Air Quality Regulations for Hanoi Schools",
+    "type": "news",
+    "description": "Latest updates on air quality regulations and compliance requirements for educational facilities",
+    "image": "https://picsum.photos/id/5/800/600",
+    "content": "The Ministry of Education has announced new air quality standards for schools in Hanoi. This article covers the new regulations, compliance deadlines, and resources available to help schools meet these requirements. Stay informed about what your school needs to do. Effective January 2024, all schools must maintain PM2.5 levels below 35 μg/m³ during school hours. Schools must install monitoring systems and report data monthly. The deadline for compliance is June 2024. Financial assistance programs are available for schools needing to upgrade their systems. Training workshops will be conducted in February and March to help administrators understand the requirements and implementation strategies. Failure to comply may result in warnings and potential closure during severe pollution events. We recommend starting compliance preparations immediately.",
+    "school_id": 5,
+    "published_at": "2024-01-20T08:00:00"
+  },
+  {
+    "title": "Mask Use Protocols for High Pollution Days",
+    "type": "best_practice",
+    "description": "Effective protocols for mask usage and distribution during high air pollution periods",
+    "image": "https://picsum.photos/id/6/800/600",
+    "content": "During periods of high air pollution, proper mask usage is essential for protecting student health. This best practice guide covers mask selection, distribution protocols, student education, and emergency procedures. Learn from schools that have successfully implemented mask programs. N95 or KN95 masks are recommended when AQI exceeds 150. Schools should maintain a stock of 500+ masks per 100 students. Distribution should occur at morning assembly or through homeroom teachers. Educational sessions should explain why masks are needed and how to wear them properly. Students with respiratory conditions may require specialized masks. We've developed age-appropriate educational materials for elementary, middle, and high school students. Emergency protocols include canceling outdoor activities when AQI exceeds 200 and offering masks to all students and staff. Parent communication is crucial for buy-in and compliance.",
+    "school_id": 6,
+    "published_at": "2023-11-25T13:45:00"
+  },
+  {
+    "title": "Air Purifier Selection and Placement Guide",
+    "type": "guide",
+    "description": "How to choose and strategically place air purifiers for maximum effectiveness",
+    "image": "https://picsum.photos/id/7/800/600",
+    "content": "Selecting the right air purifier and placing it correctly can make a huge difference in indoor air quality. This guide helps you understand CADR ratings, room size calculations, placement strategies, and maintenance requirements. Make informed decisions for your facility. CADR (Clean Air Delivery Rate) should match your room size - calculate room volume and multiply by 2 for recommended CADR. For a 50m² classroom with 3m ceiling, you need a minimum 300 m³/h CADR. Place purifiers 1-2 meters from walls, away from corners, and ensure unobstructed airflow. Multiple smaller units work better than one large unit. HEPA filters are essential, and activated carbon helps with odors. Replace filters every 6-12 months depending on usage. Consider noise levels - units should operate below 50 decibels to avoid disrupting lessons. We've tested 15 models and compiled a comparison chart.",
+    "school_id": 7,
+    "published_at": "2023-12-05T10:30:00"
+  },
+  {
+    "title": "Student Health Monitoring Program Implementation",
+    "type": "case_study",
+    "description": "A comprehensive program for monitoring and responding to air quality-related health issues",
+    "image": "https://picsum.photos/id/8/800/600",
+    "content": "We implemented a comprehensive health monitoring program that tracks respiratory symptoms, absenteeism, and emergency visits related to air quality. This case study shares our approach, tools used, data collected, and lessons learned from the first year of implementation. The program tracks daily symptoms reported by students and parents through a mobile app, monitors attendance patterns, and correlates with daily AQI readings. We established baseline data over three months, then tracked improvements after implementing air quality measures. Key findings showed 30% reduction in respiratory-related absences after installing air purifiers. The program uses a simple scoring system where students rate symptoms (cough, wheezing, eye irritation) on a 1-5 scale. Teachers are trained to identify concerning patterns and refer students to the nurse. Data is analyzed weekly and monthly to identify trends and trigger interventions.",
+    "school_id": 8,
+    "published_at": "2024-01-05T15:20:00"
+  },
+  {
+    "title": "Collaborative Approach to Air Quality Management",
+    "type": "best_practice",
+    "description": "How schools can collaborate to share resources and best practices for air quality management",
+    "image": "https://picsum.photos/id/9/800/600",
+    "content": "No school has to face air quality challenges alone. This article explores collaborative approaches including resource sharing, joint monitoring programs, and knowledge exchange initiatives. Learn how a network of schools can work together to improve air quality for all students. We formed a network of 15 schools sharing monitoring data, bulk purchasing agreements for equipment, and monthly knowledge-sharing meetings. The network collectively saved 40% on air purifier purchases through group orders. Schools with expertise in specific areas (like HVAC optimization or green infrastructure) provide consulting to others. Joint training sessions reduce costs and build community. We maintain a shared database of solutions, vendor contacts, and lesson plans. The network also coordinates during pollution emergencies, sharing resources like extra masks or air purifiers. This collaborative model has been so successful that we're expanding to 30 schools this year.",
+    "school_id": 9,
+    "published_at": "2023-12-15T09:00:00"
+  },
+  {
+    "title": "Budget-Friendly Air Quality Improvements",
+    "type": "guide",
+    "description": "Affordable strategies for improving indoor air quality on a limited budget",
+    "image": "https://picsum.photos/id/10/800/600",
+    "content": "Improving air quality doesn't have to break the budget. This guide presents cost-effective strategies including natural ventilation techniques, low-cost monitoring solutions, and DIY improvements. Learn how to make meaningful improvements with limited resources. Start with low-cost measures: ensure windows open properly and use them strategically during low-pollution times. Cross-ventilation can reduce indoor pollutants by 20-30%. Add indoor plants - a 500,000 VND investment can purify air in a classroom. DIY air filters using box fans and MERV filters cost under 300,000 VND each. Low-cost sensors (around 2 million VND) provide basic monitoring. Seal cracks and improve insulation to reduce infiltration. Regular cleaning with HEPA vacuums removes settled particles. Our school improved air quality by 25% with only 5 million VND total investment. These strategies are perfect for schools just starting their air quality journey or with limited budgets.",
+    "school_id": 10,
+    "published_at": "2023-11-10T11:30:00"
+  },
+  {
+    "title": "IoT Sensors Integration for Smart Air Quality Management",
+    "type": "research",
+    "description": "Research on integrating IoT sensors for real-time air quality monitoring and automated responses",
+    "image": "https://picsum.photos/id/11/800/600",
+    "content": "This research explores the integration of IoT sensors with automated building systems to create smart air quality management. We installed 45 sensors across our campus connected to a central platform that automatically adjusts HVAC systems, activates purifiers, and sends alerts. The system learns from patterns and optimizes air quality while reducing energy consumption by 15%. Sensors measure PM2.5, PM10, CO2, temperature, and humidity every minute. Machine learning algorithms predict pollution events and prepare systems in advance. During a six-month trial, the system prevented 12 high-pollution events by proactively adjusting ventilation. The platform provides real-time dashboards, historical analysis, and generates compliance reports automatically. Initial investment was 80 million VND, but energy savings and reduced maintenance costs provide payback in 18 months. The research paper includes technical specifications, algorithms used, and recommendations for implementation.",
+    "school_id": 11,
+    "published_at": "2024-02-01T09:00:00"
+  },
+  {
+    "title": "Natural Ventilation Strategies for Tropical Climates",
+    "type": "best_practice",
+    "description": "Best practices for natural ventilation in Hanoi's tropical climate to improve indoor air quality",
+    "image": "https://picsum.photos/id/12/800/600",
+    "content": "Hanoi's tropical climate offers opportunities for natural ventilation when outdoor air quality is good. This guide outlines strategies for maximizing natural airflow, timing ventilation windows, and balancing indoor comfort with air quality. We've developed a ventilation schedule based on hourly AQI data. Morning ventilation (6-8 AM) is usually safe when pollution levels are lowest. Cross-ventilation through opposite-facing windows increases airflow by 40%. Stack ventilation using high windows creates natural convection. We installed automated window systems that open during safe periods. Wind direction analysis helps determine which windows to open. During monsoon season, natural ventilation works well most days. We've reduced reliance on mechanical systems by 30% during favorable weather, saving energy while maintaining good air quality. The guide includes building modifications, window placement recommendations, and monitoring protocols.",
+    "school_id": 12,
+    "published_at": "2024-01-25T14:15:00"
+  },
+  {
+    "title": "Air Quality Awareness Curriculum for Students",
+    "type": "guide",
+    "description": "Comprehensive curriculum guide for teaching students about air quality, pollution sources, and health impacts",
+    "image": "https://picsum.photos/id/13/800/600",
+    "content": "Education is key to long-term air quality improvements. This guide provides age-appropriate lesson plans, activities, and resources for teaching students about air quality. Topics include understanding AQI, identifying pollution sources, health impacts, and personal protection strategies. Elementary students learn through games and simple experiments. Middle schoolers explore data analysis and create awareness campaigns. High school students conduct research projects and propose solutions. The curriculum integrates with science, health, and social studies classes. We've developed hands-on activities like building simple air quality monitors, measuring indoor vs outdoor air, and creating student-led awareness initiatives. The program includes field trips to monitoring stations, guest speakers from environmental agencies, and student competitions. After implementation, we saw 60% increase in student awareness and engagement with air quality issues. Many students became advocates, influencing family behaviors and supporting school initiatives.",
+    "school_id": 13,
+    "published_at": "2023-11-20T10:45:00"
+  },
+  {
+    "title": "UV-C Air Sanitization Systems: Case Study",
+    "type": "case_study",
+    "description": "Implementation and results of UV-C light systems for air sanitization in school environments",
+    "image": "https://picsum.photos/id/14/800/600",
+    "content": "We installed UV-C air sanitization systems in our HVAC units to reduce airborne pathogens and mold spores. This case study documents the installation process, safety protocols, effectiveness measurements, and lessons learned over 12 months. UV-C lamps were installed in air handling units, targeting coils and air streams. Special safety measures ensure no UV exposure to occupants. We measured 85% reduction in viable mold spores and 70% reduction in airborne bacteria. The systems require lamp replacement every 12 months at approximately 3 million VND per unit. Energy consumption increased only 5%. Installation required HVAC modifications and professional expertise. We experienced zero safety incidents and significant improvements in air quality metrics. Students with allergies reported fewer symptoms. The study includes technical specifications, installation diagrams, maintenance schedules, and cost-benefit analysis. We recommend UV-C for schools with mold problems or high health sensitivity populations.",
+    "school_id": 14,
+    "published_at": "2024-01-30T11:30:00"
+  },
+  {
+    "title": "Community Engagement in Air Quality Initiatives",
+    "type": "best_practice",
+    "description": "Strategies for engaging parents, local businesses, and community organizations in school air quality programs",
+    "image": "https://picsum.photos/id/15/800/600",
+    "content": "Successful air quality programs require community support. This guide outlines strategies for engaging parents, local businesses, and organizations in supporting school initiatives. We formed a parent advisory committee that meets monthly, raising awareness and fundraising. Local businesses sponsored air purifiers and monitoring equipment. Community organizations provided volunteers for education programs and maintenance support. We organized air quality fairs, invited experts to speak, and created parent-student workshops. Local media coverage increased community awareness. A fundraising campaign raised 120 million VND in 6 months. Parents now actively monitor air quality and adjust their children's activities accordingly. Local businesses see supporting schools as part of corporate social responsibility. The guide includes templates for partnership proposals, fundraising strategies, volunteer coordination, and communication plans. Community engagement not only provides resources but creates lasting commitment to air quality improvements.",
+    "school_id": 15,
+    "published_at": "2023-12-10T16:00:00"
+  },
+  {
+    "title": "Portable Air Quality Monitors for Field Studies",
+    "type": "research",
+    "description": "Research on using portable monitors for student-led air quality investigations and science projects",
+    "image": "https://picsum.photos/id/16/800/600",
+    "content": "We equipped students with portable air quality monitors to conduct field studies around the school and community. This research documents student learning outcomes, data collection methodologies, and insights gained from student-led investigations. Students measured air quality in various locations: classrooms, playgrounds, parking areas, nearby streets, and their homes. They tracked patterns throughout the day and compared locations. The research projects increased student engagement and understanding of air quality science. Students discovered that air quality varies significantly within small areas and identified pollution hotspots. They presented findings to school administrators, leading to infrastructure improvements. The portable monitors cost 1.5 million VND each and proved durable for student use. This hands-on approach made abstract concepts tangible. Students developed critical thinking, data analysis, and presentation skills. The research includes sample lesson plans, data collection protocols, analysis frameworks, and assessment rubrics. Many students continued investigating air quality in their communities.",
+    "school_id": 16,
+    "published_at": "2024-02-05T13:20:00"
+  },
+  {
+    "title": "Emergency Response Protocols for Severe Pollution Events",
+    "type": "guide",
+    "description": "Comprehensive guide for emergency response when air quality reaches hazardous levels",
+    "image": "https://picsum.photos/id/17/800/600",
+    "content": "When AQI exceeds 300 (hazardous levels), schools need clear emergency protocols. This guide provides step-by-step procedures for protecting students and staff during severe pollution events. Immediate actions include canceling all outdoor activities, keeping students indoors, activating all air purification systems, and distributing masks to everyone. Communication protocols notify parents, adjust transportation if needed, and coordinate with local health authorities. Students with respiratory conditions receive priority care. We maintain an emergency supply of 1,000+ N95 masks, backup air purifiers, and emergency contacts. Staff are trained quarterly on protocols. During severe events, we monitor continuously and provide regular updates. The guide includes decision trees for different AQI levels, communication templates, medical response procedures, and coordination with emergency services. We've activated protocols 3 times in the past year, successfully protecting all students. Regular drills ensure staff readiness. Parent education helps families prepare for school closures or early dismissals if conditions deteriorate.",
+    "school_id": 17,
+    "published_at": "2023-11-15T08:30:00"
+  },
+  {
+    "title": "Air Quality Impact on Academic Performance: Longitudinal Study",
+    "type": "research",
+    "description": "Three-year longitudinal study examining correlations between air quality and student academic performance",
+    "image": "https://picsum.photos/id/18/800/600",
+    "content": "This comprehensive three-year study tracked air quality metrics and academic performance data for 1,200 students across 30 classrooms. Researchers measured daily AQI, classroom air quality, student attendance, test scores, and teacher-reported engagement levels. Statistical analysis revealed significant correlations: classrooms with better air quality (PM2.5 < 25) showed 12% higher test scores and 15% better attendance. Students in well-ventilated classrooms with low CO2 levels demonstrated improved cognitive function and concentration. The study controlled for socioeconomic factors, teacher quality, and other variables. Findings suggest that air quality improvements represent one of the most cost-effective educational interventions. Investment in air quality systems showed higher returns than many other educational programs. The research methodology included randomized control groups, blind assessments, and rigorous data validation. Results have been published and are informing policy decisions. This evidence-based approach demonstrates clear value propositions for air quality investments.",
+    "school_id": 18,
+    "published_at": "2024-01-12T15:45:00"
+  },
+  {
+    "title": "Maintenance Schedule for Air Quality Equipment",
+    "type": "guide",
+    "description": "Detailed maintenance schedules and procedures for all air quality equipment and systems",
+    "image": "https://picsum.photos/id/19/800/600",
+    "content": "Proper maintenance ensures air quality equipment operates effectively. This comprehensive guide provides maintenance schedules, procedures, checklists, and troubleshooting for all equipment types. Daily tasks include visual inspections and checking indicator lights. Weekly tasks involve filter checks and basic cleaning. Monthly maintenance includes deep cleaning, sensor calibration checks, and system performance reviews. Quarterly tasks cover filter replacement, professional inspections, and system optimization. Annual maintenance involves comprehensive overhauls, equipment upgrades, and efficiency assessments. We've created detailed checklists for each equipment type: air purifiers, HVAC systems, monitoring sensors, and ventilation equipment. The guide includes maintenance logs, cost tracking, and vendor contact information. Proper maintenance extends equipment lifespan by 40% and ensures consistent air quality. We've documented common problems and solutions, reducing maintenance costs by 25% through preventive care. Staff training ensures proper procedures are followed. The maintenance program has become a model for other schools.",
+    "school_id": 19,
+    "published_at": "2023-12-25T09:15:00"
+  },
+  {
+    "title": "Green Infrastructure for Air Quality: Urban Forest Case Study",
+    "type": "case_study",
+    "description": "Case study on creating urban forest areas on school grounds to improve local air quality",
+    "image": "https://picsum.photos/id/20/800/600",
+    "content": "We transformed unused school grounds into an urban forest with 200+ native trees and plants specifically selected for air purification. This case study documents the design, implementation, costs, and measured impacts over 24 months. The forest covers 800m² and includes trees like banyan, mango, and neem known for filtering pollutants. Native shrubs and groundcover create layered vegetation. We measured 18% reduction in PM2.5 levels in adjacent classrooms and 25% reduction in surrounding outdoor areas. The forest also reduces heat island effect, lowering temperatures by 2-3°C. Students use the space for outdoor learning when air quality allows. The project cost 25 million VND including plants, irrigation, and initial maintenance. Ongoing maintenance is minimal. The forest has become a source of pride and environmental education. It attracts birds and wildlife, enhancing biodiversity. Students participated in planting and care, creating ownership and environmental awareness. The case study includes species selection, layout design, maintenance requirements, and measurement methodologies.",
+    "school_id": 20,
+    "published_at": "2024-01-18T10:00:00"
+  },
+  {
+    "title": "Mobile App for Real-Time Air Quality Notifications",
+    "type": "news",
+    "description": "New mobile app launched to keep parents and students informed about real-time air quality conditions",
+    "image": "https://picsum.photos/id/21/800/600",
+    "content": "The Ministry of Education has launched a free mobile app providing real-time air quality data for all Hanoi schools. The app sends push notifications when AQI exceeds thresholds, provides health recommendations, and allows parents to check air quality before sending children to school. Features include hourly forecasts, historical trends, health advice for different AQI levels, and links to school-specific data. The app integrates with school monitoring systems, providing hyperlocal data. Parents can set custom alerts for their children's sensitivity levels. The app also includes educational content about air quality and health impacts. Available for iOS and Android, the app has been downloaded 50,000+ times in the first month. User feedback has been overwhelmingly positive, with 95% satisfaction ratings. Schools can customize their profile pages with specific information and protocols. The app represents a major step forward in public awareness and engagement with air quality issues.",
+    "school_id": 21,
+    "published_at": "2024-02-10T08:00:00"
+  },
+  {
+    "title": "Behavioral Changes to Reduce Indoor Pollution Sources",
+    "type": "best_practice",
+    "description": "Best practices for identifying and reducing indoor pollution sources through behavioral changes",
+    "image": "https://picsum.photos/id/22/800/600",
+    "content": "Many indoor air quality problems stem from behaviors that can be easily changed. This guide identifies common pollution sources and provides strategies for reducing them through simple behavioral modifications. Common sources include: cleaning products, art supplies, cooking activities, personal care products, and building materials. We implemented policies requiring low-VOC cleaning supplies, proper ventilation during cooking classes, and restrictions on aerosol products. Art rooms now use water-based materials and proper ventilation. Personal care policies prohibit strong perfumes and aerosol sprays. We created educational campaigns explaining why these changes matter. Simple actions like opening windows after cleaning, using exhaust fans, and choosing low-emission products can reduce indoor pollutants by 30-40%. The guide includes product recommendations, policy templates, educational materials, and enforcement strategies. Compliance monitoring and regular reminders ensure ongoing adherence. These behavioral changes require minimal cost but provide significant air quality improvements.",
+    "school_id": 22,
+    "published_at": "2023-11-30T14:00:00"
+  },
+  {
+    "title": "Data-Driven Decision Making for Air Quality Investments",
+    "type": "guide",
+    "description": "How to collect, analyze, and use data to make informed decisions about air quality investments",
+    "image": "https://picsum.photos/id/23/800/600",
+    "content": "Making effective air quality investments requires data-driven decision making. This guide teaches administrators how to collect meaningful data, perform analysis, calculate ROI, and prioritize investments based on evidence. Start by establishing baseline measurements across all locations and times. Track key metrics: PM2.5, PM10, CO2, temperature, humidity, and VOCs. Use data to identify problem areas and prioritize interventions. Cost-benefit analysis helps compare options: calculate costs (equipment, installation, maintenance, energy) and benefits (health improvements, attendance, performance, compliance). ROI calculations for our air purifier installation showed 180% return over 3 years. Data visualization tools help communicate findings to stakeholders. Regular monitoring validates investments and identifies need for adjustments. The guide includes Excel templates, calculation formulas, and case studies. We've helped 10+ schools use this approach, leading to better investment decisions and measurable improvements. Data-driven approaches build credibility and support for air quality programs.",
+    "school_id": 23,
+    "published_at": "2024-01-08T11:15:00"
+  },
+  {
+    "title": "Retrofit Solutions for Older School Buildings",
+    "type": "case_study",
+    "description": "Case study on retrofitting older school buildings with modern air quality systems",
+    "image": "https://picsum.photos/id/24/800/600",
+    "content": "Older school buildings present unique challenges for air quality improvements due to structural limitations and outdated HVAC systems. This case study documents our retrofit project for a 40-year-old building. We installed window-mounted air purifiers, added exhaust fans, improved insulation, sealed air leaks, and created a hybrid natural/mechanical ventilation system. The project required careful planning to work within building constraints. We couldn't modify load-bearing walls but found creative solutions. Total cost was 65 million VND for 12 classrooms. Air quality improved by 35% despite building limitations. Key lessons: assess building structure thoroughly, work with architects familiar with retrofits, phase implementation to manage costs, and train maintenance staff on new systems. The retrofit maintained building aesthetics while significantly improving functionality. This approach is replicable for other older schools facing similar challenges. The case study includes architectural drawings, equipment specifications, cost breakdowns, and before/after measurements.",
+    "school_id": 24,
+    "published_at": "2023-12-28T13:30:00"
+  },
+  {
+    "title": "Partnership with Local Universities for Air Quality Research",
+    "type": "news",
+    "description": "New partnerships between schools and universities for collaborative air quality research projects",
+    "image": "https://picsum.photos/id/25/800/600",
+    "content": "Five Hanoi schools have partnered with local universities to conduct collaborative air quality research. These partnerships bring scientific expertise to schools while providing real-world research opportunities for students. University researchers help schools design studies, analyze data, and publish findings. School students participate in data collection, learning scientific methods and contributing to knowledge. Current projects include: studying effectiveness of different air purification technologies, developing low-cost monitoring solutions, researching health impacts, and creating educational materials. The partnerships have produced 3 published papers and several student science fair winners. Schools benefit from expert guidance and credibility. Universities gain access to real-world research sites and community engagement. Students from both institutions collaborate, creating valuable learning experiences. The partnerships are expanding, with 10 more schools expressing interest. This model demonstrates how academic institutions and schools can mutually benefit while advancing air quality science.",
+    "school_id": 25,
+    "published_at": "2024-02-08T10:20:00"
+  },
+  {
+    "title": "Training Programs for School Maintenance Staff",
+    "type": "best_practice",
+    "description": "Best practices for training maintenance staff on air quality equipment operation and maintenance",
+    "image": "https://picsum.photos/id/26/800/600",
+    "content": "Well-trained maintenance staff are essential for effective air quality programs. This guide outlines training programs covering equipment operation, troubleshooting, maintenance procedures, and safety protocols. We developed a comprehensive 40-hour training program including classroom instruction, hands-on practice, and certification testing. Topics include: understanding air quality metrics, operating different equipment types, recognizing problems early, performing routine maintenance, and when to call professionals. Training includes safety procedures, especially for electrical and HVAC work. We provide ongoing refresher courses and update training when new equipment is installed. Certified staff receive higher pay, creating incentives for participation. The training program has reduced equipment downtime by 60% and maintenance costs by 30%. Staff confidence increased, leading to proactive problem-solving. The guide includes training outlines, materials, assessment tools, and certification requirements. Other schools have adopted our training model. Well-trained staff ensure air quality systems operate optimally and have longer lifespans.",
+    "school_id": 26,
+    "published_at": "2024-01-22T09:45:00"
+  },
+  {
+    "title": "Comparative Analysis of Air Purification Technologies",
+    "type": "research",
+    "description": "Comprehensive research comparing effectiveness of different air purification technologies in school settings",
+    "image": "https://picsum.photos/id/27/800/600",
+    "content": "This research compared 8 different air purification technologies in identical classroom settings over 6 months. Technologies tested included: HEPA filters, activated carbon, UV-C, ionizers, photocatalytic oxidation, electrostatic precipitation, hybrid systems, and green walls. Each technology was evaluated for PM2.5 reduction, VOC removal, energy consumption, noise levels, maintenance requirements, and cost-effectiveness. Results showed HEPA filters provided best PM2.5 reduction (85-95%), while activated carbon excelled at VOC removal (70-80%). Hybrid systems combining multiple technologies showed superior overall performance. Energy consumption varied dramatically, from 20W for small units to 500W for large systems. Cost-effectiveness calculations considered purchase price, operating costs, and effectiveness. The research provides evidence-based recommendations for different scenarios: high-pollution areas, budget constraints, noise-sensitive spaces, and energy-efficient requirements. Findings help schools make informed technology choices. The study includes detailed methodology, data tables, statistical analysis, and technology specifications.",
+    "school_id": 27,
+    "published_at": "2024-02-03T14:30:00"
+  },
+  {
+    "title": "Air Quality Dashboards and Data Visualization",
+    "type": "guide",
+    "description": "Guide to creating effective dashboards for visualizing air quality data and trends",
+    "image": "https://picsum.photos/id/28/800/600",
+    "content": "Effective data visualization helps stakeholders understand air quality conditions and trends. This guide teaches how to create dashboards that communicate clearly to different audiences: administrators, teachers, parents, and students. Dashboards should show current conditions, historical trends, comparisons, and alerts. Color coding helps quickly identify status: green (good), yellow (moderate), orange (unhealthy), red (hazardous). Real-time displays in school lobbies increase awareness. Digital dashboards on websites and apps provide remote access. Key visualizations include: time-series graphs showing trends, heat maps of school locations, comparison charts, and forecast displays. Different audiences need different information depth. Administrators need detailed data for decision-making. Teachers need simple indicators for classroom management. Parents need health recommendations. Students need educational context. The guide includes design principles, tool recommendations, and examples. We've created templates that schools can customize. Good dashboards drive action and engagement with air quality issues.",
+    "school_id": 28,
+    "published_at": "2024-01-28T16:15:00"
+  },
+  {
+    "title": "Early Warning Systems for Pollution Events",
+    "type": "case_study",
+    "description": "Case study on implementing early warning systems to prepare for pollution events",
+    "image": "https://picsum.photos/id/29/800/600",
+    "content": "We implemented an early warning system that predicts pollution events 24-48 hours in advance using weather data, pollution models, and historical patterns. The system automatically activates preparedness protocols before conditions deteriorate. Early warnings allow time to: notify parents, prepare equipment, adjust schedules, and implement protective measures. The system uses machine learning algorithms trained on 3 years of historical data. Accuracy is 78% for 24-hour forecasts and 65% for 48-hour forecasts. False positives are acceptable - better to prepare unnecessarily than be caught unprepared. When warnings are issued, we check equipment, stock supplies, brief staff, and send advance notices to parents. This proactive approach reduced emergency responses by 40% and improved community confidence. The system integrates with our monitoring network and automatically triggers protocols at different thresholds. Staff receive alerts via SMS and app notifications. The case study documents system design, algorithms, implementation process, effectiveness measurements, and lessons learned.",
+    "school_id": 29,
+    "published_at": "2024-02-12T11:00:00"
+  },
+  {
+    "title": "Student-Led Air Quality Advocacy Projects",
+    "type": "best_practice",
+    "description": "Best practices for supporting student-led advocacy projects that raise awareness about air quality",
+    "image": "https://picsum.photos/id/30/800/600",
+    "content": "Student-led advocacy projects create powerful learning experiences while raising community awareness. This guide provides strategies for supporting student initiatives, from awareness campaigns to policy advocacy. Students have organized: poster campaigns, social media movements, community presentations, letters to officials, and art projects. We provide mentorship, resources, and platforms for student voices. A student group created a video that went viral, reaching 100,000+ views and influencing policy discussions. Another group organized a community forum with 200+ attendees. Student projects build leadership skills, civic engagement, and environmental awareness. They often have more impact than adult-led initiatives because young voices are compelling. We've learned to provide guidance without controlling, allowing authentic student leadership. The guide includes project examples, support strategies, resource lists, and evaluation frameworks. Student advocacy has become a cornerstone of our air quality program, with multiple ongoing projects each year. These projects empower students and create lasting change.",
+    "school_id": 30,
+    "published_at": "2023-12-05T12:30:00"
+  },
+  {
+    "title": "Integration of Air Quality into School Health Programs",
+    "type": "guide",
+    "description": "How to integrate air quality monitoring and responses into comprehensive school health programs",
+    "image": "https://picsum.photos/id/31/800/600",
+    "content": "Air quality should be integrated into broader school health programs rather than treated as a separate issue. This guide shows how to connect air quality with nutrition, physical activity, mental health, and disease prevention programs. We coordinate air quality responses with health screenings, track correlations between air quality and health outcomes, and provide holistic health recommendations. School nurses are trained to recognize air quality-related symptoms and coordinate responses. Health education includes air quality topics. Physical activity programs adjust based on air quality conditions. Mental health support addresses anxiety about pollution. The integration creates comprehensive student health support. We've seen improved health outcomes and reduced healthcare costs. The guide includes coordination frameworks, training materials, assessment tools, and case studies. Integrated approaches are more effective than isolated programs. Parents appreciate the comprehensive health focus. This model is being adopted by other schools seeking holistic student health support.",
+    "school_id": 31,
+    "published_at": "2024-01-14T13:45:00"
+  },
+  {
+    "title": "Government Grants and Funding Opportunities for Air Quality",
+    "type": "news",
+    "description": "Information about available grants and funding programs for school air quality improvements",
+    "image": "https://picsum.photos/id/32/800/600",
+    "content": "The Ministry of Education has announced 500 million VND in grants available for school air quality improvement projects. Grants cover equipment purchases, system installations, monitoring setup, and staff training. Priority is given to schools in high-pollution areas, schools serving disadvantaged populations, and schools with innovative approaches. Application deadlines are quarterly. Additional funding is available from environmental agencies, health departments, and international organizations. We've successfully secured 180 million VND across three grant cycles, funding 60% of our air quality improvements. The application process requires: needs assessment, project proposal, budget, timeline, and expected outcomes. We share successful application examples to help other schools. Grants typically fund 50-80% of project costs, requiring school matching funds. Technical assistance is available for grant writing. This funding has enabled schools that couldn't otherwise afford improvements to make significant progress. Information sessions are held monthly to help schools navigate the process.",
+    "school_id": 32,
+    "published_at": "2024-02-15T08:30:00"
+  },
+  {
+    "title": "Air Quality in School Transportation",
+    "type": "research",
+    "description": "Research on air quality inside school buses and strategies for improvement",
+    "image": "https://picsum.photos/id/33/800/600",
+    "content": "School buses represent a unique air quality challenge, with students spending significant time in enclosed spaces during commutes. This research measured air quality in 20 school buses over 6 months, comparing different configurations and improvement strategies. Baseline measurements showed PM2.5 levels 2-3x higher than outdoor air, with poor ventilation and infiltration from traffic. We tested: improved filtration systems, ventilation upgrades, idling restrictions, route optimization, and alternative fuels. Best results came from combining HEPA filtration with improved ventilation, reducing PM2.5 by 65%. Route optimization to avoid high-traffic areas reduced exposure by 25%. Idling restrictions when loading/unloading made significant differences. The research includes detailed measurements, statistical analysis, cost-benefit evaluations, and recommendations. Findings have informed policy changes, with several schools upgrading bus fleets. This overlooked area represents an important opportunity for reducing student pollution exposure. The research paper has been submitted for publication.",
+    "school_id": 33,
+    "published_at": "2024-01-16T15:00:00"
+  },
+  {
+    "title": "Seasonal Air Quality Patterns and Adaptive Strategies",
+    "type": "best_practice",
+    "description": "Understanding seasonal air quality patterns in Hanoi and adapting strategies accordingly",
+    "image": "https://picsum.photos/id/34/800/600",
+    "content": "Hanoi's air quality varies dramatically by season, requiring adaptive management strategies. Winter months (November-February) typically have worst air quality due to temperature inversions and reduced wind. Summer monsoon season (June-September) often has better conditions with frequent rain and wind. Understanding these patterns helps schools prepare and adjust. We maintain different protocols for each season: enhanced monitoring and preparedness in winter, increased natural ventilation opportunities in summer. Equipment maintenance schedules align with seasonal needs. Staff training emphasizes seasonal awareness. Budget planning accounts for seasonal variations in energy consumption and maintenance needs. The guide includes seasonal calendars, typical AQI ranges, adaptive protocol frameworks, and planning templates. We've reduced winter pollution impacts by 30% through proactive seasonal preparations. Students learn about seasonal patterns as part of environmental education. This adaptive approach is more effective than static protocols. Understanding local climate patterns is essential for effective air quality management.",
+    "school_id": 34,
+    "published_at": "2023-11-05T10:20:00"
+  },
+  {
+    "title": "Cost-Benefit Analysis Framework for Air Quality Investments",
+    "type": "guide",
+    "description": "Framework for conducting cost-benefit analysis to justify air quality investments to stakeholders",
+    "image": "https://picsum.photos/id/35/800/600",
+    "content": "Securing funding for air quality improvements requires compelling business cases. This framework helps administrators conduct thorough cost-benefit analyses that convince stakeholders. The framework quantifies both costs (equipment, installation, maintenance, energy, training) and benefits (health improvements, attendance, performance, compliance, liability reduction). Health benefits are monetized using established values for illness prevention and productivity gains. Academic performance improvements translate to long-term economic benefits. Compliance value includes avoiding penalties and maintaining operations. We use a 5-year time horizon with discount rates appropriate for educational investments. Sensitivity analysis explores different scenarios. The framework includes Excel templates, calculation guides, and example analyses. Our air quality program showed 250% ROI over 5 years when including all benefits. This analysis convinced our board to approve significant investments. The framework helps prioritize among competing options. Well-documented analyses support grant applications and fundraising efforts. This business-oriented approach is essential for securing resources in competitive budget environments.",
+    "school_id": 35,
+    "published_at": "2024-01-26T14:00:00"
+  },
+  {
+    "title": "Innovative Financing Models for Air Quality Projects",
+    "type": "case_study",
+    "description": "Case study on creative financing approaches including partnerships, sponsorships, and community funding",
+    "image": "https://picsum.photos/id/36/800/600",
+    "content": "Limited budgets don't have to prevent air quality improvements. This case study documents innovative financing approaches that enabled 120 million VND in improvements with only 30 million VND from school budget. Approaches included: corporate sponsorships (local businesses sponsored specific equipment), parent fundraising campaigns (raised 40 million VND), equipment leasing (reduced upfront costs), bulk purchasing with other schools (saved 25%), volunteer labor for installation (saved 15 million VND), and grant applications (secured 50 million VND). We created a tiered sponsorship program with recognition benefits. Parents organized creative fundraisers. Equipment leasing allowed immediate implementation while spreading costs. These creative approaches made improvements possible that would otherwise be unaffordable. The case study includes partnership templates, fundraising strategies, negotiation tips, and legal considerations. This model is replicable for other schools facing budget constraints. Creative financing requires persistence and relationship-building but opens possibilities.",
+    "school_id": 36,
+    "published_at": "2024-02-07T09:30:00"
+  },
+  {
+    "title": "Air Quality Metrics: Understanding the Numbers",
+    "type": "guide",
+    "description": "Comprehensive guide to understanding air quality metrics, AQI calculations, and health implications",
+    "image": "https://picsum.photos/id/37/800/600",
+    "content": "Understanding air quality metrics is essential for making informed decisions. This guide explains PM2.5, PM10, AQI, CO2, VOCs, and other key measurements. Learn how these metrics are calculated, what levels are concerning, and how to interpret readings. PM2.5 particles are smaller than 2.5 micrometers and can penetrate deep into lungs. PM10 particles are larger but still harmful. AQI (Air Quality Index) combines multiple pollutants into a single number. CO2 levels indicate ventilation effectiveness. VOCs (Volatile Organic Compounds) come from many sources. The guide explains health implications of different levels, WHO guidelines, local standards, and recommended actions. Interpretation tools help translate numbers into actions. Color-coded systems make metrics accessible. We provide conversion tables, comparison charts, and decision frameworks. Understanding metrics empowers stakeholders to make informed choices. This knowledge foundation supports all other air quality efforts. The guide includes quizzes, examples, and practical exercises.",
+    "school_id": 37,
+    "published_at": "2024-01-03T11:00:00"
+  },
+  {
+    "title": "Success Stories: Schools Leading in Air Quality",
+    "type": "news",
+    "description": "News feature highlighting schools that have achieved exceptional results in air quality management",
+    "image": "https://picsum.photos/id/38/800/600",
+    "content": "Five Hanoi schools have been recognized as Air Quality Excellence Schools for outstanding achievements. These schools demonstrated comprehensive programs, measurable improvements, innovative approaches, and community engagement. School achievements include: 50%+ reduction in indoor pollutants, zero pollution-related closures, 95%+ parent satisfaction, innovative technology adoption, and significant academic performance improvements. Recognition brings: media coverage, increased enrollment interest, funding priority, and model program status. The schools serve as examples and resources for others. Their programs are documented and shared widely. The recognition program aims to incentivize excellence and share successful approaches. An annual conference brings together recognized schools to share best practices. This positive recognition motivates other schools to improve. Success stories demonstrate that significant improvements are achievable. The feature includes profiles of each school, their strategies, results, and lessons learned. These schools prove that commitment and proper approaches can overcome challenges.",
+    "school_id": 38,
+    "published_at": "2024-02-14T10:45:00"
+  },
+  {
+    "title": "Air Quality and Special Needs Students",
+    "type": "research",
+    "description": "Research on air quality impacts and accommodations for students with respiratory conditions and special needs",
+    "image": "https://picsum.photos/id/39/800/600",
+    "content": "Students with asthma, allergies, and other respiratory conditions are particularly vulnerable to poor air quality. This research examined impacts and accommodation strategies for 150 special needs students across 10 schools. Findings showed these students experience 3x more symptoms during poor air quality days and have 2x higher absence rates. Accommodations included: priority placement in best-ventilated classrooms, enhanced air purification in their spaces, early notification systems, flexible attendance policies, and individual action plans. Students with accommodations showed 40% fewer symptoms and better attendance. The research documents specific accommodation strategies, effectiveness measurements, and implementation guidelines. Schools developed individualized plans for each student based on medical needs. Parent partnerships were essential. Accommodations improved not just health but also academic performance and quality of life. The research has informed policy development and training programs. This work demonstrates the importance of equity in air quality programs.",
+    "school_id": 39,
+    "published_at": "2024-01-07T13:15:00"
+  },
+  {
+    "title": "Long-Term Sustainability of Air Quality Programs",
+    "type": "best_practice",
+    "description": "Strategies for ensuring air quality programs remain effective and funded over the long term",
+    "image": "https://picsum.photos/id/40/800/600",
+    "content": "Initial air quality improvements are just the beginning - maintaining programs long-term requires ongoing commitment and resources. This guide provides strategies for sustainability: building into annual budgets, training new staff, updating equipment, maintaining community support, and documenting value. Programs must survive leadership changes, budget fluctuations, and competing priorities. Key strategies include: institutionalizing in policies, creating dedicated budget lines, building broad stakeholder support, training multiple staff members, maintaining equipment properly, demonstrating ongoing value, and adapting to changes. We've maintained our program through 3 leadership changes by embedding it in school culture. Annual budget allocations ensure continued funding. Multiple trained staff prevent knowledge loss. Regular community communication maintains support. The guide includes sustainability frameworks, planning templates, and examples from long-running programs. Sustainability requires foresight and intentional planning. Successful programs become integral to school operations rather than temporary initiatives.",
+    "school_id": 40,
+    "published_at": "2023-12-22T15:30:00"
+  },
+  {
+    "title": "Alternative Solutions: When Traditional Methods Don't Work",
+    "type": "guide",
+    "description": "Creative and alternative solutions for schools facing unique constraints or challenges",
+    "image": "https://picsum.photos/id/41/800/600",
+    "content": "Some schools face constraints that prevent standard air quality solutions: very old buildings, no electricity in some areas, extreme budget limitations, or structural limitations. This guide presents creative alternatives that work in challenging situations. Solutions include: passive air filtration using natural materials, solar-powered systems for areas without reliable electricity, portable units that can be moved, window modifications for better natural ventilation, architectural changes that improve airflow, and low-tech monitoring using simple indicators. One school created a courtyard microclimate using plants and water features that improved air quality in adjacent classrooms. Another used ceiling fans strategically to improve air circulation. The guide includes case studies, DIY instructions, and resource lists. These creative approaches prove that constraints can inspire innovation. Sometimes simpler solutions work better than complex technology. The key is understanding specific situations and finding appropriate solutions. These alternatives expand possibilities for schools that thought improvements were impossible.",
+    "school_id": 41,
+    "published_at": "2024-01-31T12:00:00"
+  },
+  {
+    "title": "International Best Practices in School Air Quality",
+    "type": "research",
+    "description": "Research on air quality practices from schools worldwide and applicability to Hanoi context",
+    "image": "https://picsum.photos/id/42/800/600",
+    "content": "This research reviewed air quality programs from schools in 15 countries, identifying best practices applicable to Hanoi. Countries studied included: Singapore, Japan, South Korea, Australia, and European nations with advanced air quality programs. Practices analyzed: building design standards, technology choices, policy frameworks, monitoring approaches, and community engagement. Key findings: successful programs combine technology, behavior, and policy; community engagement is universal success factor; cost-effective solutions exist at every budget level; monitoring is essential for all programs; and local context matters significantly. Some practices translate directly, while others require adaptation. The research identifies high-potential practices for Hanoi, considering climate, pollution sources, building types, and cultural factors. Recommendations prioritize practices with best fit and highest potential impact. The research includes detailed country profiles, practice descriptions, adaptation strategies, and implementation guidance. This global perspective enriches local approaches with proven international methods.",
+    "school_id": 42,
+    "published_at": "2024-02-11T16:20:00"
+  },
+  {
+    "title": "Air Quality Compliance and Certification Programs",
+    "type": "news",
+    "description": "New certification programs recognizing schools that meet air quality standards",
+    "image": "https://picsum.photos/id/43/800/600",
+    "content": "The Ministry of Education has launched a voluntary Air Quality Certification program recognizing schools that meet or exceed standards. Certification requires: continuous monitoring, documented protocols, staff training, equipment maintenance, and regular reporting. Certified schools receive: public recognition, priority funding, enrollment preferences, and use of certification logo. The program has three levels: Bronze (basic compliance), Silver (exceeds standards), and Gold (excellence with innovation). 25 schools have achieved certification in the first year. The application process includes self-assessment, documentation review, site inspection, and ongoing verification. Certification must be renewed every 3 years. The program creates incentives for improvement and helps parents identify schools with good air quality. Certification standards become de facto best practices. The program is expanding, with 100+ schools in the application process. This market-based approach complements regulatory requirements, driving voluntary improvements beyond minimum standards.",
+    "school_id": 43,
+    "published_at": "2024-02-16T09:15:00"
+  },
+  {
+    "title": "Staff Wellness and Air Quality",
+    "type": "best_practice",
+    "description": "Best practices for protecting staff health and wellness through air quality management",
+    "image": "https://picsum.photos/id/44/800/600",
+    "content": "Teachers and staff spend as much or more time in school buildings as students, making their health protection equally important. This guide addresses staff wellness through air quality management. Staff face similar risks as students but may have different needs based on age and health status. Strategies include: providing masks during poor air quality, offering air-purified break rooms, flexible work arrangements during severe events, health screenings, and wellness programs. We've seen 25% reduction in staff sick days after improving air quality. Staff satisfaction surveys show high appreciation for air quality efforts. Healthy staff are more effective teachers and reduce substitute costs. The guide includes staff-specific protocols, accommodation strategies, wellness program integration, and communication approaches. Staff buy-in is essential for program success. When staff feel protected and valued, they become advocates for air quality programs. This focus on staff wellness strengthens overall school health programs and improves retention.",
+    "school_id": 44,
+    "published_at": "2024-01-19T14:30:00"
+  },
+  {
+    "title": "Measuring Success: KPIs for Air Quality Programs",
+    "type": "guide",
+    "description": "Key Performance Indicators and metrics for evaluating air quality program effectiveness",
+    "image": "https://picsum.photos/id/45/800/600",
+    "content": "Measuring program success requires clear Key Performance Indicators (KPIs). This guide defines relevant KPIs, data collection methods, target setting, and reporting frameworks. Key metrics include: air quality improvements (PM2.5, PM10 reductions), health outcomes (attendance, symptoms, absences), academic performance (test scores, engagement), compliance (meeting standards, certifications), cost-effectiveness (ROI, cost per student), and satisfaction (surveys, feedback). We track 20+ KPIs monthly and report quarterly to stakeholders. Dashboards visualize progress. Targets are set based on baseline and best practices. Regular measurement validates investments and identifies areas for improvement. The guide includes KPI definitions, calculation methods, data collection protocols, reporting templates, and benchmarking data. Good measurement enables data-driven improvements and demonstrates program value. Transparent reporting builds trust and support. KPIs help prioritize interventions and allocate resources effectively. This measurement framework is essential for program management and improvement.",
+    "school_id": 45,
+    "published_at": "2024-01-24T10:10:00"
+  },
+  {
+    "title": "Remote Learning Integration with Air Quality",
+    "type": "case_study",
+    "description": "Case study on using remote learning capabilities during severe pollution events",
+    "image": "https://picsum.photos/id/46/800/600",
+    "content": "When air quality reaches hazardous levels, schools face difficult decisions about closures. This case study documents our approach of using remote learning capabilities developed during COVID-19 to continue education during severe pollution events. Instead of canceling school, we transition to remote learning when AQI exceeds 250. Students access lessons online, teachers conduct virtual classes, and assignments continue. This approach maintains educational continuity while protecting health. We've activated remote learning 5 times in the past year. Parent and student surveys show 85% support for this approach over closures. Teachers appreciate not losing instructional time. The system uses existing technology infrastructure. Key success factors: clear communication, technical support, student engagement strategies, and flexible policies. The case study includes protocols, technology requirements, communication templates, and lessons learned. This hybrid approach represents the future of education during environmental challenges. It protects health while maintaining learning, providing a model for other schools.",
+    "school_id": 46,
+    "published_at": "2024-02-13T11:45:00"
+  },
+  {
+    "title": "Parent Education and Engagement Programs",
+    "type": "best_practice",
+    "description": "Strategies for educating and engaging parents in air quality awareness and home practices",
+    "image": "https://picsum.photos/id/47/800/600",
+    "content": "Parents play crucial roles in protecting children's health from air pollution. This guide outlines programs for educating parents and engaging them in both school and home air quality efforts. Education programs cover: understanding air quality metrics, health impacts, school protocols, home improvement strategies, and personal protection measures. We offer workshops, webinars, printed materials, and online resources. Engaged parents support school initiatives, implement home improvements, and make informed decisions about children's activities. We've seen 70% of parents make home improvements after education programs. Parent advocacy groups support school funding requests. Parent volunteers help with monitoring and maintenance. The guide includes curriculum outlines, materials, engagement strategies, and evaluation methods. Parent education multiplies the impact of school programs by extending protection to homes. Informed parents become partners in protecting children's health. This engagement strengthens school-community relationships and builds broader support for air quality initiatives.",
+    "school_id": 47,
+    "published_at": "2024-01-17T15:20:00"
+  },
+  {
+    "title": "Technology Trends in Air Quality Management",
+    "type": "news",
+    "description": "Latest technology trends and innovations in air quality monitoring and improvement",
+    "image": "https://picsum.photos/id/48/800/600",
+    "content": "Air quality technology is rapidly evolving with new innovations emerging regularly. This article covers latest trends: AI-powered predictive systems, low-cost sensor networks, smart building integration, mobile monitoring, blockchain for data verification, and IoT ecosystems. AI systems can predict pollution events days in advance by analyzing weather, traffic, and historical data. Low-cost sensors (under 1 million VND) make monitoring accessible to all schools. Smart buildings automatically adjust based on real-time conditions. Mobile monitoring units can map pollution across cities. These technologies are becoming more affordable and easier to use. Early adopters gain advantages in effectiveness and efficiency. However, technology must be chosen carefully based on needs and capabilities. The article reviews specific products, capabilities, costs, and implementation considerations. Technology trends point toward more automated, predictive, and integrated systems. Schools should stay informed about developments while focusing on proven solutions that meet their needs.",
+    "school_id": 48,
+    "published_at": "2024-02-17T08:00:00"
+  },
+  {
+    "title": "Building Design for Optimal Air Quality",
+    "type": "research",
+    "description": "Research on building design elements that promote good air quality in new school construction",
+    "image": "https://picsum.photos/id/49/800/600",
+    "content": "New school buildings offer opportunities to design for optimal air quality from the start. This research examines design elements in 12 recently constructed schools, comparing air quality outcomes. Key design factors include: window placement for cross-ventilation, building orientation for wind patterns, HVAC system design and sizing, material selection for low emissions, natural ventilation integration, filtration system placement, and monitoring system integration. Schools designed with air quality in mind showed 40% better baseline air quality than retrofitted buildings. Design-stage integration costs 30% less than retrofitting. Key findings: orientation matters significantly, natural ventilation reduces mechanical system needs, material choices impact indoor air quality for years, and integrated monitoring provides ongoing optimization. The research provides design guidelines, cost comparisons, and recommendations. As Hanoi builds new schools, incorporating air quality design principles creates long-term benefits. This forward-thinking approach avoids future retrofit needs and operating costs.",
+    "school_id": 49,
+    "published_at": "2024-01-29T13:00:00"
+  },
+  {
+    "title": "Community Science: Involving Citizens in Air Quality Monitoring",
+    "type": "best_practice",
+    "description": "Best practices for involving community members in citizen science air quality monitoring projects",
+    "image": "https://picsum.photos/id/50/800/600",
+    "content": "Citizen science projects engage communities while expanding monitoring coverage. This guide outlines how schools can involve students, parents, and neighbors in monitoring projects. Participants receive low-cost sensors, training, and contribute data to shared databases. Benefits include: expanded monitoring coverage, increased awareness, community engagement, educational value, and lower costs. We organized a community monitoring network with 50 participants covering our school neighborhood. Data revealed pollution hotspots and patterns not visible from official monitoring stations. Participants learned about air quality science and became advocates. The project strengthened school-community relationships. Challenges include: ensuring data quality, maintaining equipment, coordinating participants, and analyzing large datasets. The guide includes project design, recruitment strategies, training materials, data management, and analysis approaches. Successful projects require good organization and clear communication. Community science democratizes monitoring and creates broader understanding of air quality issues. These projects can influence policy and drive community action.",
+    "school_id": 50,
+    "published_at": "2024-02-18T10:30:00"
+  }
+]

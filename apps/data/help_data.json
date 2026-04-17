@@ -1,0 +1,83 @@
+[
+  {
+    "from_school_id": 1,
+    "to_school_id": 2,
+    "type": "request",
+    "content": "We need technical assistance installing air quality monitoring sensors. Can School 2 help with installation guidance?",
+    "status": "pending",
+    "created_at": "2024-01-15T10:00:00"
+  },
+  {
+    "from_school_id": 2,
+    "to_school_id": 1,
+    "type": "offer",
+    "content": "Happy to help with sensor installation. We can send our technical team to provide on-site guidance and training.",
+    "status": "accepted",
+    "created_at": "2024-01-16T09:00:00"
+  },
+  {
+    "from_school_id": 3,
+    "to_school_id": 4,
+    "type": "request",
+    "content": "Requesting information about cost-effective air purifier models that work well in large classrooms.",
+    "status": "pending",
+    "created_at": "2024-01-17T11:00:00"
+  },
+  {
+    "from_school_id": 4,
+    "to_school_id": 3,
+    "type": "offer",
+    "content": "We can share our purchasing experience and supplier contacts. We found some excellent options that balance cost and performance.",
+    "status": "accepted",
+    "created_at": "2024-01-18T10:30:00"
+  },
+  {
+    "from_school_id": 5,
+    "to_school_id": 6,
+    "type": "request",
+    "content": "Looking for best practices on student education about air quality awareness. Do you have materials we could reference?",
+    "status": "pending",
+    "created_at": "2024-01-19T13:00:00"
+  },
+  {
+    "from_school_id": 7,
+    "to_school_id": 8,
+    "type": "request",
+    "content": "We need help setting up data management systems for our air quality sensors. Any guidance would be appreciated.",
+    "status": "accepted",
+    "created_at": "2024-01-20T09:00:00"
+  },
+  {
+    "from_school_id": 8,
+    "to_school_id": 9,
+    "type": "offer",
+    "content": "We can share our mobile app solution and provide training sessions. It's been very effective for our monitoring needs.",
+    "status": "pending",
+    "created_at": "2024-01-21T14:00:00"
+  },
+  {
+    "from_school_id": 10,
+    "to_school_id": 11,
+    "type": "offer",
+    "content": "We have extra N95 masks available and can share them with your school during high pollution periods.",
+    "status": "accepted",
+    "created_at": "2024-01-22T10:00:00"
+  },
+  {
+    "from_school_id": 12,
+    "to_school_id": 13,
+    "type": "request",
+    "content": "Seeking collaboration for a joint air quality monitoring workshop. Interested in co-organizing?",
+    "status": "pending",
+    "created_at": "2024-01-23T11:30:00"
+  },
+  {
+    "from_school_id": 14,
+    "to_school_id": 15,
+    "type": "other",
+    "content": "Would like to establish a resource-sharing network for air quality equipment during peak pollution seasons.",
+    "status": "accepted",
+    "created_at": "2024-01-24T09:00:00"
+  }
+]
+

@@ -1,0 +1,46 @@
+{
+  "name": "airconnect-hanoi",
+  "private": true,
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "dev:frontend": "turbo run dev --filter=@airconnect/frontend",
+    "dev:backend": "turbo run dev --filter=@airconnect/backend",
+    "build:frontend": "turbo run build --filter=@airconnect/frontend",
+    "build:backend": "turbo run build --filter=@airconnect/backend",
+    "db:up": "docker compose up -d db redis",
+    "db:down": "docker compose stop db redis",
+    "db:logs": "docker compose logs -f db",
+    "redis:logs": "docker compose logs -f redis",
+    "redis:cli": "docker exec -it airconnect_hanoi-redis-1 redis-cli",
+    "db:seed": "pnpm --filter @airconnect/backend seed",
+    "db:seed:reset": "pnpm --filter @airconnect/backend seed -- --reset",
+    "db:migrate": "pnpm --filter @airconnect/backend migration:run",
+    "db:migrate:show": "pnpm --filter @airconnect/backend migration:show",
+    "db:migrate:revert": "pnpm --filter @airconnect/backend migration:revert",
+    "db:reset": "docker exec -i airconnect_hanoi-db-1 psql -U airconnect_user -d airconnect_hanoi -c \"DROP SCHEMA public CASCADE; CREATE SCHEMA public; GRANT ALL ON SCHEMA public TO airconnect_user;\" && pnpm db:migrate && pnpm db:seed:reset",
+    "openapi:export": "pnpm --filter @airconnect/backend openapi:export",
+    "openapi:codegen": "pnpm --filter @airconnect/shared-types codegen:from-backend",
+    "railway:seed:staging": "railway run --service PostGIS --environment staging pnpm --filter @airconnect/backend seed",
+    "railway:seed:staging:reset": "railway run --service PostGIS --environment staging pnpm --filter @airconnect/backend seed -- --reset"
+  },
+  "devDependencies": {
+    "turbo": "^2.4.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@nestjs/core",
+      "bcrypt",
+      "esbuild",
+      "sharp",
+      "unrs-resolver"
+    ]
+  },
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=20"
+  }
+}
