@@ -47,18 +47,158 @@ export type SchoolResponseDto = {
     type: 'primary' | 'secondary' | 'high_school' | 'university';
     name: string;
     address: string;
-    district?: string | null;
+    district: string | null;
     latitude: number;
     longitude: number;
-    situation?: string | null;
-    email?: string | null;
-    phone?: string | null;
+    situation: string | null;
+    email: string | null;
+    phone: string | null;
     score_1: number;
     score_2: number;
     score_3: number;
     score_4: number;
     score_5: number;
     created_at: string;
+};
+
+export type Post = {
+    id: number;
+    title: string;
+    type: 'case_study' | 'best_practice' | 'research' | 'news' | 'guide' | 'other';
+    description: string;
+    image: string;
+    content: string;
+    published_at: string;
+    school_id: number;
+    school: School;
+    ratings: Array<Rating>;
+};
+
+export type Rating = {
+    post_id: number;
+    student_id: number;
+    rate: '1' | '2' | '3' | '4' | '5';
+    rated_at: string;
+    post: Post;
+    student: Student;
+};
+
+export type Student = {
+    id: number;
+    first_name: string;
+    last_name: string;
+    sex: 'male' | 'female';
+    birth_date: string;
+    email: string;
+    phone: string;
+    health_status: string;
+    password: string;
+    created_at: string;
+    school_id: number;
+    school: School;
+    ratings: Array<Rating>;
+};
+
+export type Admin = {
+    id: number;
+    type: 'super' | 'normal';
+    username: string;
+    password: string;
+    phone: string;
+    email: string;
+    created_at: string;
+    reviews: Array<Review>;
+};
+
+export type Review = {
+    submission_id: number;
+    admin_id: number;
+    decision: 'pending' | 'accepted' | 'rejected' | 'other';
+    date: string;
+    note: string;
+    admin: Admin;
+    submission: Submission;
+};
+
+export type Submission = {
+    id: number;
+    type: 'request' | 'offer' | 'other';
+    content: string;
+    created_at: string;
+    from_school_id: number;
+    school: School;
+    reviews: Array<Review>;
+};
+
+export type Solution = {
+    id: number;
+    type: 'improving_facilities' | 'research_and_development' | 'other';
+    content: string;
+    note: string;
+    created_at: string;
+    status: 'normal' | 'important' | 'critical' | 'other';
+    applies: Array<Apply>;
+};
+
+export type Apply = {
+    solution_id: number;
+    air_quality_id: number;
+    applied_at: string;
+    solution: Solution;
+    air_quality: AirQuality;
+};
+
+export type AirQuality = {
+    id: number;
+    aqi: number;
+    pm25: number;
+    pm10: number;
+    co2: number;
+    temp: number;
+    humidity: number;
+    wind_speed: number;
+    measured_at: string;
+    school_id: number;
+    school: School;
+    applies: Array<Apply>;
+};
+
+export type Help = {
+    from_school_id: number;
+    to_school_id: number;
+    type: 'request' | 'offer' | 'other';
+    content: string;
+    status: 'pending' | 'accepted' | 'rejected' | 'other';
+    created_at: string;
+    from_school: School;
+    to_school: School;
+};
+
+export type School = {
+    id: number;
+    type: 'primary' | 'secondary' | 'high_school' | 'university';
+    name: string;
+    location: {
+        [key: string]: unknown;
+    };
+    address: string;
+    district: string;
+    password: string;
+    situation: string;
+    email: string;
+    phone: string;
+    score_1: number;
+    score_2: number;
+    score_3: number;
+    score_4: number;
+    score_5: number;
+    created_at: string;
+    students: Array<Student>;
+    submissions: Array<Submission>;
+    posts: Array<Post>;
+    air_qualities: Array<AirQuality>;
+    helps_from: Array<Help>;
+    helps_to: Array<Help>;
 };
 
 export type CreateAirQualityDto = {
@@ -83,9 +223,7 @@ export type CreatePostDto = {
 };
 
 export type CreateSubmissionDto = {
-    type: 'request' | 'offer' | 'other';
-    content: string;
-    from_school_id: number;
+    [key: string]: unknown;
 };
 
 export type CreateReviewDto = {
@@ -101,6 +239,26 @@ export type CreateFeedbackDto = {
     subject: string;
     message: string;
     phone?: string;
+};
+
+export type Feedback = {
+    id: number;
+    full_name: string;
+    email: string;
+    subject: string;
+    message: string;
+    phone: string;
+    is_read: boolean;
+    created_at: string;
+};
+
+export type StatsResponseDto = {
+    total_schools: number;
+    total_students: number;
+    total_submissions: number;
+    pending_reviews: number;
+    approved_submissions: number;
+    rejected_submissions: number;
 };
 
 export type CreateHelpDto = {
@@ -148,6 +306,7 @@ export type AuthControllerLoginStudentData = {
 
 export type AuthControllerLoginStudentResponses = {
     200: AuthResponseDto;
+    201: AuthResponseDto;
 };
 
 export type AuthControllerLoginStudentResponse = AuthControllerLoginStudentResponses[keyof AuthControllerLoginStudentResponses];
@@ -161,6 +320,7 @@ export type AuthControllerLoginAdminData = {
 
 export type AuthControllerLoginAdminResponses = {
     200: AuthResponseDto;
+    201: AuthResponseDto;
 };
 
 export type AuthControllerLoginAdminResponse = AuthControllerLoginAdminResponses[keyof AuthControllerLoginAdminResponses];
@@ -174,6 +334,7 @@ export type AuthControllerLoginSchoolData = {
 
 export type AuthControllerLoginSchoolResponses = {
     200: AuthResponseDto;
+    201: AuthResponseDto;
 };
 
 export type AuthControllerLoginSchoolResponse = AuthControllerLoginSchoolResponses[keyof AuthControllerLoginSchoolResponses];
@@ -187,6 +348,7 @@ export type AuthControllerRegisterStudentData = {
 
 export type AuthControllerRegisterStudentResponses = {
     200: AuthResponseDto;
+    201: AuthResponseDto;
 };
 
 export type AuthControllerRegisterStudentResponse = AuthControllerRegisterStudentResponses[keyof AuthControllerRegisterStudentResponses];
@@ -231,8 +393,10 @@ export type StudentControllerGetAllStudentsData = {
 };
 
 export type StudentControllerGetAllStudentsResponses = {
-    200: unknown;
+    200: Array<Student>;
 };
+
+export type StudentControllerGetAllStudentsResponse = StudentControllerGetAllStudentsResponses[keyof StudentControllerGetAllStudentsResponses];
 
 export type StudentControllerGetStudentsBySchoolData = {
     body?: never;
@@ -244,8 +408,10 @@ export type StudentControllerGetStudentsBySchoolData = {
 };
 
 export type StudentControllerGetStudentsBySchoolResponses = {
-    200: unknown;
+    200: Array<Student>;
 };
+
+export type StudentControllerGetStudentsBySchoolResponse = StudentControllerGetStudentsBySchoolResponses[keyof StudentControllerGetStudentsBySchoolResponses];
 
 export type StudentControllerGetStudentByIdData = {
     body?: never;
@@ -257,8 +423,12 @@ export type StudentControllerGetStudentByIdData = {
 };
 
 export type StudentControllerGetStudentByIdResponses = {
-    200: unknown;
+    200: {
+        [key: string]: unknown;
+    };
 };
+
+export type StudentControllerGetStudentByIdResponse = StudentControllerGetStudentByIdResponses[keyof StudentControllerGetStudentByIdResponses];
 
 export type AirQualityControllerGetAllData = {
     body?: never;
@@ -270,8 +440,10 @@ export type AirQualityControllerGetAllData = {
 };
 
 export type AirQualityControllerGetAllResponses = {
-    200: unknown;
+    200: Array<AirQuality>;
 };
+
+export type AirQualityControllerGetAllResponse = AirQualityControllerGetAllResponses[keyof AirQualityControllerGetAllResponses];
 
 export type AirQualityControllerCreateData = {
     body: CreateAirQualityDto;
@@ -281,8 +453,11 @@ export type AirQualityControllerCreateData = {
 };
 
 export type AirQualityControllerCreateResponses = {
-    201: unknown;
+    200: AirQuality;
+    201: AirQuality;
 };
+
+export type AirQualityControllerCreateResponse = AirQualityControllerCreateResponses[keyof AirQualityControllerCreateResponses];
 
 export type AirQualityControllerGetBySchoolData = {
     body?: never;
@@ -294,8 +469,10 @@ export type AirQualityControllerGetBySchoolData = {
 };
 
 export type AirQualityControllerGetBySchoolResponses = {
-    200: unknown;
+    200: AirQuality;
 };
+
+export type AirQualityControllerGetBySchoolResponse = AirQualityControllerGetBySchoolResponses[keyof AirQualityControllerGetBySchoolResponses];
 
 export type PostControllerGetAllData = {
     body?: never;
@@ -305,8 +482,10 @@ export type PostControllerGetAllData = {
 };
 
 export type PostControllerGetAllResponses = {
-    200: unknown;
+    200: Array<Post>;
 };
+
+export type PostControllerGetAllResponse = PostControllerGetAllResponses[keyof PostControllerGetAllResponses];
 
 export type PostControllerCreateData = {
     body: CreatePostDto;
@@ -316,8 +495,10 @@ export type PostControllerCreateData = {
 };
 
 export type PostControllerCreateResponses = {
-    201: unknown;
+    200: Post;
 };
+
+export type PostControllerCreateResponse = PostControllerCreateResponses[keyof PostControllerCreateResponses];
 
 export type PostControllerGetBySchoolData = {
     body?: never;
@@ -329,8 +510,10 @@ export type PostControllerGetBySchoolData = {
 };
 
 export type PostControllerGetBySchoolResponses = {
-    200: unknown;
+    200: Array<Post>;
 };
+
+export type PostControllerGetBySchoolResponse = PostControllerGetBySchoolResponses[keyof PostControllerGetBySchoolResponses];
 
 export type PostControllerGetByIdData = {
     body?: never;
@@ -342,8 +525,10 @@ export type PostControllerGetByIdData = {
 };
 
 export type PostControllerGetByIdResponses = {
-    200: unknown;
+    200: Post;
 };
+
+export type PostControllerGetByIdResponse = PostControllerGetByIdResponses[keyof PostControllerGetByIdResponses];
 
 export type SubmissionControllerGetAllData = {
     body?: never;
@@ -355,8 +540,10 @@ export type SubmissionControllerGetAllData = {
 };
 
 export type SubmissionControllerGetAllResponses = {
-    200: unknown;
+    200: Array<Submission>;
 };
+
+export type SubmissionControllerGetAllResponse = SubmissionControllerGetAllResponses[keyof SubmissionControllerGetAllResponses];
 
 export type SubmissionControllerCreateData = {
     body: CreateSubmissionDto;
@@ -366,8 +553,11 @@ export type SubmissionControllerCreateData = {
 };
 
 export type SubmissionControllerCreateResponses = {
-    201: unknown;
+    200: Submission;
+    201: Submission;
 };
+
+export type SubmissionControllerCreateResponse = SubmissionControllerCreateResponses[keyof SubmissionControllerCreateResponses];
 
 export type SubmissionControllerGetBySchoolData = {
     body?: never;
@@ -379,8 +569,10 @@ export type SubmissionControllerGetBySchoolData = {
 };
 
 export type SubmissionControllerGetBySchoolResponses = {
-    200: unknown;
+    200: Array<Submission>;
 };
+
+export type SubmissionControllerGetBySchoolResponse = SubmissionControllerGetBySchoolResponses[keyof SubmissionControllerGetBySchoolResponses];
 
 export type ReviewControllerGetBySubmissionData = {
     body?: never;
@@ -392,8 +584,10 @@ export type ReviewControllerGetBySubmissionData = {
 };
 
 export type ReviewControllerGetBySubmissionResponses = {
-    200: unknown;
+    200: Array<Review>;
 };
+
+export type ReviewControllerGetBySubmissionResponse = ReviewControllerGetBySubmissionResponses[keyof ReviewControllerGetBySubmissionResponses];
 
 export type ReviewControllerCreateData = {
     body: CreateReviewDto;
@@ -403,8 +597,11 @@ export type ReviewControllerCreateData = {
 };
 
 export type ReviewControllerCreateResponses = {
-    201: unknown;
+    200: Review;
+    201: Review;
 };
+
+export type ReviewControllerCreateResponse = ReviewControllerCreateResponses[keyof ReviewControllerCreateResponses];
 
 export type FeedbackControllerGetAllData = {
     body?: never;
@@ -417,8 +614,10 @@ export type FeedbackControllerGetAllData = {
 };
 
 export type FeedbackControllerGetAllResponses = {
-    200: unknown;
+    200: Array<Feedback>;
 };
+
+export type FeedbackControllerGetAllResponse = FeedbackControllerGetAllResponses[keyof FeedbackControllerGetAllResponses];
 
 export type FeedbackControllerCreateData = {
     body: CreateFeedbackDto;
@@ -428,8 +627,11 @@ export type FeedbackControllerCreateData = {
 };
 
 export type FeedbackControllerCreateResponses = {
-    201: unknown;
+    200: Feedback;
+    201: Feedback;
 };
+
+export type FeedbackControllerCreateResponse = FeedbackControllerCreateResponses[keyof FeedbackControllerCreateResponses];
 
 export type FeedbackControllerGetUnreadData = {
     body?: never;
@@ -439,8 +641,10 @@ export type FeedbackControllerGetUnreadData = {
 };
 
 export type FeedbackControllerGetUnreadResponses = {
-    200: unknown;
+    200: Array<Feedback>;
 };
+
+export type FeedbackControllerGetUnreadResponse = FeedbackControllerGetUnreadResponses[keyof FeedbackControllerGetUnreadResponses];
 
 export type FeedbackControllerDeleteData = {
     body?: never;
@@ -452,8 +656,10 @@ export type FeedbackControllerDeleteData = {
 };
 
 export type FeedbackControllerDeleteResponses = {
-    200: unknown;
+    200: Feedback;
 };
+
+export type FeedbackControllerDeleteResponse = FeedbackControllerDeleteResponses[keyof FeedbackControllerDeleteResponses];
 
 export type FeedbackControllerGetByIdData = {
     body?: never;
@@ -465,8 +671,10 @@ export type FeedbackControllerGetByIdData = {
 };
 
 export type FeedbackControllerGetByIdResponses = {
-    200: unknown;
+    200: Feedback;
 };
+
+export type FeedbackControllerGetByIdResponse = FeedbackControllerGetByIdResponses[keyof FeedbackControllerGetByIdResponses];
 
 export type FeedbackControllerMarkAsReadData = {
     body?: never;
@@ -478,8 +686,10 @@ export type FeedbackControllerMarkAsReadData = {
 };
 
 export type FeedbackControllerMarkAsReadResponses = {
-    200: unknown;
+    200: Feedback;
 };
+
+export type FeedbackControllerMarkAsReadResponse = FeedbackControllerMarkAsReadResponses[keyof FeedbackControllerMarkAsReadResponses];
 
 export type StatsControllerGetStatsData = {
     body?: never;
@@ -489,8 +699,10 @@ export type StatsControllerGetStatsData = {
 };
 
 export type StatsControllerGetStatsResponses = {
-    200: unknown;
+    200: StatsResponseDto;
 };
+
+export type StatsControllerGetStatsResponse = StatsControllerGetStatsResponses[keyof StatsControllerGetStatsResponses];
 
 export type HelpControllerCreateData = {
     body: CreateHelpDto;
@@ -500,8 +712,10 @@ export type HelpControllerCreateData = {
 };
 
 export type HelpControllerCreateResponses = {
-    201: unknown;
+    201: Help;
 };
+
+export type HelpControllerCreateResponse = HelpControllerCreateResponses[keyof HelpControllerCreateResponses];
 
 export type HelpControllerGetBySchoolData = {
     body?: never;
@@ -513,8 +727,10 @@ export type HelpControllerGetBySchoolData = {
 };
 
 export type HelpControllerGetBySchoolResponses = {
-    200: unknown;
+    200: Array<Help>;
 };
+
+export type HelpControllerGetBySchoolResponse = HelpControllerGetBySchoolResponses[keyof HelpControllerGetBySchoolResponses];
 
 export type HelpControllerUpdateStatusData = {
     body: UpdateHelpStatusDto;
@@ -527,8 +743,10 @@ export type HelpControllerUpdateStatusData = {
 };
 
 export type HelpControllerUpdateStatusResponses = {
-    200: unknown;
+    200: Help;
 };
+
+export type HelpControllerUpdateStatusResponse = HelpControllerUpdateStatusResponses[keyof HelpControllerUpdateStatusResponses];
 
 export type SolutionControllerGetAllData = {
     body?: never;
@@ -538,8 +756,10 @@ export type SolutionControllerGetAllData = {
 };
 
 export type SolutionControllerGetAllResponses = {
-    200: unknown;
+    200: Array<Solution>;
 };
+
+export type SolutionControllerGetAllResponse = SolutionControllerGetAllResponses[keyof SolutionControllerGetAllResponses];
 
 export type SolutionControllerCreateData = {
     body: CreateSolutionDto;
@@ -549,8 +769,10 @@ export type SolutionControllerCreateData = {
 };
 
 export type SolutionControllerCreateResponses = {
-    201: unknown;
+    201: Solution;
 };
+
+export type SolutionControllerCreateResponse = SolutionControllerCreateResponses[keyof SolutionControllerCreateResponses];
 
 export type SolutionControllerGetByIdData = {
     body?: never;
@@ -562,8 +784,10 @@ export type SolutionControllerGetByIdData = {
 };
 
 export type SolutionControllerGetByIdResponses = {
-    200: unknown;
+    200: Solution;
 };
+
+export type SolutionControllerGetByIdResponse = SolutionControllerGetByIdResponses[keyof SolutionControllerGetByIdResponses];
 
 export type SolutionControllerUpdateData = {
     body: UpdateSolutionDto;
@@ -575,8 +799,10 @@ export type SolutionControllerUpdateData = {
 };
 
 export type SolutionControllerUpdateResponses = {
-    200: unknown;
+    200: Solution;
 };
+
+export type SolutionControllerUpdateResponse = SolutionControllerUpdateResponses[keyof SolutionControllerUpdateResponses];
 
 export type RatingControllerGetByPostData = {
     body?: never;
@@ -588,8 +814,10 @@ export type RatingControllerGetByPostData = {
 };
 
 export type RatingControllerGetByPostResponses = {
-    200: unknown;
+    200: Array<Rating>;
 };
+
+export type RatingControllerGetByPostResponse = RatingControllerGetByPostResponses[keyof RatingControllerGetByPostResponses];
 
 export type RatingControllerGetAverageRatingData = {
     body?: never;
@@ -612,8 +840,10 @@ export type RatingControllerRateData = {
 };
 
 export type RatingControllerRateResponses = {
-    201: unknown;
+    201: Rating;
 };
+
+export type RatingControllerRateResponse = RatingControllerRateResponses[keyof RatingControllerRateResponses];
 
 export type ApplyControllerCreateData = {
     body: CreateApplyDto;
@@ -623,8 +853,10 @@ export type ApplyControllerCreateData = {
 };
 
 export type ApplyControllerCreateResponses = {
-    201: unknown;
+    201: Apply;
 };
+
+export type ApplyControllerCreateResponse = ApplyControllerCreateResponses[keyof ApplyControllerCreateResponses];
 
 export type ApplyControllerGetBySolutionData = {
     body?: never;
@@ -636,8 +868,10 @@ export type ApplyControllerGetBySolutionData = {
 };
 
 export type ApplyControllerGetBySolutionResponses = {
-    200: unknown;
+    200: Array<Apply>;
 };
+
+export type ApplyControllerGetBySolutionResponse = ApplyControllerGetBySolutionResponses[keyof ApplyControllerGetBySolutionResponses];
 
 export type ApplyControllerGetByAirQualityData = {
     body?: never;
@@ -649,8 +883,10 @@ export type ApplyControllerGetByAirQualityData = {
 };
 
 export type ApplyControllerGetByAirQualityResponses = {
-    200: unknown;
+    200: Array<Apply>;
 };
+
+export type ApplyControllerGetByAirQualityResponse = ApplyControllerGetByAirQualityResponses[keyof ApplyControllerGetByAirQualityResponses];
 
 export type HealthControllerCheckData = {
     body?: never;

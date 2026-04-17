@@ -31,7 +31,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "echo 'no lint config — package is mostly generated code' && exit 0",
     "codegen": "openapi-ts -i ./openapi.json -o ./src/generated -c @hey-api/client-fetch",
-    "codegen:from-backend": "pnpm --filter @airconnect/backend openapi:export && pnpm run codegen && pnpm run build"
+    "codegen:from-backend": "pnpm --filter @airconnect/backend openapi:export:build && pnpm run codegen && pnpm run build"
   },
   "devDependencies": {
     "@hey-api/openapi-ts": "^0.87.5",

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { Mail, Phone, MapPin, CheckCircle, AlertCircle, Loader2, Send } from 'lucide-react';
-import { apiFetch } from '@/lib/api';
+import { feedbackControllerCreate } from '@/lib/api-client';
 
 export default function FeedbackPage() {
   const [form, setForm] = useState({ full_name: '', email: '', subject: '', message: '', phone: '' });
@@ -28,9 +28,8 @@ export default function FeedbackPage() {
 
     setLoading(true);
     try {
-      await apiFetch('/api/feedback/', {
-        method: 'POST',
-        body: JSON.stringify({ ...form, phone: form.phone.trim() || null }),
+      await feedbackControllerCreate({
+        body: { ...form, phone: form.phone.trim() || undefined },
       });
       setSuccess(true);
       setForm({ full_name: '', email: '', subject: '', message: '', phone: '' });

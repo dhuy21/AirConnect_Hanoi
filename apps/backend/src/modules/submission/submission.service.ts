@@ -22,7 +22,7 @@ export class SubmissionService {
     });
   }
 
-  async create(dto: CreateSubmissionDto) {
+  async create(dto: CreateSubmissionDto & { from_school_id: number }) {
     const sub = this.subRepo.create(dto);
     return this.subRepo.save(sub);
   }

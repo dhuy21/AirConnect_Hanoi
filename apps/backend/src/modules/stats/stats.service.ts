@@ -6,6 +6,7 @@ import { Student } from '../../entities/student.entity';
 import { Submission } from '../../entities/submission.entity';
 import { Review } from '../../entities/review.entity';
 import { ReviewDecision } from '../../common/enums';
+import { StatsResponseDto } from './dto/stats-response.dto';
 
 @Injectable()
 export class StatsService {
@@ -18,7 +19,7 @@ export class StatsService {
     @InjectRepository(Review) private readonly reviewRepo: Repository<Review>,
   ) {}
 
-  async getStats() {
+  async getStats(): Promise<StatsResponseDto> {
     const [totalSchools, totalStudents, totalSubmissions] = await Promise.all([
       this.schoolRepo.count(),
       this.studentRepo.count(),

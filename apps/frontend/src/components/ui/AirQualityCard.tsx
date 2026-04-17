@@ -1,9 +1,9 @@
 'use client';
 
-import { AirQualityData } from '@/lib/types';
+import type { AirQuality } from '@airconnect/shared-types/api';
 
 interface AirQualityCardProps {
-  airQuality: AirQualityData | null;
+  airQuality: AirQuality | null;
   loading?: boolean;
 }
 

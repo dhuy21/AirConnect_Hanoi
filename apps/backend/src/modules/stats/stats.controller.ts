@@ -1,6 +1,12 @@
 import { Controller, Get, UseGuards } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiOkResponse,
+} from '@nestjs/swagger';
 import { StatsService } from './stats.service';
+import { StatsResponseDto } from './dto/stats-response.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../../common/decorators/roles.decorator';
@@ -16,7 +22,8 @@ export class StatsController {
 
   @Get()
   @ApiOperation({ summary: 'Get admin dashboard statistics' })
-  getStats() {
+  @ApiOkResponse({ type: StatsResponseDto })
+  getStats(): Promise<StatsResponseDto> {
     return this.statsService.getStats();
   }
 }
