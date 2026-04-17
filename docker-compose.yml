@@ -21,6 +21,19 @@ services:
       timeout: 5s
       retries: 5
 
+  # Redis — distributed rate-limit store (mirrors Railway Redis service)
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ['redis-server', '--save', '', '--appendonly', 'no']
+    ports:
+      - '${REDIS_PORT:-6379}:6379'
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
   # NestJS Backend
   backend:
     build:
@@ -31,6 +44,7 @@ services:
       - '${PORT:-3001}:${PORT:-3001}'
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      REDIS_URL: redis://redis:6379
       PORT: ${PORT:-3001}
       NODE_ENV: production
       JWT_SECRET: ${JWT_SECRET}
@@ -38,6 +52,8 @@ services:
       CORS_ORIGINS: http://frontend:3000
     depends_on:
       db:
+        condition: service_healthy
+      redis:
         condition: service_healthy
 
   # Next.js Frontend
