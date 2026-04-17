@@ -1,7 +1,6 @@
 import { client } from '@airconnect/shared-types/api';
 import { AUTH_KEYS } from './auth';
 
-// Base URL of the backend. Falls back to the local dev server.
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
 
 function readStoredToken(): string | null {
@@ -13,11 +12,8 @@ function readStoredToken(): string | null {
   );
 }
 
-// Configure the generated @hey-api client once for the whole app.
-// - `baseUrl` so SDK paths like `/api/schools` resolve to the right host.
-// - Request interceptor injects `Authorization: Bearer <token>` when present.
-// - Response interceptor normalises backend errors into Error instances so
-//   callers can `try/catch` without poking at raw Response shapes.
+// Configure the generated @hey-api client once: baseUrl + auth interceptor
+// + error normalisation so callers can try/catch on `Error` instances.
 client.setConfig({ baseUrl: API_URL });
 
 client.interceptors.request.use((request: Request) => {

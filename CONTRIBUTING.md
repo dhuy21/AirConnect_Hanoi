@@ -1,196 +1,72 @@
 # Contributing to AirConnect Hanoi
 
-Cảm ơn bạn đã quan tâm! Tài liệu này mô tả quy trình đóng góp chuyên nghiệp cho
-project — branching, commit, PR, test, deploy.
-
----
-
-## Mục lục
-
-- [Stack & Kiến trúc](#stack--kiến-trúc)
-- [Yêu cầu môi trường](#yêu-cầu-môi-trường)
-- [Khởi chạy local](#khởi-chạy-local)
-- [Branching strategy](#branching-strategy)
-- [Commit convention](#commit-convention)
-- [Pull Request flow](#pull-request-flow)
-- [Shared types & API contract](#shared-types--api-contract)
-- [Testing](#testing)
-- [Deployment (Railway)](#deployment-railway)
-- [Báo cáo bug / đề xuất feature](#báo-cáo-bug--đề-xuất-feature)
-
----
-
-## Stack & Kiến trúc
-
-Monorepo với **pnpm workspaces + Turborepo**:
-
-```
-apps/
-  backend/     — NestJS 11 + TypeORM + PostgreSQL/PostGIS
-  frontend/    — Next.js 16 (App Router) + Tailwind CSS + React Leaflet
-  data/        — seed data JSON
-packages/
-  shared-types/ — enums + OpenAPI-generated API types & SDK
-docker/        — local Postgres init scripts
-```
-
-Triển khai trên **Railway** với 3 environments: `production`, `staging`, và
-ephemeral `pr` (tự tạo khi mở PR).
-
----
+Quy trình đóng góp cho project: branching, commit, PR, test, deploy. Setup nhanh + kiến trúc → xem [README](README.md).
 
 ## Yêu cầu môi trường
 
-- **Node.js** ≥ 20.9 (xem `package.json#engines`)
-- **pnpm** 10.33+ (kích hoạt qua `corepack enable`)
-- **Docker** + **Docker Compose** (cho PostgreSQL + PostGIS local)
-- **Git** ≥ 2.40
+- Node.js ≥ 20.9 (theo `package.json#engines`)
+- pnpm 10.33+ (`corepack enable`)
+- Docker + Docker Compose (Postgres/PostGIS + Redis local)
+- Git ≥ 2.40
 
----
-
-## Khởi chạy local
-
-```bash
-# 1. Clone & cài deps
-git clone https://github.com/dhuy21/AirConnect_Hanoi.git
-cd AirConnect_Hanoi
-corepack enable
-pnpm install
-
-# 2. Setup env
-cp .env.example .env
-# -> chỉnh POSTGRES_PASSWORD, JWT_SECRET (tối thiểu 32 ký tự random)
-
-# 3. Chạy Postgres + PostGIS + Redis (Docker)
-pnpm db:up          # starts postgis + redis services
-
-# 4. Apply migrations (creates PostGIS extension + all tables)
-pnpm db:migrate
-
-# 5. Seed dữ liệu
-pnpm db:seed          # idempotent — safe to re-run, keeps existing rows
-# hoặc: pnpm db:seed:reset   # truncate + re-seed (dev/demo only)
-
-# 6. Chạy dev (cả FE + BE song song qua Turborepo)
-pnpm dev
-```
-
-> Redis không bắt buộc ở local — nếu bạn `unset REDIS_URL`, throttler sẽ
-> tự fallback in-memory (single-process only). Nhưng staging/production
-> **bắt buộc** phải có Redis vì backend scale horizontal.
-
-- Backend: http://localhost:3001 (Swagger: `/api/docs`)
-- Frontend: http://localhost:3000
-
-### Database workflows
+## Database workflows
 
 | Command | Description |
 |---|---|
-| `pnpm db:up` / `pnpm db:down` | Start / stop the local Postgres container |
+| `pnpm db:up` / `db:down` | Start/stop the local Postgres + Redis container |
 | `pnpm db:migrate` | Apply pending TypeORM migrations |
-| `pnpm db:migrate:show` | List applied vs pending migrations |
-| `pnpm db:migrate:revert` | Revert the last applied migration |
-| `pnpm db:seed` | Idempotent seed (insert-if-missing, safe to re-run) |
-| `pnpm db:seed:reset` | Truncate seeded tables then re-seed (destructive) |
-| `pnpm db:reset` | Drop + migrate + reseed (full local reset) |
+| `pnpm db:migrate:show` | List applied vs pending |
+| `pnpm db:migrate:revert` | Revert the last migration |
+| `pnpm db:seed` | Idempotent seed (safe to re-run) |
+| `pnpm db:seed:reset` | Truncate seeded tables + re-seed (destructive) |
+| `pnpm db:reset` | Drop + migrate + re-seed (full local reset) |
 
-### Creating a new migration
+Redis không bắt buộc ở local: nếu `REDIS_URL` không set, throttler fallback in-memory (single-process). Staging/production **bắt buộc** có Redis vì backend scale horizontal.
 
-After changing one or more entities:
+### New migration after entity change
 
 ```bash
-# 1. Rebuild so the CLI compares current entities against the live DB
 pnpm --filter @airconnect/backend build
-
-# 2. Generate the migration (picks a name describing the change)
-pnpm --filter @airconnect/backend migration:generate \
-  src/migrations/AddWhateverColumn
-
-# 3. Review the generated file carefully (delete noise, edit data fixes)
-# 4. Apply locally:
+pnpm --filter @airconnect/backend migration:generate src/migrations/<Name>
+# Review the generated file, then:
 pnpm db:migrate
-
-# 5. Commit the migration file alongside the entity change.
 ```
 
-**Never** edit an already-applied migration. Create a new one on top.
+Không sửa migration đã apply. Luôn tạo migration mới on top.
 
 ### Seeding a remote Railway environment
 
-Seeding (or destructively resetting) a remote environment is a **manual**,
-auditable operation — never part of automated deploys.
+Seed remote là việc **manual** (không nằm trong pipeline). Railway databases expose 2 URL:
 
-**Important — internal vs public database URLs:**
-
-Railway databases expose two connection strings:
-
-| Variable | Hostname pattern | Reachable from |
+| Service | Hostname | Reachable from |
 |---|---|---|
-| `DATABASE_URL` on **Backend Server** service | `*.railway.internal` | Only services running inside Railway |
-| `DATABASE_URL` on the **database** service (e.g. `PostGIS`) | `*.proxy.rlwy.net` | Anywhere (public proxy, SSL) |
+| `DATABASE_URL` on the Backend service | `*.railway.internal` | Inside Railway only |
+| `DATABASE_URL` on the **database** service (PostGIS) | `*.proxy.rlwy.net` | Anywhere (SSL public proxy) |
 
-`railway run --service <svc>` copies `<svc>`'s env vars to your local shell.
-If you target the Backend service, you will get an internal hostname that
-your laptop cannot resolve (`ENOTFOUND *.railway.internal`). **Always target
-the database service** for one-off admin tasks run from your machine.
-
-Helper scripts (already wired up):
+Luôn target service **PostGIS** khi chạy từ laptop, nếu không sẽ `ENOTFOUND *.railway.internal`:
 
 ```bash
-pnpm railway:seed:staging          # idempotent seed against staging DB
-pnpm railway:seed:staging:reset    # truncate + re-seed staging DB
+pnpm railway:seed:staging          # idempotent
+pnpm railway:seed:staging:reset    # truncate + re-seed
 ```
 
-Under the hood they execute:
+Production có thêm `--allow-production` guard trong seed script — chỉ dùng cho lần bootstrap đầu tiên trên DB trống.
 
-```bash
-railway run --service PostGIS --environment staging \
-  pnpm --filter @airconnect/backend seed [-- --reset]
-```
-
-Production is additionally protected by a `--allow-production` guard inside
-the seed script; this flag should only ever be passed for the first-time
-bootstrap of a freshly-provisioned empty database.
-
----
-
-## Branching strategy
+## Branching
 
 ```
-main            → production (auto-deploy trên Railway)
-staging         → staging env (auto-deploy)
-feat/<slug>     → feature branches (merge vào staging qua PR)
-fix/<slug>      → bug fix branches
-chore/<slug>    → infra / CI / build
-docs/<slug>     → chỉ đổi documentation
+main            → production  (auto-deploy)
+staging         → staging     (auto-deploy)
+feat|fix|chore|docs/<slug>    → merged into staging via PR
 ```
 
-**Nguyên tắc:**
-
-- `main` và `staging` **protected**, KHÔNG push trực tiếp.
-- Mọi thay đổi đi qua PR → merge vào `staging` → verify → PR từ `staging`
-  vào `main`.
-- Khi mở PR, Railway tự tạo **PR Preview Environment** để reviewer test.
-
----
+`main` và `staging` protected, chỉ vào được qua PR. Mở PR → Railway tự tạo một `pr-*` preview environment.
 
 ## Commit convention
 
-Dùng [Conventional Commits](https://www.conventionalcommits.org/):
-
-```
-<type>(<scope>): <subject>
-
-<body optional>
-
-<footer optional>
-```
+[Conventional Commits](https://www.conventionalcommits.org/): `<type>(<scope>): <subject>`
 
 **Type**: `feat` · `fix` · `refactor` · `perf` · `docs` · `test` · `chore` · `ci` · `build` · `style`
-
-**Scope (optional)**: `backend`, `frontend`, `db`, `infra`, `ci`, `deps`…
-
-Ví dụ:
 
 ```
 feat(backend): add geospatial search for schools
@@ -198,93 +74,64 @@ fix(frontend): correct map popup positioning on mobile
 chore(infra): add railway.toml config-as-code
 ```
 
----
-
 ## Pull Request flow
 
-1. Tạo branch từ `staging`: `git checkout -b feat/my-feature staging`
-2. Code + test local.
-3. Push → mở PR vào `staging`.
-4. PR template sẽ auto-fill — điền đầy đủ checklist.
-5. Đợi CI pass (lint + typecheck + test + build) — sẽ có ở Phase 3.
-6. Đợi Railway PR Preview deploy — verify trên URL preview.
-7. Request review từ `@dhuy21` (CODEOWNERS tự động).
-8. Merge squash (giữ history clean).
-9. Branch tự xoá sau merge (Railway cũng auto-cleanup PR env).
-
----
+1. Branch from `staging`: `git checkout -b feat/my-feature staging`.
+2. Code + local typecheck/lint/build.
+3. Push → PR into `staging`. Fill the PR template.
+4. CI must pass (lint, typecheck, build, test, openapi-drift, CodeQL, gitleaks).
+5. Verify on the Railway `pr-*` preview URL.
+6. Review is auto-requested (see `.github/CODEOWNERS`).
+7. Squash-merge. Branch + PR env auto-clean up.
 
 ## Shared types & API contract
 
-Backend và frontend chia sẻ types qua `packages/shared-types`. Khi bạn sửa
-DTO, entity, hoặc thêm endpoint mới trên backend, phải regenerate contract:
+Backend và frontend share types qua `packages/shared-types`. Khi sửa DTO/entity/thêm endpoint:
 
 ```bash
-# Cần docker db đang chạy (pnpm db:up) vì script boot NestJS thật
+pnpm db:up                         # script boots the real NestJS app
 pnpm openapi:codegen
 git add packages/shared-types/openapi.json packages/shared-types/src/generated
 ```
 
 Rules:
 
-- Mỗi endpoint public phải có `@ApiOkResponse({ type: XxxResponseDto })` (hoặc
-  `type: [XxxResponseDto]` cho array). Không annotate → type là `unknown`
-  ở FE.
-- Frontend gọi endpoint qua SDK đã generate: `import { authControllerLoginStudent } from '@/lib/api-client'`.
-  Không dùng `fetch()` raw.
-- Enum mới phải khai báo trong `packages/shared-types/src/enums.ts` đầu tiên,
-  rồi `export * from '@airconnect/shared-types/enums'` ở backend.
+- Mỗi endpoint public phải có `@ApiOkResponse({ type: XxxResponseDto })` (hoặc `type: [XxxResponseDto]`). Không annotate → FE nhận `unknown`.
+- FE gọi endpoint qua SDK generated: `import { authControllerLoginStudent } from '@/lib/api-client'`. Không dùng `fetch()` raw.
+- Enum mới khai báo trong `packages/shared-types/src/enums.ts` trước; backend re-export.
 
-CI chạy `pnpm openapi:codegen` và fail PR nếu contract committed khác với
-kết quả regenerate. Chi tiết ADR: [`docs/adr/0001-shared-types-from-openapi.md`](docs/adr/0001-shared-types-from-openapi.md).
-
----
+CI job `openapi-drift` sẽ fail PR nếu spec committed khác output regenerate. Chi tiết: [`docs/adr/0001-shared-types-from-openapi.md`](docs/adr/0001-shared-types-from-openapi.md).
 
 ## Testing
 
-> Phase 6 sẽ bổ sung test suite đầy đủ. Hiện tại:
-
 ```bash
-pnpm lint              # ESLint toàn repo
-pnpm --filter @airconnect/backend test      # Jest unit (backend)
-pnpm --filter @airconnect/backend test:e2e  # E2E
+pnpm lint
+pnpm typecheck
+pnpm --filter @airconnect/backend test       # Jest unit
+pnpm --filter @airconnect/backend test:e2e   # E2E
 ```
 
-Target coverage khi Phase 6 hoàn thành: **≥ 60% critical modules**.
-
----
+Target khi Phase 6 hoàn thành: **≥ 60% critical modules**.
 
 ## Deployment (Railway)
 
-- Merge vào `staging` → auto-deploy lên env `staging`.
-- Merge vào `main` → auto-deploy lên env `production`.
-- Config per-service được quản lý qua `apps/<service>/railway.toml`
-  (config-as-code, versioned trong git).
-- Secrets / env variables quản lý qua Railway Service Variables (không commit).
+- Merge vào `staging` → env `staging` redeploy.
+- Merge vào `main` → env `production` redeploy.
+- Config per-service: `apps/<name>/railway.toml` (config-as-code, versioned).
+- Secrets qua Railway Service Variables, không commit.
 
-### Provisioning Redis trên Railway
+### Provisioning Redis per environment
 
-Mỗi environment (`staging`, `production`) cần một service Redis riêng:
+Mỗi env (`staging`, `production`) cần một service Redis riêng:
 
-1. Project canvas → **+ New** → **Database** → **Redis** (template chính chủ).
-2. Khi service Redis đã up, vào Backend Server → **Variables** → **Add
-   Variable Reference** → chọn `${{Redis.REDIS_URL}}`. Railway sẽ tự
-   inject biến `REDIS_URL` (nội bộ, `*.railway.internal`).
-3. Lặp lại ở environment còn lại.
+1. Project canvas → **+ New** → **Database** → **Redis**.
+2. Backend Server → **Variables** → **Add Variable Reference** → `${{Redis.REDIS_URL}}`.
+3. Lặp lại cho env còn lại.
 
-Không cần commit URL: Railway quản lý credential rotation giúp.
+## Bug reports / feature requests
 
-Chi tiết setup Railway: xem `docs/DEPLOYMENT.md` (sẽ được thêm ở Phase 6).
-
----
-
-## Báo cáo bug / đề xuất feature
-
-- Dùng [GitHub Issues](https://github.com/dhuy21/AirConnect_Hanoi/issues).
-- Kèm screenshot / reproduction steps / environment info.
-
----
+[GitHub Issues](https://github.com/dhuy21/AirConnect_Hanoi/issues) — kèm screenshot / repro steps / env info.
 
 ## License
 
-Project này dùng license MIT (xem `LICENSE` — thêm ở Phase 6).
+MIT (sẽ thêm file `LICENSE` ở Phase 6).
