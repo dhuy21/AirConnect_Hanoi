@@ -10,9 +10,7 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   output: 'standalone',
-  // pnpm monorepo: tell Next to trace from the repo root so `output: 'standalone'`
-  // bundles workspace packages (e.g. @airconnect/shared-types) living outside
-  // apps/frontend. Without this, Next warns and may ship an incomplete server.
+  // Trace from repo root so standalone output includes workspace packages.
   outputFileTracingRoot: path.join(__dirname, '../../'),
   images: {
     remotePatterns: [

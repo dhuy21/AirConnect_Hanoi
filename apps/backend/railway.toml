@@ -1,25 +1,10 @@
-# =====================================================================
-# Railway Config-as-Code — Backend (NestJS API)
-# =====================================================================
+# Backend (NestJS) — Railway Config-as-Code.
 # Docs: https://docs.railway.com/reference/config-as-code
-#
-# Setup trên Railway (một lần duy nhất cho mỗi service):
-#   Service Settings -> "Config-as-code File Path" -> apps/backend/railway.toml
-#
-# Ưu tiên áp dụng (cao -> thấp):
-#   1. [environments.<name>] override trong file này
-#   2. Base config trong file này
-#   3. Service settings ở dashboard (bị override nếu trùng key)
-# =====================================================================
 
 [build]
 builder = "RAILPACK"
-# Turbo's topological filter (`...` suffix) builds workspace deps first
-# (e.g. @airconnect/shared-types via `dependsOn: ["^build"]` in turbo.json),
-# then the backend. Without this the backend compilation fails because
-# shared-types is only exported from its `dist/` output.
+# `...` filter = include workspace deps → shared-types builds before backend.
 buildCommand = "corepack enable && pnpm install --frozen-lockfile && pnpm exec turbo run build --filter=@airconnect/backend..."
-# Chỉ trigger build khi backend hoặc shared deps đổi (monorepo focused rebuild)
 watchPatterns = [
   "apps/backend/**",
   "packages/**",
@@ -30,39 +15,23 @@ watchPatterns = [
 ]
 
 [deploy]
-# CWD at runtime = repo root (shared monorepo, no Root Directory set).
 startCommand = "node apps/backend/dist/main"
 healthcheckPath = "/api/health"
 healthcheckTimeout = 120
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 5
-# Zero-downtime deploy tuning.
 overlapSeconds = 30
 drainingSeconds = 15
-
-# Database migrations (TypeORM) are applied by the pre-deploy command.
-# Railway guarantees it runs exactly once per deployment, BEFORE the new
-# container starts serving traffic, so multiple replicas never race on
-# schema changes. The script uses compiled JS to avoid shipping ts-node
-# to production images (see apps/backend/package.json).
+# Runs once per deploy, before the new container serves traffic → no replica race.
 preDeployCommand = ["pnpm --filter @airconnect/backend migration:run:prod"]
 
-# ---------------------------------------------------------------------
-# Production-specific overrides
-# ---------------------------------------------------------------------
 [environments.production.deploy]
 restartPolicyType = "ALWAYS"
 restartPolicyMaxRetries = 10
 
-# ---------------------------------------------------------------------
-# Staging-specific overrides (tiết kiệm resource)
-# ---------------------------------------------------------------------
 [environments.staging.deploy]
 restartPolicyType = "ON_FAILURE"
 
-# ---------------------------------------------------------------------
-# PR ephemeral environments (tự động dùng cho mọi PR)
-# ---------------------------------------------------------------------
 [environments.pr.deploy]
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 2

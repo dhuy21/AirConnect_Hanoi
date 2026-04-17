@@ -20,6 +20,13 @@ node_modules/
 # pnpm store
 .pnpm-store/
 
+# pnpm workspace: only the root pnpm-lock.yaml is authoritative.
+# Reject stray npm/yarn lockfiles left over from pre-monorepo history.
+apps/*/package-lock.json
+apps/*/yarn.lock
+packages/*/package-lock.json
+packages/*/yarn.lock
+
 # Logs
 *.log
 npm-debug.log*

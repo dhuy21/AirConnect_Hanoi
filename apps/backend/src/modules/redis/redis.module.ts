@@ -9,21 +9,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import Redis from 'ioredis';
 import { REDIS_CLIENT } from './redis.constants';
 
-/**
- * Global Redis module.
- *
- * Exposes a singleton `ioredis` client under the REDIS_CLIENT token. If
- * REDIS_URL is not configured (typical local dev without Docker), the
- * provider resolves to `null`; downstream code must handle both cases.
- *
- * Connection options:
- *   - `lazyConnect: false`: fail fast on boot when REDIS_URL IS set
- *     (staging / production) instead of on first command.
- *   - bounded retry strategy (exponential back-off, cap 2s) to avoid
- *     hot-looping on transient network blips.
- *   - `maxRetriesPerRequest: null`: required by throttler-storage-redis
- *     because its pipelined commands do not tolerate per-request caps.
- */
+// Global ioredis client under REDIS_CLIENT; resolves to `null` when REDIS_URL
+// is not set (local dev without Docker). `maxRetriesPerRequest: null` is
+// required by throttler-storage-redis; other options = fail-fast + capped retry.
 @Global()
 @Module({
   imports: [ConfigModule],

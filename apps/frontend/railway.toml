@@ -1,21 +1,10 @@
-# =====================================================================
-# Railway Config-as-Code — Frontend (Next.js)
-# =====================================================================
+# Frontend (Next.js standalone) — Railway Config-as-Code.
 # Docs: https://docs.railway.com/reference/config-as-code
-#
-# Setup trên Railway (một lần duy nhất cho service Frontend):
-#   Service Settings -> "Config-as-code File Path" -> apps/frontend/railway.toml
-#
-# Next.js dùng `output: "standalone"` (xem next.config.ts).
-# Build emit ra: apps/frontend/.next/standalone/apps/frontend/server.js
-# Static assets & public/ phải được copy vào thư mục standalone để server.js
-# serve được. Đây là convention chuẩn của Next standalone trong monorepo.
-# =====================================================================
 
 [build]
 builder = "RAILPACK"
-# Topological filter builds @airconnect/shared-types before the frontend
-# (required since the generated API SDK is consumed from shared-types/dist).
+# `...` filter builds @airconnect/shared-types first (workspace dep).
+# cp steps: Next standalone doesn't copy `.next/static` or `public/` itself.
 buildCommand = """
 corepack enable && \
 pnpm install --frozen-lockfile && \
@@ -33,8 +22,7 @@ watchPatterns = [
 ]
 
 [deploy]
-# HOSTNAME phải = 0.0.0.0 (set ở Service Variables trên Railway).
-# PORT để Railway inject — KHÔNG hardcode ở đây hay Variables.
+# HOSTNAME=0.0.0.0 set via Service Variables; PORT injected by Railway.
 startCommand = "node apps/frontend/.next/standalone/apps/frontend/server.js"
 healthcheckPath = "/"
 healthcheckTimeout = 120
