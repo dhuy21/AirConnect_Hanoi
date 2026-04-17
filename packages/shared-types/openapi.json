@@ -25,6 +25,16 @@
                 }
               }
             }
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponseDto"
+                }
+              }
+            }
           }
         },
         "summary": "Student login",
@@ -49,6 +59,16 @@
         },
         "responses": {
           "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponseDto"
+                }
+              }
+            }
+          },
+          "201": {
             "description": "",
             "content": {
               "application/json": {
@@ -89,6 +109,16 @@
                 }
               }
             }
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponseDto"
+                }
+              }
+            }
           }
         },
         "summary": "School login",
@@ -113,6 +143,16 @@
         },
         "responses": {
           "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponseDto"
+                }
+              }
+            }
+          },
+          "201": {
             "description": "",
             "content": {
               "application/json": {
@@ -219,7 +259,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Student"
+                  }
+                }
+              }
+            }
           }
         },
         "security": [
@@ -248,7 +298,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Student"
+                  }
+                }
+              }
+            }
           }
         },
         "security": [
@@ -277,7 +337,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -306,7 +373,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AirQuality"
+                  }
+                }
+              }
+            }
           }
         },
         "summary": "Get all air quality measurements",
@@ -328,8 +405,25 @@
           }
         },
         "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AirQuality"
+                }
+              }
+            }
+          },
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AirQuality"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -358,7 +452,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AirQuality"
+                }
+              }
+            }
           }
         },
         "summary": "Get latest air quality for a school",
@@ -373,7 +474,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Post"
+                  }
+                }
+              }
+            }
           }
         },
         "summary": "Get all posts",
@@ -395,8 +506,15 @@
           }
         },
         "responses": {
-          "201": {
-            "description": ""
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -425,7 +543,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Post"
+                  }
+                }
+              }
+            }
           }
         },
         "summary": "Get posts by school",
@@ -449,7 +577,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              }
+            }
           }
         },
         "summary": "Get post by ID",
@@ -473,7 +608,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Submission"
+                  }
+                }
+              }
+            }
           }
         },
         "security": [
@@ -500,8 +645,25 @@
           }
         },
         "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Submission"
+                }
+              }
+            }
+          },
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Submission"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -530,7 +692,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Submission"
+                  }
+                }
+              }
+            }
           }
         },
         "security": [
@@ -559,7 +731,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Review"
+                  }
+                }
+              }
+            }
           }
         },
         "security": [
@@ -588,8 +770,25 @@
           }
         },
         "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Review"
+                }
+              }
+            }
+          },
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Review"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -618,8 +817,25 @@
           }
         },
         "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Feedback"
+                }
+              }
+            }
+          },
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Feedback"
+                }
+              }
+            }
           }
         },
         "summary": "Create feedback (public)",
@@ -649,7 +865,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Feedback"
+                  }
+                }
+              }
+            }
           }
         },
         "security": [
@@ -669,7 +895,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Feedback"
+                  }
+                }
+              }
+            }
           }
         },
         "security": [
@@ -698,7 +934,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Feedback"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -725,7 +968,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Feedback"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -754,7 +1004,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Feedback"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -774,7 +1031,14 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatsResponseDto"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -804,7 +1068,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Help"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -833,7 +1104,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Help"
+                  }
+                }
+              }
+            }
           }
         },
         "security": [
@@ -880,7 +1161,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Help"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -900,7 +1188,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Solution"
+                  }
+                }
+              }
+            }
           }
         },
         "summary": "Get all solutions",
@@ -923,7 +1221,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Solution"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -952,7 +1257,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Solution"
+                }
+              }
+            }
           }
         },
         "summary": "Get solution by ID",
@@ -984,7 +1296,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Solution"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -1013,7 +1332,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Rating"
+                  }
+                }
+              }
+            }
           }
         },
         "summary": "Get ratings for a post",
@@ -1062,7 +1391,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Rating"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -1092,7 +1428,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Apply"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -1121,7 +1464,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Apply"
+                  }
+                }
+              }
+            }
           }
         },
         "security": [
@@ -1150,7 +1503,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Apply"
+                  }
+                }
+              }
+            }
           }
         },
         "security": [
@@ -1379,12 +1742,12 @@
             "type": "number"
           },
           "role": {
-            "type": "string",
             "enum": [
               "student",
               "admin",
               "school"
-            ]
+            ],
+            "type": "string"
           },
           "email": {
             "type": "string"
@@ -1490,13 +1853,13 @@
             "type": "number"
           },
           "type": {
-            "type": "string",
             "enum": [
               "primary",
               "secondary",
               "high_school",
               "university"
-            ]
+            ],
+            "type": "string"
           },
           "name": {
             "type": "string"
@@ -1551,14 +1914,625 @@
           "type",
           "name",
           "address",
+          "district",
           "latitude",
           "longitude",
+          "situation",
+          "email",
+          "phone",
           "score_1",
           "score_2",
           "score_3",
           "score_4",
           "score_5",
           "created_at"
+        ]
+      },
+      "Post": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "case_study",
+              "best_practice",
+              "research",
+              "news",
+              "guide",
+              "other"
+            ],
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "published_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "school_id": {
+            "type": "number"
+          },
+          "school": {
+            "$ref": "#/components/schemas/School"
+          },
+          "ratings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Rating"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "type",
+          "description",
+          "image",
+          "content",
+          "published_at",
+          "school_id",
+          "school",
+          "ratings"
+        ]
+      },
+      "Rating": {
+        "type": "object",
+        "properties": {
+          "post_id": {
+            "type": "number"
+          },
+          "student_id": {
+            "type": "number"
+          },
+          "rate": {
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "type": "string"
+          },
+          "rated_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "post": {
+            "$ref": "#/components/schemas/Post"
+          },
+          "student": {
+            "$ref": "#/components/schemas/Student"
+          }
+        },
+        "required": [
+          "post_id",
+          "student_id",
+          "rate",
+          "rated_at",
+          "post",
+          "student"
+        ]
+      },
+      "Student": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "sex": {
+            "enum": [
+              "male",
+              "female"
+            ],
+            "type": "string"
+          },
+          "birth_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "health_status": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "school_id": {
+            "type": "number"
+          },
+          "school": {
+            "$ref": "#/components/schemas/School"
+          },
+          "ratings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Rating"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "first_name",
+          "last_name",
+          "sex",
+          "birth_date",
+          "email",
+          "phone",
+          "health_status",
+          "password",
+          "created_at",
+          "school_id",
+          "school",
+          "ratings"
+        ]
+      },
+      "Admin": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "super",
+              "normal"
+            ]
+          },
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "reviews": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Review"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "username",
+          "password",
+          "phone",
+          "email",
+          "created_at",
+          "reviews"
+        ]
+      },
+      "Review": {
+        "type": "object",
+        "properties": {
+          "submission_id": {
+            "type": "number"
+          },
+          "admin_id": {
+            "type": "number"
+          },
+          "decision": {
+            "enum": [
+              "pending",
+              "accepted",
+              "rejected",
+              "other"
+            ],
+            "type": "string"
+          },
+          "date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "admin": {
+            "$ref": "#/components/schemas/Admin"
+          },
+          "submission": {
+            "$ref": "#/components/schemas/Submission"
+          }
+        },
+        "required": [
+          "submission_id",
+          "admin_id",
+          "decision",
+          "date",
+          "note",
+          "admin",
+          "submission"
+        ]
+      },
+      "Submission": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "type": {
+            "enum": [
+              "request",
+              "offer",
+              "other"
+            ],
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "from_school_id": {
+            "type": "number"
+          },
+          "school": {
+            "$ref": "#/components/schemas/School"
+          },
+          "reviews": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Review"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "content",
+          "created_at",
+          "from_school_id",
+          "school",
+          "reviews"
+        ]
+      },
+      "Solution": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "type": {
+            "enum": [
+              "improving_facilities",
+              "research_and_development",
+              "other"
+            ],
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "normal",
+              "important",
+              "critical",
+              "other"
+            ],
+            "type": "string"
+          },
+          "applies": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Apply"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "content",
+          "note",
+          "created_at",
+          "status",
+          "applies"
+        ]
+      },
+      "Apply": {
+        "type": "object",
+        "properties": {
+          "solution_id": {
+            "type": "number"
+          },
+          "air_quality_id": {
+            "type": "number"
+          },
+          "applied_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "solution": {
+            "$ref": "#/components/schemas/Solution"
+          },
+          "air_quality": {
+            "$ref": "#/components/schemas/AirQuality"
+          }
+        },
+        "required": [
+          "solution_id",
+          "air_quality_id",
+          "applied_at",
+          "solution",
+          "air_quality"
+        ]
+      },
+      "AirQuality": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "aqi": {
+            "type": "number"
+          },
+          "pm25": {
+            "type": "number"
+          },
+          "pm10": {
+            "type": "number"
+          },
+          "co2": {
+            "type": "number"
+          },
+          "temp": {
+            "type": "number"
+          },
+          "humidity": {
+            "type": "number"
+          },
+          "wind_speed": {
+            "type": "number"
+          },
+          "measured_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "school_id": {
+            "type": "number"
+          },
+          "school": {
+            "$ref": "#/components/schemas/School"
+          },
+          "applies": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Apply"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "aqi",
+          "pm25",
+          "pm10",
+          "co2",
+          "temp",
+          "humidity",
+          "wind_speed",
+          "measured_at",
+          "school_id",
+          "school",
+          "applies"
+        ]
+      },
+      "Help": {
+        "type": "object",
+        "properties": {
+          "from_school_id": {
+            "type": "number"
+          },
+          "to_school_id": {
+            "type": "number"
+          },
+          "type": {
+            "enum": [
+              "request",
+              "offer",
+              "other"
+            ],
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "pending",
+              "accepted",
+              "rejected",
+              "other"
+            ],
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "from_school": {
+            "$ref": "#/components/schemas/School"
+          },
+          "to_school": {
+            "$ref": "#/components/schemas/School"
+          }
+        },
+        "required": [
+          "from_school_id",
+          "to_school_id",
+          "type",
+          "content",
+          "status",
+          "created_at",
+          "from_school",
+          "to_school"
+        ]
+      },
+      "School": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "primary",
+              "secondary",
+              "high_school",
+              "university"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "location": {
+            "type": "object"
+          },
+          "address": {
+            "type": "string"
+          },
+          "district": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "situation": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "score_1": {
+            "type": "number"
+          },
+          "score_2": {
+            "type": "number"
+          },
+          "score_3": {
+            "type": "number"
+          },
+          "score_4": {
+            "type": "number"
+          },
+          "score_5": {
+            "type": "number"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "students": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Student"
+            }
+          },
+          "submissions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Submission"
+            }
+          },
+          "posts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Post"
+            }
+          },
+          "air_qualities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AirQuality"
+            }
+          },
+          "helps_from": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Help"
+            }
+          },
+          "helps_to": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Help"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "name",
+          "location",
+          "address",
+          "district",
+          "password",
+          "situation",
+          "email",
+          "phone",
+          "score_1",
+          "score_2",
+          "score_3",
+          "score_4",
+          "score_5",
+          "created_at",
+          "students",
+          "submissions",
+          "posts",
+          "air_qualities",
+          "helps_from",
+          "helps_to"
         ]
       },
       "CreateAirQualityDto": {
@@ -1638,27 +2612,7 @@
       },
       "CreateSubmissionDto": {
         "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "enum": [
-              "request",
-              "offer",
-              "other"
-            ]
-          },
-          "content": {
-            "type": "string"
-          },
-          "from_school_id": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "type",
-          "content",
-          "from_school_id"
-        ]
+        "properties": {}
       },
       "CreateReviewDto": {
         "type": "object",
@@ -1711,6 +2665,77 @@
           "email",
           "subject",
           "message"
+        ]
+      },
+      "Feedback": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "full_name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "is_read": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "full_name",
+          "email",
+          "subject",
+          "message",
+          "phone",
+          "is_read",
+          "created_at"
+        ]
+      },
+      "StatsResponseDto": {
+        "type": "object",
+        "properties": {
+          "total_schools": {
+            "type": "number"
+          },
+          "total_students": {
+            "type": "number"
+          },
+          "total_submissions": {
+            "type": "number"
+          },
+          "pending_reviews": {
+            "type": "number"
+          },
+          "approved_submissions": {
+            "type": "number"
+          },
+          "rejected_submissions": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "total_schools",
+          "total_students",
+          "total_submissions",
+          "pending_reviews",
+          "approved_submissions",
+          "rejected_submissions"
         ]
       },
       "CreateHelpDto": {

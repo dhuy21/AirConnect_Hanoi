@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import { apiFetch } from '@/lib/api';
-import { PostData } from '@/lib/types';
+import { postControllerGetAll } from '@/lib/api-client';
+import type { Post } from '@airconnect/shared-types/api';
 
 const typeMap: Record<string, { label: string; color: string }> = {
   case_study: { label: 'Case Study', color: 'bg-green-100 text-green-800' },
@@ -14,13 +14,16 @@ const typeMap: Record<string, { label: string; color: string }> = {
 };
 
 export default function ResourcesPage() {
-  const [posts, setPosts] = useState<PostData[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedType, setSelectedType] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    apiFetch<PostData[]>('/api/posts/').then(setPosts).catch(console.error).finally(() => setLoading(false));
+    postControllerGetAll()
+      .then(({ data }) => setPosts(data ?? []))
+      .catch(console.error)
+      .finally(() => setLoading(false));
   }, []);
 
   const filtered = useMemo(() => {

@@ -4,8 +4,15 @@ import { useEffect, useState } from 'react';
 import { LayoutDashboard, Map, MessageSquare, BookOpen, Settings, Check, X } from 'lucide-react';
 import { Users, School, FileText, TrendingUp } from 'lucide-react';
 import DashboardSidebar from '@/components/layout/DashboardSidebar';
-import { apiFetch } from '@/lib/api';
-import { StatsData, SubmissionData } from '@/lib/types';
+import {
+  reviewControllerCreate,
+  statsControllerGetStats,
+  submissionControllerGetAll,
+} from '@/lib/api-client';
+import type {
+  StatsResponseDto,
+  Submission,
+} from '@airconnect/shared-types/api';
 import { ROUTES } from '@/lib/routes';
 import { AUTH_KEYS } from '@/lib/auth';
 
@@ -17,14 +24,14 @@ const sidebarItems = [
   { icon: Settings, label: 'Settings', href: ROUTES.DASHBOARD_ADMIN },
 ];
 
-const defaultStats: StatsData = {
+const defaultStats: StatsResponseDto = {
   total_schools: 0, total_students: 0, total_submissions: 0,
   pending_reviews: 0, approved_submissions: 0, rejected_submissions: 0,
 };
 
 export default function AdminDashboard() {
-  const [stats, setStats] = useState<StatsData>(defaultStats);
-  const [submissions, setSubmissions] = useState<SubmissionData[]>([]);
+  const [stats, setStats] = useState<StatsResponseDto>(defaultStats);
+  const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [loading, setLoading] = useState(true);
   const [userName, setUserName] = useState('Admin');
   const [reviewingId, setReviewingId] = useState<number | null>(null);
@@ -33,12 +40,19 @@ export default function AdminDashboard() {
 
   const fetchData = () => {
     Promise.all([
-      apiFetch<StatsData>('/api/stats/').catch(() => null),
-      apiFetch<SubmissionData[]>('/api/submissions/?limit=20').catch(() => []),
-    ]).then(([s, sub]) => {
-      if (s) setStats(s);
-      setSubmissions(sub || []);
-    }).catch(console.error).finally(() => setLoading(false));
+      statsControllerGetStats()
+        .then(({ data }) => data ?? null)
+        .catch(() => null),
+      submissionControllerGetAll({ query: { limit: 20 } })
+        .then(({ data }) => data ?? [])
+        .catch(() => []),
+    ])
+      .then(([s, sub]) => {
+        if (s) setStats(s);
+        setSubmissions(sub);
+      })
+      .catch(console.error)
+      .finally(() => setLoading(false));
   };
 
   useEffect(() => {
@@ -49,9 +63,8 @@ export default function AdminDashboard() {
   const handleReview = async (submissionId: number, decision: 'accepted' | 'rejected') => {
     setReviewLoading(true);
     try {
-      await apiFetch('/api/reviews/', {
-        method: 'POST',
-        body: JSON.stringify({ submission_id: submissionId, decision, note: reviewNote }),
+      await reviewControllerCreate({
+        body: { submission_id: submissionId, decision, note: reviewNote },
       });
       setReviewingId(null);
       setReviewNote('');

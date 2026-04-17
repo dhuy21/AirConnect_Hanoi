@@ -4,16 +4,24 @@ import { useEffect, useState } from 'react';
 import { ClipboardCheck, PieChart, Clock } from 'lucide-react';
 import DashboardSidebar from '@/components/layout/DashboardSidebar';
 import AirQualityCard from '@/components/ui/AirQualityCard';
-import { apiFetch } from '@/lib/api';
-import { SubmissionData, AirQualityData, ReviewData } from '@/lib/types';
+import {
+  airQualityControllerGetBySchool,
+  reviewControllerGetBySubmission,
+  submissionControllerGetBySchool,
+} from '@/lib/api-client';
+import type {
+  AirQuality,
+  Review,
+  Submission,
+} from '@airconnect/shared-types/api';
 import { AUTH_KEYS } from '@/lib/auth';
 import { schoolSidebarItems } from './sidebar-items';
 
 export default function SchoolDashboard() {
   const [schoolName, setSchoolName] = useState('School');
-  const [submissions, setSubmissions] = useState<SubmissionData[]>([]);
-  const [airQuality, setAirQuality] = useState<AirQualityData | null>(null);
-  const [reviews, setReviews] = useState<Record<number, ReviewData>>({});
+  const [submissions, setSubmissions] = useState<Submission[]>([]);
+  const [airQuality, setAirQuality] = useState<AirQuality | null>(null);
+  const [reviews, setReviews] = useState<Record<number, Review>>({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,25 +29,35 @@ export default function SchoolDashboard() {
     if (name) setSchoolName(name);
     const schoolId = localStorage.getItem(AUTH_KEYS.SCHOOL_ID);
     if (!schoolId) { setLoading(false); return; }
+    const id = parseInt(schoolId);
 
     Promise.all([
-      apiFetch<SubmissionData[]>(`/api/submissions/school/${schoolId}`).catch(() => []),
-      apiFetch<AirQualityData>(`/api/air-quality/school/${schoolId}`).catch(() => null),
-    ]).then(([subs, aq]) => {
-      setSubmissions(subs || []);
-      setAirQuality(aq);
-    }).catch(console.error).finally(() => setLoading(false));
+      submissionControllerGetBySchool({ path: { schoolId: id } })
+        .then(({ data }) => data ?? [])
+        .catch(() => []),
+      airQualityControllerGetBySchool({ path: { schoolId: id } })
+        .then(({ data }) => data ?? null)
+        .catch(() => null),
+    ])
+      .then(([subs, aq]) => {
+        setSubmissions(subs);
+        setAirQuality(aq);
+      })
+      .catch(console.error)
+      .finally(() => setLoading(false));
   }, []);
 
   useEffect(() => {
     if (submissions.length === 0) return;
     const fetchReviews = async () => {
       const results = await Promise.allSettled(
-        submissions.map(sub =>
-          apiFetch<ReviewData[]>(`/api/reviews/submission/${sub.id}`).then(d => ({ subId: sub.id, review: d[0] ?? null }))
-        )
+        submissions.map((sub) =>
+          reviewControllerGetBySubmission({
+            path: { submissionId: sub.id },
+          }).then(({ data }) => ({ subId: sub.id, review: data?.[0] ?? null })),
+        ),
       );
-      const map: Record<number, ReviewData> = {};
+      const map: Record<number, Review> = {};
       for (const result of results) {
         if (result.status === 'fulfilled' && result.value.review) {
           map[result.value.subId] = result.value.review;
