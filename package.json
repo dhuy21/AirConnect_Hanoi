@@ -28,7 +28,7 @@
     "railway:seed:staging:reset": "railway run --service PostGIS --environment staging pnpm --filter @airconnect/backend seed -- --reset"
   },
   "devDependencies": {
-    "turbo": "^2.4.0"
+    "turbo": "^2.9.14"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
