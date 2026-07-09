@@ -34,7 +34,7 @@
     "codegen:from-backend": "pnpm --filter @airconnect/backend openapi:export:build && pnpm run codegen && pnpm run build"
   },
   "devDependencies": {
-    "@hey-api/openapi-ts": "^0.87.5",
+    "@hey-api/openapi-ts": "^0.97.3",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"
   }
