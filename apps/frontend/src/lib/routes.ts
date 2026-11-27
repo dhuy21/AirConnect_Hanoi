@@ -11,14 +11,6 @@ export const ROUTES = {
   DASHBOARD_USER: '/dashboard/user',
 } as const;
 
-export const PUBLIC_PATHS = [
-  ROUTES.HOME,
-  ROUTES.AUTH,
-  ROUTES.MAP,
-  ROUTES.RESOURCES,
-  ROUTES.FEEDBACK,
-] as const;
-
 export const ROLE_DASHBOARD_MAP: Record<string, string> = {
   admin: ROUTES.DASHBOARD_ADMIN,
   school: ROUTES.DASHBOARD_SCHOOL,
