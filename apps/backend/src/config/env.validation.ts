@@ -10,8 +10,8 @@ import * as Joi from 'joi';
  *     actual production.
  *
  *   - APP_ENV is app-owned. It reflects the *business* environment and
- *     is what we gate destructive operations on (seed --allow-production,
- *     premium features, analytics dataset selection…). Allowed values
+ *     is what we gate destructive operations on (the seed refuses
+ *     production, premium features, analytics dataset selection…). Allowed values
  *     mirror our Railway environments: development | staging | production
  *     | preview (for PR environments).
  *
