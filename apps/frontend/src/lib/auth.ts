@@ -14,13 +14,29 @@ export const AUTH_KEYS = {
   SCHOOL_NAME: 'school_name',
 } as const;
 
+/** True while the token's `exp` claim is in the future. The API checks the signature. */
+const isTokenUnexpired = (token: string): boolean => {
+  try {
+    const payload = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+    const { exp } = JSON.parse(atob(payload)) as { exp?: number };
+    return typeof exp === 'number' && exp * 1000 > Date.now();
+  } catch {
+    return false;
+  }
+};
+
 export const isLoggedIn = (): boolean => {
   if (typeof window === 'undefined') return false;
-  return !!(
+  const token =
     localStorage.getItem(AUTH_KEYS.STUDENT_TOKEN) ||
     localStorage.getItem(AUTH_KEYS.ADMIN_TOKEN) ||
-    localStorage.getItem(AUTH_KEYS.SCHOOL_TOKEN)
-  );
+    localStorage.getItem(AUTH_KEYS.SCHOOL_TOKEN);
+  if (!token) return false;
+  if (!isTokenUnexpired(token)) {
+    clearAuthData();
+    return false;
+  }
+  return true;
 };
 
 export const getUserRole = (): 'student' | 'admin' | 'school' | null => {
@@ -44,12 +60,12 @@ export const storeAuthData = (data: AuthResponse): void => {
   if (data.name) localStorage.setItem(`${prefix}_name`, data.name);
   if (data.username) localStorage.setItem(`${prefix}_username`, data.username);
   if (data.school_id) localStorage.setItem(AUTH_KEYS.SCHOOL_ID, String(data.school_id));
-  document.cookie = `auth_token=${data.access_token}; path=/; max-age=${7 * 24 * 60 * 60}; SameSite=Lax`;
 };
 
 export const clearAuthData = (): void => {
   if (typeof window === 'undefined') return;
   Object.values(AUTH_KEYS).forEach(key => localStorage.removeItem(key));
+  // Remove the token copy that older versions kept in a JavaScript cookie.
   document.cookie = 'auth_token=; path=/; max-age=0';
 };
 

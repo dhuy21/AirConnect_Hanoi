@@ -23,7 +23,7 @@ import { School } from '../../entities/school.entity';
         return {
           secret,
           signOptions: {
-            expiresIn: configService.get<string>('JWT_EXPIRATION', '7d') as any,
+            expiresIn: configService.get<string>('JWT_EXPIRATION', '2h') as any,
           },
         };
       },

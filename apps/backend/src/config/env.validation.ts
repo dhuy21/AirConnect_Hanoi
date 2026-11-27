@@ -1,5 +1,7 @@
 import * as Joi from 'joi';
 
+const MAX_JWT_MINUTES = 12 * 60;
+
 /*
  * Two conceptually different environment signals coexist here:
  *
@@ -27,8 +29,18 @@ export const envValidationSchema = Joi.object({
   APP_ENV: Joi.string()
     .valid('development', 'staging', 'production', 'preview', 'test')
     .default('development'),
-  JWT_SECRET: Joi.string().min(8).required(),
-  JWT_EXPIRATION: Joi.string().default('7d'),
+  JWT_SECRET: Joi.string().min(32).required(),
+  // Access-token lifetime: "<n>m" or "<n>h", at most 12 hours (interim until
+  // refresh tokens, NFR-018). Longer values such as "7d" refuse to start.
+  JWT_EXPIRATION: Joi.string()
+    .pattern(/^[1-9]\d*[mh]$/)
+    .custom((value: string, helpers) => {
+      const minutes = value.endsWith('h')
+        ? parseInt(value, 10) * 60
+        : parseInt(value, 10);
+      return minutes <= MAX_JWT_MINUTES ? value : helpers.error('any.invalid');
+    })
+    .default('2h'),
   CORS_ORIGINS: Joi.string().default('http://localhost:3000'),
 
   // Public self-registration. Off by default: in the online demonstrator,
