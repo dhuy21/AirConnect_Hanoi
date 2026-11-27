@@ -31,6 +31,10 @@
  *     dev or freshly-provisioned environments.
  *   - Production is blocked by default. Pass `--allow-production` to
  *     override (for a first-time bootstrap only).
+ *   - No password is stored in the fixtures. Every admin, school and student
+ *     account created by this run gets its own random password, printed ONCE
+ *     at the end of a successful run and never written anywhere. Accounts
+ *     that already existed are skipped and keep their current password.
  * ============================================================================
  */
 import 'reflect-metadata';
@@ -38,6 +42,7 @@ import { DataSource } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import * as path from 'path';
 import * as fs from 'fs';
+import { randomBytes } from 'crypto';
 import * as dotenv from 'dotenv';
 
 import { Admin } from './entities/admin.entity';
@@ -92,6 +97,26 @@ function resolveDeploymentEnv(): string {
     process.env.NODE_ENV ??
     'development'
   );
+}
+
+/** 18 random bytes → 24 URL-safe characters. */
+function generatePassword(): string {
+  return randomBytes(18).toString('base64url');
+}
+
+type IssuedCredential = { kind: string; login: string; password: string };
+
+function printIssuedCredentials(issued: IssuedCredential[]): void {
+  if (issued.length === 0) {
+    console.log('[seed] No new account created; no password issued.');
+    return;
+  }
+  console.log(
+    `[seed] ${issued.length} new account(s). Passwords are shown ONCE and are not stored anywhere:`,
+  );
+  for (const c of issued) {
+    console.log(`[seed]   ${c.kind.padEnd(7)} ${c.login}  ${c.password}`);
+  }
 }
 
 function loadJson<T>(filename: string): T {
@@ -211,6 +236,7 @@ async function seed() {
   await qr.startTransaction();
 
   const q = qr.query.bind(qr);
+  const issued: IssuedCredential[] = [];
 
   try {
     if (flags.reset) {
@@ -240,13 +266,18 @@ async function seed() {
     // --------------------------------------------------------------------
     const admins = loadJson<Array<Record<string, unknown>>>('admins_data.json');
     for (const a of admins) {
-      const hash = await bcrypt.hash(a.password as string, BCRYPT_ROUNDS);
-      await q(
+      const password = generatePassword();
+      const hash = await bcrypt.hash(password, BCRYPT_ROUNDS);
+      const inserted = (await q(
         `INSERT INTO admins (id, type, username, password, phone, email, created_at)
          VALUES ($1,$2,$3,$4,$5,$6,$7)
-         ON CONFLICT (id) DO NOTHING`,
+         ON CONFLICT (id) DO NOTHING
+         RETURNING id`,
         [a.id, a.type, a.username, hash, a.phone, a.email, a.created_at],
-      );
+      )) as unknown[];
+      if (inserted.length > 0) {
+        issued.push({ kind: 'admin', login: a.email as string, password });
+      }
     }
     console.log(`[seed] Admins       : ${admins.length} rows processed`);
 
@@ -256,8 +287,9 @@ async function seed() {
     const schools =
       loadJson<Array<Record<string, unknown>>>('schools_data.json');
     for (const s of schools) {
-      const hash = await bcrypt.hash(s.password as string, BCRYPT_ROUNDS);
-      await q(
+      const password = generatePassword();
+      const hash = await bcrypt.hash(password, BCRYPT_ROUNDS);
+      const inserted = (await q(
         `INSERT INTO schools (
            id, type, name, location, address, district, password, situation,
            email, phone, score_1, score_2, score_3, score_4, score_5, created_at
@@ -266,7 +298,8 @@ async function seed() {
            $1, $2, $3, ST_SetSRID(ST_MakePoint($4, $5), 4326),
            $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17
          )
-         ON CONFLICT (id) DO NOTHING`,
+         ON CONFLICT (id) DO NOTHING
+         RETURNING id`,
         [
           s.id,
           s.type,
@@ -286,7 +319,10 @@ async function seed() {
           s.score_5,
           s.created_at,
         ],
-      );
+      )) as unknown[];
+      if (inserted.length > 0) {
+        issued.push({ kind: 'school', login: s.email as string, password });
+      }
     }
     console.log(`[seed] Schools      : ${schools.length} rows processed`);
 
@@ -296,14 +332,16 @@ async function seed() {
     const students =
       loadJson<Array<Record<string, unknown>>>('students_data.json');
     for (const s of students) {
-      const hash = await bcrypt.hash(s.password as string, BCRYPT_ROUNDS);
-      await q(
+      const password = generatePassword();
+      const hash = await bcrypt.hash(password, BCRYPT_ROUNDS);
+      const inserted = (await q(
         `INSERT INTO students (
            id, first_name, last_name, sex, birth_date, email, phone,
            health_status, password, created_at, school_id
          )
          VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
-         ON CONFLICT (id) DO NOTHING`,
+         ON CONFLICT (id) DO NOTHING
+         RETURNING id`,
         [
           s.id,
           s.first_name,
@@ -317,7 +355,10 @@ async function seed() {
           s.created_at,
           s.school_id,
         ],
-      );
+      )) as unknown[];
+      if (inserted.length > 0) {
+        issued.push({ kind: 'student', login: s.email as string, password });
+      }
     }
     console.log(`[seed] Students     : ${students.length} rows processed`);
 
@@ -499,6 +540,7 @@ async function seed() {
 
     await qr.commitTransaction();
     console.log('[seed] Done.');
+    printIssuedCredentials(issued);
   } catch (err) {
     await qr.rollbackTransaction();
     console.error('[seed] Failed:', err);
