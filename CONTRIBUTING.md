@@ -50,7 +50,20 @@ pnpm railway:seed:staging          # idempotent
 pnpm railway:seed:staging:reset    # truncate + re-seed
 ```
 
-Production có thêm `--allow-production` guard trong seed script — chỉ dùng cho lần bootstrap đầu tiên trên DB trống.
+Seed **luôn từ chối production**: production không chứa dữ liệu fixture. Mật khẩu các tài khoản test do seed tạo được in **một lần** khi chạy xong, không lưu ở đâu.
+
+Bảo trì thủ công (target service **PostGIS**, backup trước):
+
+```bash
+# Tạo admin đầu tiên của một DB trống (mọi môi trường, kể cả production)
+railway run --service PostGIS --environment production \
+  pnpm --filter @airconnect/backend bootstrap:admin -- --username <username> --email <email>
+
+# Gỡ dữ liệu bịa mà seed cũ (đến commit a105153) đã nạp vào DB đã deploy.
+# Mặc định chạy thử (không đổi gì); thêm --confirm để áp dụng.
+railway run --service PostGIS --environment staging \
+  pnpm --filter @airconnect/backend purge:fixtures -- --confirm
+```
 
 ## Branching
 

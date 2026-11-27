@@ -2,42 +2,41 @@
   {
     "id": 1,
     "type": "super",
-    "username": "admin_super",
-    "phone": "+84 24 1234 5678",
-    "email": "admin.super@airconnecthanoi.org",
+    "username": "test_admin_1",
+    "phone": "",
+    "email": "test-admin-1@example.invalid",
     "created_at": "2024-01-01T08:00:00"
   },
   {
     "id": 2,
     "type": "normal",
-    "username": "admin_nguyen",
-    "phone": "+84 24 1234 5679",
-    "email": "admin.nguyen@airconnecthanoi.org",
+    "username": "test_admin_2",
+    "phone": "",
+    "email": "test-admin-2@example.invalid",
     "created_at": "2024-01-01T08:00:00"
   },
   {
     "id": 3,
     "type": "normal",
-    "username": "admin_tran",
-    "phone": "+84 24 1234 5680",
-    "email": "admin.tran@airconnecthanoi.org",
+    "username": "test_admin_3",
+    "phone": "",
+    "email": "test-admin-3@example.invalid",
     "created_at": "2024-01-01T08:00:00"
   },
   {
     "id": 4,
     "type": "normal",
-    "username": "admin_le",
-    "phone": "+84 24 1234 5681",
-    "email": "admin.le@airconnecthanoi.org",
+    "username": "test_admin_4",
+    "phone": "",
+    "email": "test-admin-4@example.invalid",
     "created_at": "2024-01-01T08:00:00"
   },
   {
     "id": 5,
     "type": "normal",
-    "username": "admin_pham",
-    "phone": "+84 24 1234 5682",
-    "email": "admin.pham@airconnecthanoi.org",
+    "username": "test_admin_5",
+    "phone": "",
+    "email": "test-admin-5@example.invalid",
     "created_at": "2024-01-01T08:00:00"
   }
 ]
-

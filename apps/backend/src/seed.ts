@@ -1,9 +1,11 @@
 /**
  * Seed script — AirConnect Hanoi
  * ============================================================================
- * This script bootstraps the database with demo / fixture data. It is meant to
- * be executed MANUALLY (never as part of a deployment pipeline) for two main
- * scenarios:
+ * This script loads the demonstrator fixtures: the school list (public
+ * information only, every solution group "not reported") and labelled test
+ * accounts. It holds no invented content about real schools (DEC-025). It is
+ * meant to be executed MANUALLY (never as part of a deployment pipeline) for
+ * two main scenarios:
  *
  *   1. Local development     : quickly populate a blank database.
  *   2. Staging / demo refresh: reset the environment to a known baseline.
@@ -26,11 +28,11 @@
  *   - Default mode is IDEMPOTENT: every INSERT uses `ON CONFLICT DO NOTHING`
  *     so the script can be re-executed without raising unique-constraint
  *     errors. Existing rows are never modified.
- *   - `--reset` is an explicit opt-in that TRUNCATEs every seeded table
+ *   - `--reset` is an explicit opt-in that TRUNCATEs every application table
  *     before inserting. This is destructive and should only be used in
  *     dev or freshly-provisioned environments.
- *   - Production is blocked by default. Pass `--allow-production` to
- *     override (for a first-time bootstrap only).
+ *   - Production is always refused: production holds no fixture data
+ *     (NFR-036). Create its first administrator with `bootstrap:admin`.
  *   - No password is stored in the fixtures. Every admin, school and student
  *     account created by this run gets its own random password, printed ONCE
  *     at the end of a successful run and never written anywhere. Accounts
@@ -65,13 +67,11 @@ const BCRYPT_ROUNDS = 10;
 
 type CliFlags = {
   reset: boolean;
-  allowProduction: boolean;
 };
 
 function parseFlags(argv: string[]): CliFlags {
   return {
     reset: argv.includes('--reset'),
-    allowProduction: argv.includes('--allow-production'),
   };
 }
 
@@ -189,11 +189,11 @@ async function seed() {
     process.exit(1);
   }
 
-  if (deploymentEnv === 'production' && !flags.allowProduction) {
+  if (deploymentEnv === 'production') {
     console.error(
-      '[seed] Refusing to run against the PRODUCTION environment.\n' +
-        '[seed]   Pass --allow-production explicitly to override\n' +
-        '[seed]   (intended for the first-time bootstrap of an empty DB).',
+      '[seed] Refusing to run against the PRODUCTION environment:\n' +
+        '[seed]   production holds no fixture data. To create the first\n' +
+        '[seed]   administrator, run `pnpm --filter @airconnect/backend bootstrap:admin`.',
     );
     process.exit(1);
   }
@@ -358,172 +358,10 @@ async function seed() {
     console.log(`[seed] Students     : ${students.length} rows processed`);
 
     // --------------------------------------------------------------------
-    // 4. Solutions  (must precede applies)
-    // --------------------------------------------------------------------
-    const solutions = loadJson<Array<Record<string, unknown>>>(
-      'solutions_data.json',
-    );
-    for (let i = 0; i < solutions.length; i++) {
-      const s = solutions[i];
-      await q(
-        `INSERT INTO solutions (id, type, content, note, status, created_at)
-         VALUES ($1,$2,$3,$4,$5,$6)
-         ON CONFLICT (id) DO NOTHING`,
-        [i + 1, s.type, s.content, s.note, s.status, s.created_at],
-      );
-    }
-    console.log(`[seed] Solutions    : ${solutions.length} rows processed`);
-
-    // --------------------------------------------------------------------
-    // 5. Posts  (must precede ratings)
-    // --------------------------------------------------------------------
-    const posts = loadJson<Array<Record<string, unknown>>>('posts_data.json');
-    for (let i = 0; i < posts.length; i++) {
-      const p = posts[i];
-      await q(
-        `INSERT INTO posts (
-           id, title, type, description, image, content, published_at, school_id
-         )
-         VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
-         ON CONFLICT (id) DO NOTHING`,
-        [
-          i + 1,
-          p.title,
-          p.type,
-          p.description,
-          p.image,
-          p.content,
-          p.published_at,
-          p.school_id,
-        ],
-      );
-    }
-    console.log(`[seed] Posts        : ${posts.length} rows processed`);
-
-    // --------------------------------------------------------------------
-    // 6. Submissions  (must precede reviews)
-    // --------------------------------------------------------------------
-    const submissions = loadJson<Array<Record<string, unknown>>>(
-      'submissions_data.json',
-    );
-    for (let i = 0; i < submissions.length; i++) {
-      const s = submissions[i];
-      await q(
-        `INSERT INTO submissions (id, type, content, from_school_id)
-         VALUES ($1,$2,$3,$4)
-         ON CONFLICT (id) DO NOTHING`,
-        [i + 1, s.type, s.content, s.from_school_id],
-      );
-    }
-    console.log(`[seed] Submissions  : ${submissions.length} rows processed`);
-
-    // --------------------------------------------------------------------
-    // 7. Air qualities  (must precede applies)
-    // --------------------------------------------------------------------
-    const airQualities = loadJson<Array<Record<string, unknown>>>(
-      'air_qualities_data.json',
-    );
-    for (const a of airQualities) {
-      await q(
-        `INSERT INTO air_qualities (
-           id, aqi, pm25, pm10, co2, temp, humidity, wind_speed, measured_at, school_id
-         )
-         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
-         ON CONFLICT (id) DO NOTHING`,
-        [
-          a.id,
-          a.aqi,
-          a.pm25,
-          a.pm10,
-          a.co2,
-          a.temp,
-          a.humidity,
-          a.wind_speed,
-          a.measured_at,
-          a.school_id,
-        ],
-      );
-    }
-    console.log(`[seed] Air qualities: ${airQualities.length} rows processed`);
-
-    // --------------------------------------------------------------------
-    // 8. Reviews — composite PK (submission_id, admin_id)
-    // --------------------------------------------------------------------
-    const reviews =
-      loadJson<Array<Record<string, unknown>>>('reviews_data.json');
-    for (const r of reviews) {
-      await q(
-        `INSERT INTO reviews (submission_id, admin_id, decision, date, note)
-         VALUES ($1,$2,$3,$4,$5)
-         ON CONFLICT (submission_id, admin_id) DO NOTHING`,
-        [r.submission_id, r.admin_id, r.decision, r.date, r.note],
-      );
-    }
-    console.log(`[seed] Reviews      : ${reviews.length} rows processed`);
-
-    // --------------------------------------------------------------------
-    // 9. Ratings — composite PK (post_id, student_id)
-    // --------------------------------------------------------------------
-    const ratings =
-      loadJson<Array<Record<string, unknown>>>('ratings_data.json');
-    for (const r of ratings) {
-      await q(
-        `INSERT INTO ratings (post_id, student_id, rate, rated_at)
-         VALUES ($1,$2,$3,$4)
-         ON CONFLICT (post_id, student_id) DO NOTHING`,
-        [r.post_id, r.student_id, r.rate, r.rated_at],
-      );
-    }
-    console.log(`[seed] Ratings      : ${ratings.length} rows processed`);
-
-    // --------------------------------------------------------------------
-    // 10. Helps — composite PK (from_school_id, to_school_id)
-    // --------------------------------------------------------------------
-    const helps = loadJson<Array<Record<string, unknown>>>('help_data.json');
-    for (const h of helps) {
-      await q(
-        `INSERT INTO helps (from_school_id, to_school_id, type, content, status, created_at)
-         VALUES ($1,$2,$3,$4,$5,$6)
-         ON CONFLICT (from_school_id, to_school_id) DO NOTHING`,
-        [
-          h.from_school_id,
-          h.to_school_id,
-          h.type,
-          h.content,
-          h.status,
-          h.created_at,
-        ],
-      );
-    }
-    console.log(`[seed] Helps        : ${helps.length} rows processed`);
-
-    // --------------------------------------------------------------------
-    // 11. Applies — composite PK (solution_id, air_quality_id)
-    // --------------------------------------------------------------------
-    const applies = loadJson<Array<Record<string, unknown>>>('apply_data.json');
-    for (const a of applies) {
-      await q(
-        `INSERT INTO applies (solution_id, air_quality_id, applied_at)
-         VALUES ($1,$2,$3)
-         ON CONFLICT (solution_id, air_quality_id) DO NOTHING`,
-        [a.solution_id, a.air_quality_id, a.applied_at],
-      );
-    }
-    console.log(`[seed] Applies      : ${applies.length} rows processed`);
-
-    // --------------------------------------------------------------------
     // Sync auto-increment sequences to MAX(id) so next app-created row
     // does not collide with seeded IDs.
     // --------------------------------------------------------------------
-    const seqTables = [
-      'admins',
-      'schools',
-      'students',
-      'solutions',
-      'posts',
-      'submissions',
-      'air_qualities',
-    ];
+    const seqTables = ['admins', 'schools', 'students'];
     for (const t of seqTables) {
       await q(
         `SELECT setval(
