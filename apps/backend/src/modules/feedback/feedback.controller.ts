@@ -9,12 +9,15 @@ import {
   Query,
   UseGuards,
   ParseIntPipe,
+  ForbiddenException,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import {
   ApiTags,
   ApiOperation,
   ApiBearerAuth,
   ApiOkResponse,
+  ApiForbiddenResponse,
 } from '@nestjs/swagger';
 import { FeedbackService } from './feedback.service';
 import { CreateFeedbackDto } from './dto';
@@ -28,12 +31,21 @@ import { DEFAULT_QUERY_LIMIT } from '../../common/constants';
 @ApiTags('feedback')
 @Controller('feedback')
 export class FeedbackController {
-  constructor(private readonly fbService: FeedbackService) {}
+  constructor(
+    private readonly fbService: FeedbackService,
+    private readonly configService: ConfigService,
+  ) {}
 
   @Post()
-  @ApiOperation({ summary: 'Create feedback (public)' })
+  @ApiOperation({ summary: 'Send a contact message' })
   @ApiOkResponse({ type: Feedback })
+  @ApiForbiddenResponse({ description: 'The contact form is disabled' })
   create(@Body() dto: CreateFeedbackDto) {
+    if (!this.configService.get<boolean>('CONTACT_FORM_ENABLED', false)) {
+      throw new ForbiddenException(
+        'Demonstrator — forms are limited to test accounts',
+      );
+    }
     return this.fbService.create(dto);
   }
 
