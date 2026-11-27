@@ -839,9 +839,12 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "The contact form is disabled"
           }
         },
-        "summary": "Create feedback (public)",
+        "summary": "Send a contact message",
         "tags": [
           "feedback"
         ]

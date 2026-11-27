@@ -619,6 +619,13 @@ export type FeedbackControllerCreateData = {
     url: '/api/feedback';
 };
 
+export type FeedbackControllerCreateErrors = {
+    /**
+     * The contact form is disabled
+     */
+    403: unknown;
+};
+
 export type FeedbackControllerCreateResponses = {
     200: Feedback;
     201: Feedback;

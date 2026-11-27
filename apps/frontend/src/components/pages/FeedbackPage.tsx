@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { Mail, Phone, MapPin, CheckCircle, AlertCircle, Loader2, Send } from 'lucide-react';
 import { feedbackControllerCreate } from '@/lib/api-client';
+import { CONTACT_EMAIL, CONTACT_FORM_ENABLED } from '@/lib/site';
 
 export default function FeedbackPage() {
   const [form, setForm] = useState({ full_name: '', email: '', subject: '', message: '', phone: '' });
@@ -75,6 +76,12 @@ export default function FeedbackPage() {
           </div>
           <div className="flex-1 p-8 lg:p-12">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Send Us a Message</h2>
+            {!CONTACT_FORM_ENABLED ? (
+              <p role="status" className="px-4 py-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900">
+                Demonstrator — forms are limited to test accounts.
+                {CONTACT_EMAIL && <> To ask about your data, write to <a className="underline" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</>}
+              </p>
+            ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div><label className="block text-sm font-medium text-gray-700 mb-1">Full Name *</label><input name="full_name" value={form.full_name} onChange={handleChange} required className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-teal-400 outline-none" placeholder="Enter your full name" /></div>
               <div><label className="block text-sm font-medium text-gray-700 mb-1">Email *</label><input name="email" type="email" value={form.email} onChange={handleChange} required className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-teal-400 outline-none" placeholder="your.email@example.com" /></div>
@@ -85,6 +92,7 @@ export default function FeedbackPage() {
                 {loading ? <><Loader2 className="w-5 h-5 animate-spin" />Sending...</> : <><Send className="w-5 h-5" />Send Message</>}
               </button>
             </form>
+            )}
           </div>
         </div>
 

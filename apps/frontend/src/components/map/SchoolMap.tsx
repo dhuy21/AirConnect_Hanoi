@@ -5,10 +5,11 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { School } from '@/lib/types';
 
+// Marker images are served from /public (copied from leaflet 1.9.4), not from a CDN (NFR-054).
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png',
-  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+  iconRetinaUrl: '/leaflet/marker-icon-2x.png',
+  iconUrl: '/leaflet/marker-icon.png',
+  shadowUrl: '/leaflet/marker-shadow.png',
 });
 
 interface SchoolMapProps {
@@ -20,7 +21,7 @@ export default function SchoolMap({ filteredSchools }: SchoolMapProps) {
 
   return (
     <MapContainer center={center} zoom={12} style={{ width: '100%', height: '100%' }} scrollWheelZoom>
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution='&copy; OpenStreetMap contributors' />
+      <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
       {filteredSchools.map(school => school.latitude && school.longitude && (
         <Marker key={school.id} position={[school.latitude, school.longitude]}>
           <Popup>

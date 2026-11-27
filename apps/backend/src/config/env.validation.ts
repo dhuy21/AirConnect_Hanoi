@@ -46,6 +46,8 @@ export const envValidationSchema = Joi.object({
   // Public self-registration. Off by default: in the online demonstrator,
   // forms are limited to test accounts (NFR-001). Enable only for local dev.
   REGISTRATION_ENABLED: Joi.boolean().default(false),
+  // Public contact form, off by default for the same reason (NFR-001).
+  CONTACT_FORM_ENABLED: Joi.boolean().default(false),
 
   // Redis — optional in dev (falls back to in-memory throttler), required
   // in staging/production via Railway Redis service injection.

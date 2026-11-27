@@ -15,7 +15,7 @@ const contentSecurityPolicy = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === 'development' ? " 'unsafe-eval'" : ''}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https://*.tile.openstreetmap.org https://tile.openstreetmap.org https://cdnjs.cloudflare.com https://images.unsplash.com https://picsum.photos",
+  "img-src 'self' data: blob: https://tile.openstreetmap.org https://images.unsplash.com https://picsum.photos",
   "font-src 'self' data:",
   `connect-src 'self' ${apiOrigin}`.trim(),
   "object-src 'none'",
