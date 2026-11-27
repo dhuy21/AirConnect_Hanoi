@@ -161,6 +161,9 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "Registration is disabled"
           }
         },
         "summary": "Register new student",
@@ -1814,22 +1817,6 @@
           "password": {
             "type": "string"
           },
-          "phone": {
-            "type": "string"
-          },
-          "birth_date": {
-            "type": "string"
-          },
-          "sex": {
-            "type": "string",
-            "enum": [
-              "male",
-              "female"
-            ]
-          },
-          "health_status": {
-            "type": "string"
-          },
           "school_id": {
             "type": "number"
           }
@@ -1839,10 +1826,6 @@
           "last_name",
           "email",
           "password",
-          "phone",
-          "birth_date",
-          "sex",
-          "health_status",
           "school_id"
         ]
       },
@@ -2038,24 +2021,7 @@
           "last_name": {
             "type": "string"
           },
-          "sex": {
-            "enum": [
-              "male",
-              "female"
-            ],
-            "type": "string"
-          },
-          "birth_date": {
-            "format": "date-time",
-            "type": "string"
-          },
           "email": {
-            "type": "string"
-          },
-          "phone": {
-            "type": "string"
-          },
-          "health_status": {
             "type": "string"
           },
           "password": {
@@ -2082,11 +2048,7 @@
           "id",
           "first_name",
           "last_name",
-          "sex",
-          "birth_date",
           "email",
-          "phone",
-          "health_status",
           "password",
           "created_at",
           "school_id",

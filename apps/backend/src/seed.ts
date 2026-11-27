@@ -336,21 +336,16 @@ async function seed() {
       const hash = await bcrypt.hash(password, BCRYPT_ROUNDS);
       const inserted = (await q(
         `INSERT INTO students (
-           id, first_name, last_name, sex, birth_date, email, phone,
-           health_status, password, created_at, school_id
+           id, first_name, last_name, email, password, created_at, school_id
          )
-         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
+         VALUES ($1,$2,$3,$4,$5,$6,$7)
          ON CONFLICT (id) DO NOTHING
          RETURNING id`,
         [
           s.id,
           s.first_name,
           s.last_name,
-          s.sex,
-          s.birth_date,
           s.email,
-          s.phone,
-          s.health_status,
           hash,
           s.created_at,
           s.school_id,

@@ -31,6 +31,10 @@ export const envValidationSchema = Joi.object({
   JWT_EXPIRATION: Joi.string().default('7d'),
   CORS_ORIGINS: Joi.string().default('http://localhost:3000'),
 
+  // Public self-registration. Off by default: in the online demonstrator,
+  // forms are limited to test accounts (NFR-001). Enable only for local dev.
+  REGISTRATION_ENABLED: Joi.boolean().default(false),
+
   // Redis — optional in dev (falls back to in-memory throttler), required
   // in staging/production via Railway Redis service injection.
   REDIS_URL: Joi.string()

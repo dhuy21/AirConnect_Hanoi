@@ -15,6 +15,9 @@ import { School } from '@/lib/types';
 import { storeAuthData } from '@/lib/auth';
 import { ROLE_DASHBOARD_MAP, ROUTES } from '@/lib/routes';
 
+// Off unless explicitly enabled: the online demonstrator limits forms to test accounts (NFR-001).
+const REGISTRATION_ENABLED = process.env.NEXT_PUBLIC_REGISTRATION_ENABLED === 'true';
+
 export default function AuthPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -32,8 +35,7 @@ export default function AuthPage() {
 
   const [loginForm, setLoginForm] = useState({ email: '', username: '', password: '' });
   const [registerForm, setRegisterForm] = useState({
-    first_name: '', last_name: '', email: '', password: '', phone: '',
-    birth_date: '', sex: 'male', health_status: '', school_id: '',
+    first_name: '', last_name: '', email: '', password: '', school_id: '',
   });
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -83,10 +85,6 @@ export default function AuthPage() {
           last_name: registerForm.last_name,
           email: registerForm.email,
           password: registerForm.password,
-          phone: registerForm.phone,
-          birth_date: registerForm.birth_date,
-          sex: registerForm.sex as 'male' | 'female',
-          health_status: registerForm.health_status,
           school_id: schoolId,
         },
       });
@@ -145,6 +143,10 @@ export default function AuthPage() {
               {loading ? 'Signing in...' : 'Sign In'}
             </button>
           </form>
+        ) : !REGISTRATION_ENABLED ? (
+          <p role="status" className="px-4 py-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900">
+            Demonstrator — forms are limited to test accounts.
+          </p>
         ) : (
           <form onSubmit={handleRegister} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
@@ -153,13 +155,6 @@ export default function AuthPage() {
             </div>
             <input type="email" placeholder="Email" value={registerForm.email} onChange={e => setRegisterForm(p => ({ ...p, email: e.target.value }))} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-teal-400 outline-none" required />
             <input type="password" placeholder="Password" value={registerForm.password} onChange={e => setRegisterForm(p => ({ ...p, password: e.target.value }))} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-teal-400 outline-none" required />
-            <input type="tel" placeholder="Phone" value={registerForm.phone} onChange={e => setRegisterForm(p => ({ ...p, phone: e.target.value }))} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-teal-400 outline-none" required />
-            <input type="date" value={registerForm.birth_date} onChange={e => setRegisterForm(p => ({ ...p, birth_date: e.target.value }))} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-teal-400 outline-none" required />
-            <select value={registerForm.sex} onChange={e => setRegisterForm(p => ({ ...p, sex: e.target.value }))} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-teal-400 outline-none">
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
-            <input type="text" placeholder="Health Status" value={registerForm.health_status} onChange={e => setRegisterForm(p => ({ ...p, health_status: e.target.value }))} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-teal-400 outline-none" required />
             <select value={registerForm.school_id} onChange={e => setRegisterForm(p => ({ ...p, school_id: e.target.value }))} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-teal-400 outline-none" required>
               <option value="">Select your school</option>
               {schools.map(s => <option key={s.id} value={s.id}>{s.name} — {s.district || s.address}</option>)}

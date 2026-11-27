@@ -35,10 +35,6 @@ export type RegisterStudentDto = {
     last_name: string;
     email: string;
     password: string;
-    phone: string;
-    birth_date: string;
-    sex: 'male' | 'female';
-    health_status: string;
     school_id: number;
 };
 
@@ -87,11 +83,7 @@ export type Student = {
     id: number;
     first_name: string;
     last_name: string;
-    sex: 'male' | 'female';
-    birth_date: string;
     email: string;
-    phone: string;
-    health_status: string;
     password: string;
     created_at: string;
     school_id: number;
@@ -344,6 +336,13 @@ export type AuthControllerRegisterStudentData = {
     path?: never;
     query?: never;
     url: '/api/auth/register/student';
+};
+
+export type AuthControllerRegisterStudentErrors = {
+    /**
+     * Registration is disabled
+     */
+    403: unknown;
 };
 
 export type AuthControllerRegisterStudentResponses = {

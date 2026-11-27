@@ -9,7 +9,6 @@ import {
 } from 'typeorm';
 import { School } from './school.entity';
 import { Rating } from './rating.entity';
-import { Sex } from '../common/enums';
 
 @Entity('students')
 export class Student {
@@ -22,20 +21,8 @@ export class Student {
   @Column({ length: 255 })
   last_name: string;
 
-  @Column({ type: 'enum', enum: Sex })
-  sex: Sex;
-
-  @Column({ type: 'date' })
-  birth_date: Date;
-
   @Column({ length: 255, unique: true })
   email: string;
-
-  @Column({ length: 20 })
-  phone: string;
-
-  @Column({ length: 255 })
-  health_status: string;
 
   @Column({ length: 255, select: false })
   password: string;
