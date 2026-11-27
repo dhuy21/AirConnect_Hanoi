@@ -12,12 +12,13 @@ export class RatingService {
 
   async getByPost(postId: number) {
     return this.ratingRepo.find({
+      select: { post_id: true, rate: true, rated_at: true },
       where: { post_id: postId },
       order: { rated_at: 'DESC' },
     });
   }
 
-  async upsert(dto: CreateRatingDto) {
+  async upsert(dto: CreateRatingDto & { student_id: number }) {
     const existing = await this.ratingRepo.findOne({
       where: { post_id: dto.post_id, student_id: dto.student_id },
     });

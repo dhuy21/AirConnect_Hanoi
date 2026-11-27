@@ -30,7 +30,7 @@ export class PostService {
   async create(dto: CreatePostDto) {
     const post = this.postRepo.create({
       ...dto,
-      published_at: dto.published_at ? new Date(dto.published_at) : new Date(),
+      published_at: new Date(),
     });
     return this.postRepo.save(post);
   }

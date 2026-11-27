@@ -161,6 +161,9 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "Registration is disabled"
           }
         },
         "summary": "Register new student",
@@ -431,7 +434,7 @@
             "bearer": []
           }
         ],
-        "summary": "Create air quality measurement (school/admin only)",
+        "summary": "Create air quality measurement (admin only)",
         "tags": [
           "air-quality"
         ]
@@ -626,7 +629,7 @@
             "bearer": []
           }
         ],
-        "summary": "Get all submissions",
+        "summary": "Get all submissions (admin only)",
         "tags": [
           "submissions"
         ]
@@ -1176,7 +1179,7 @@
             "bearer": []
           }
         ],
-        "summary": "Update help request status",
+        "summary": "Answer a help request (receiving school only)",
         "tags": [
           "helps"
         ]
@@ -1814,22 +1817,6 @@
           "password": {
             "type": "string"
           },
-          "phone": {
-            "type": "string"
-          },
-          "birth_date": {
-            "type": "string"
-          },
-          "sex": {
-            "type": "string",
-            "enum": [
-              "male",
-              "female"
-            ]
-          },
-          "health_status": {
-            "type": "string"
-          },
           "school_id": {
             "type": "number"
           }
@@ -1839,10 +1826,6 @@
           "last_name",
           "email",
           "password",
-          "phone",
-          "birth_date",
-          "sex",
-          "health_status",
           "school_id"
         ]
       },
@@ -1876,10 +1859,6 @@
           },
           "longitude": {
             "type": "number"
-          },
-          "situation": {
-            "type": "string",
-            "nullable": true
           },
           "email": {
             "type": "string",
@@ -1917,7 +1896,6 @@
           "district",
           "latitude",
           "longitude",
-          "situation",
           "email",
           "phone",
           "score_1",
@@ -2038,24 +2016,7 @@
           "last_name": {
             "type": "string"
           },
-          "sex": {
-            "enum": [
-              "male",
-              "female"
-            ],
-            "type": "string"
-          },
-          "birth_date": {
-            "format": "date-time",
-            "type": "string"
-          },
           "email": {
-            "type": "string"
-          },
-          "phone": {
-            "type": "string"
-          },
-          "health_status": {
             "type": "string"
           },
           "password": {
@@ -2082,11 +2043,7 @@
           "id",
           "first_name",
           "last_name",
-          "sex",
-          "birth_date",
           "email",
-          "phone",
-          "health_status",
           "password",
           "created_at",
           "school_id",
@@ -2596,9 +2553,6 @@
           },
           "school_id": {
             "type": "number"
-          },
-          "published_at": {
-            "type": "string"
           }
         },
         "required": [
@@ -2631,9 +2585,6 @@
           },
           "submission_id": {
             "type": "number"
-          },
-          "date": {
-            "type": "string"
           }
         },
         "required": [
@@ -2741,9 +2692,6 @@
       "CreateHelpDto": {
         "type": "object",
         "properties": {
-          "from_school_id": {
-            "type": "number"
-          },
           "to_school_id": {
             "type": "number"
           },
@@ -2757,19 +2705,9 @@
           },
           "content": {
             "type": "string"
-          },
-          "status": {
-            "type": "string",
-            "enum": [
-              "pending",
-              "accepted",
-              "rejected",
-              "other"
-            ]
           }
         },
         "required": [
-          "from_school_id",
           "to_school_id",
           "type",
           "content"
@@ -2851,9 +2789,6 @@
           "post_id": {
             "type": "number"
           },
-          "student_id": {
-            "type": "number"
-          },
           "rate": {
             "type": "string",
             "enum": [
@@ -2867,7 +2802,6 @@
         },
         "required": [
           "post_id",
-          "student_id",
           "rate"
         ]
       },

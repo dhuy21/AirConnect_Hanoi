@@ -35,10 +35,6 @@ export type RegisterStudentDto = {
     last_name: string;
     email: string;
     password: string;
-    phone: string;
-    birth_date: string;
-    sex: 'male' | 'female';
-    health_status: string;
     school_id: number;
 };
 
@@ -50,7 +46,6 @@ export type SchoolResponseDto = {
     district: string | null;
     latitude: number;
     longitude: number;
-    situation: string | null;
     email: string | null;
     phone: string | null;
     score_1: number;
@@ -87,11 +82,7 @@ export type Student = {
     id: number;
     first_name: string;
     last_name: string;
-    sex: 'male' | 'female';
-    birth_date: string;
     email: string;
-    phone: string;
-    health_status: string;
     password: string;
     created_at: string;
     school_id: number;
@@ -219,7 +210,6 @@ export type CreatePostDto = {
     image: string;
     content: string;
     school_id: number;
-    published_at?: string;
 };
 
 export type CreateSubmissionDto = {
@@ -230,7 +220,6 @@ export type CreateReviewDto = {
     decision: 'pending' | 'accepted' | 'rejected' | 'other';
     note?: string;
     submission_id: number;
-    date?: string;
 };
 
 export type CreateFeedbackDto = {
@@ -262,11 +251,9 @@ export type StatsResponseDto = {
 };
 
 export type CreateHelpDto = {
-    from_school_id: number;
     to_school_id: number;
     type: 'request' | 'offer' | 'other';
     content: string;
-    status?: 'pending' | 'accepted' | 'rejected' | 'other';
 };
 
 export type UpdateHelpStatusDto = {
@@ -288,7 +275,6 @@ export type UpdateSolutionDto = {
 
 export type CreateRatingDto = {
     post_id: number;
-    student_id: number;
     rate: '1' | '2' | '3' | '4' | '5';
 };
 
@@ -344,6 +330,13 @@ export type AuthControllerRegisterStudentData = {
     path?: never;
     query?: never;
     url: '/api/auth/register/student';
+};
+
+export type AuthControllerRegisterStudentErrors = {
+    /**
+     * Registration is disabled
+     */
+    403: unknown;
 };
 
 export type AuthControllerRegisterStudentResponses = {

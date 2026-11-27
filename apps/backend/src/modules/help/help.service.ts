@@ -11,11 +11,8 @@ export class HelpService {
     @InjectRepository(Help) private readonly helpRepo: Repository<Help>,
   ) {}
 
-  async create(dto: CreateHelpDto) {
-    const help = this.helpRepo.create({
-      ...dto,
-      status: dto.status ?? HelpStatus.PENDING,
-    });
+  async create(dto: CreateHelpDto & { from_school_id: number }) {
+    const help = this.helpRepo.create({ ...dto, status: HelpStatus.PENDING });
     return this.helpRepo.save(help);
   }
 

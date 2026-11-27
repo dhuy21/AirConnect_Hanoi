@@ -15,10 +15,6 @@ export class StudentService {
     'first_name',
     'last_name',
     'email',
-    'phone',
-    'birth_date',
-    'sex',
-    'health_status',
     'school_id',
     'created_at',
   ];

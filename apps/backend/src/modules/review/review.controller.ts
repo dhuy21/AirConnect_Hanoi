@@ -24,6 +24,7 @@ import { Roles } from '../../common/decorators/roles.decorator';
 import { UserRole } from '../../common/enums';
 import { JwtPayload } from '../../common/interfaces/jwt-payload.interface';
 
+import { assertSchoolAccess } from '../../common/school-access';
 @ApiTags('reviews')
 @Controller('reviews')
 export class ReviewController {
@@ -34,7 +35,13 @@ export class ReviewController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get reviews for a submission' })
   @ApiOkResponse({ type: [Review] })
-  getBySubmission(@Param('submissionId', ParseIntPipe) submissionId: number) {
+  async getBySubmission(
+    @Param('submissionId', ParseIntPipe) submissionId: number,
+    @Req() req: Request & { user: JwtPayload },
+  ) {
+    const schoolId =
+      await this.reviewService.getSubmissionSchoolId(submissionId);
+    assertSchoolAccess(req.user, schoolId);
     return this.reviewService.getBySubmission(submissionId);
   }
 
@@ -51,7 +58,6 @@ export class ReviewController {
     return this.reviewService.create({
       ...dto,
       admin_id: req.user.id,
-      date: dto.date ? new Date(dto.date) : undefined,
     });
   }
 }

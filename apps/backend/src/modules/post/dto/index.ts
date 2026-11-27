@@ -1,11 +1,4 @@
-import {
-  IsString,
-  IsNotEmpty,
-  IsNumber,
-  IsEnum,
-  IsOptional,
-  IsDateString,
-} from 'class-validator';
+import { IsString, IsNotEmpty, IsNumber, IsEnum } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { PostType } from '../../../common/enums';
 
@@ -37,9 +30,4 @@ export class CreatePostDto {
   @ApiProperty()
   @IsNumber()
   school_id: number;
-
-  @ApiProperty({ required: false })
-  @IsOptional()
-  @IsDateString()
-  published_at?: string;
 }

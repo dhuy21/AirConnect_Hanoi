@@ -14,11 +14,6 @@ export enum AdminType {
   NORMAL = 'normal',
 }
 
-export enum Sex {
-  MALE = 'male',
-  FEMALE = 'female',
-}
-
 export enum PostType {
   CASE_STUDY = 'case_study',
   BEST_PRACTICE = 'best_practice',

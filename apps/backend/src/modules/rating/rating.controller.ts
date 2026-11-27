@@ -6,7 +6,9 @@ import {
   Param,
   UseGuards,
   ParseIntPipe,
+  Req,
 } from '@nestjs/common';
+import { Request } from 'express';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { RatingService } from './rating.service';
 import { CreateRatingDto } from './dto';
@@ -14,6 +16,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../../common/decorators/roles.decorator';
 import { UserRole } from '../../common/enums';
+import { JwtPayload } from '../../common/interfaces/jwt-payload.interface';
 
 @ApiTags('ratings')
 @Controller('ratings')
@@ -37,7 +40,10 @@ export class RatingController {
   @Roles(UserRole.STUDENT)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Rate a post (student only)' })
-  rate(@Body() dto: CreateRatingDto) {
-    return this.ratingService.upsert(dto);
+  rate(
+    @Body() dto: CreateRatingDto,
+    @Req() req: Request & { user: JwtPayload },
+  ) {
+    return this.ratingService.upsert({ ...dto, student_id: req.user.id });
   }
 }

@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { AirQualityControllerCreateData, AirQualityControllerCreateResponses, AirQualityControllerGetAllData, AirQualityControllerGetAllResponses, AirQualityControllerGetBySchoolData, AirQualityControllerGetBySchoolResponses, ApplyControllerCreateData, ApplyControllerCreateResponses, ApplyControllerGetByAirQualityData, ApplyControllerGetByAirQualityResponses, ApplyControllerGetBySolutionData, ApplyControllerGetBySolutionResponses, AuthControllerLoginAdminData, AuthControllerLoginAdminResponses, AuthControllerLoginSchoolData, AuthControllerLoginSchoolResponses, AuthControllerLoginStudentData, AuthControllerLoginStudentResponses, AuthControllerRegisterStudentData, AuthControllerRegisterStudentResponses, FeedbackControllerCreateData, FeedbackControllerCreateResponses, FeedbackControllerDeleteData, FeedbackControllerDeleteResponses, FeedbackControllerGetAllData, FeedbackControllerGetAllResponses, FeedbackControllerGetByIdData, FeedbackControllerGetByIdResponses, FeedbackControllerGetUnreadData, FeedbackControllerGetUnreadResponses, FeedbackControllerMarkAsReadData, FeedbackControllerMarkAsReadResponses, HealthControllerCheckData, HealthControllerCheckErrors, HealthControllerCheckResponses, HelpControllerCreateData, HelpControllerCreateResponses, HelpControllerGetBySchoolData, HelpControllerGetBySchoolResponses, HelpControllerUpdateStatusData, HelpControllerUpdateStatusResponses, PostControllerCreateData, PostControllerCreateResponses, PostControllerGetAllData, PostControllerGetAllResponses, PostControllerGetByIdData, PostControllerGetByIdResponses, PostControllerGetBySchoolData, PostControllerGetBySchoolResponses, RatingControllerGetAverageRatingData, RatingControllerGetAverageRatingResponses, RatingControllerGetByPostData, RatingControllerGetByPostResponses, RatingControllerRateData, RatingControllerRateResponses, ReviewControllerCreateData, ReviewControllerCreateResponses, ReviewControllerGetBySubmissionData, ReviewControllerGetBySubmissionResponses, SchoolControllerGetAllSchoolsData, SchoolControllerGetAllSchoolsResponses, SchoolControllerGetNearbySchoolsData, SchoolControllerGetNearbySchoolsResponses, SolutionControllerCreateData, SolutionControllerCreateResponses, SolutionControllerGetAllData, SolutionControllerGetAllResponses, SolutionControllerGetByIdData, SolutionControllerGetByIdResponses, SolutionControllerUpdateData, SolutionControllerUpdateResponses, StatsControllerGetStatsData, StatsControllerGetStatsResponses, StudentControllerGetAllStudentsData, StudentControllerGetAllStudentsResponses, StudentControllerGetStudentByIdData, StudentControllerGetStudentByIdResponses, StudentControllerGetStudentsBySchoolData, StudentControllerGetStudentsBySchoolResponses, SubmissionControllerCreateData, SubmissionControllerCreateResponses, SubmissionControllerGetAllData, SubmissionControllerGetAllResponses, SubmissionControllerGetBySchoolData, SubmissionControllerGetBySchoolResponses } from './types.gen';
+import type { AirQualityControllerCreateData, AirQualityControllerCreateResponses, AirQualityControllerGetAllData, AirQualityControllerGetAllResponses, AirQualityControllerGetBySchoolData, AirQualityControllerGetBySchoolResponses, ApplyControllerCreateData, ApplyControllerCreateResponses, ApplyControllerGetByAirQualityData, ApplyControllerGetByAirQualityResponses, ApplyControllerGetBySolutionData, ApplyControllerGetBySolutionResponses, AuthControllerLoginAdminData, AuthControllerLoginAdminResponses, AuthControllerLoginSchoolData, AuthControllerLoginSchoolResponses, AuthControllerLoginStudentData, AuthControllerLoginStudentResponses, AuthControllerRegisterStudentData, AuthControllerRegisterStudentErrors, AuthControllerRegisterStudentResponses, FeedbackControllerCreateData, FeedbackControllerCreateResponses, FeedbackControllerDeleteData, FeedbackControllerDeleteResponses, FeedbackControllerGetAllData, FeedbackControllerGetAllResponses, FeedbackControllerGetByIdData, FeedbackControllerGetByIdResponses, FeedbackControllerGetUnreadData, FeedbackControllerGetUnreadResponses, FeedbackControllerMarkAsReadData, FeedbackControllerMarkAsReadResponses, HealthControllerCheckData, HealthControllerCheckErrors, HealthControllerCheckResponses, HelpControllerCreateData, HelpControllerCreateResponses, HelpControllerGetBySchoolData, HelpControllerGetBySchoolResponses, HelpControllerUpdateStatusData, HelpControllerUpdateStatusResponses, PostControllerCreateData, PostControllerCreateResponses, PostControllerGetAllData, PostControllerGetAllResponses, PostControllerGetByIdData, PostControllerGetByIdResponses, PostControllerGetBySchoolData, PostControllerGetBySchoolResponses, RatingControllerGetAverageRatingData, RatingControllerGetAverageRatingResponses, RatingControllerGetByPostData, RatingControllerGetByPostResponses, RatingControllerRateData, RatingControllerRateResponses, ReviewControllerCreateData, ReviewControllerCreateResponses, ReviewControllerGetBySubmissionData, ReviewControllerGetBySubmissionResponses, SchoolControllerGetAllSchoolsData, SchoolControllerGetAllSchoolsResponses, SchoolControllerGetNearbySchoolsData, SchoolControllerGetNearbySchoolsResponses, SolutionControllerCreateData, SolutionControllerCreateResponses, SolutionControllerGetAllData, SolutionControllerGetAllResponses, SolutionControllerGetByIdData, SolutionControllerGetByIdResponses, SolutionControllerUpdateData, SolutionControllerUpdateResponses, StatsControllerGetStatsData, StatsControllerGetStatsResponses, StudentControllerGetAllStudentsData, StudentControllerGetAllStudentsResponses, StudentControllerGetStudentByIdData, StudentControllerGetStudentByIdResponses, StudentControllerGetStudentsBySchoolData, StudentControllerGetStudentsBySchoolResponses, SubmissionControllerCreateData, SubmissionControllerCreateResponses, SubmissionControllerGetAllData, SubmissionControllerGetAllResponses, SubmissionControllerGetBySchoolData, SubmissionControllerGetBySchoolResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -64,7 +64,7 @@ export const authControllerLoginSchool = <ThrowOnError extends boolean = false>(
  * Register new student
  */
 export const authControllerRegisterStudent = <ThrowOnError extends boolean = false>(options: Options<AuthControllerRegisterStudentData, ThrowOnError>) => {
-    return (options.client ?? client).post<AuthControllerRegisterStudentResponses, unknown, ThrowOnError>({
+    return (options.client ?? client).post<AuthControllerRegisterStudentResponses, AuthControllerRegisterStudentErrors, ThrowOnError>({
         url: '/api/auth/register/student',
         ...options,
         headers: {
@@ -153,7 +153,7 @@ export const airQualityControllerGetAll = <ThrowOnError extends boolean = false>
 };
 
 /**
- * Create air quality measurement (school/admin only)
+ * Create air quality measurement (admin only)
  */
 export const airQualityControllerCreate = <ThrowOnError extends boolean = false>(options: Options<AirQualityControllerCreateData, ThrowOnError>) => {
     return (options.client ?? client).post<AirQualityControllerCreateResponses, unknown, ThrowOnError>({
@@ -233,7 +233,7 @@ export const postControllerGetById = <ThrowOnError extends boolean = false>(opti
 };
 
 /**
- * Get all submissions
+ * Get all submissions (admin only)
  */
 export const submissionControllerGetAll = <ThrowOnError extends boolean = false>(options: Options<SubmissionControllerGetAllData, ThrowOnError>) => {
     return (options.client ?? client).get<SubmissionControllerGetAllResponses, unknown, ThrowOnError>({
@@ -467,7 +467,7 @@ export const helpControllerGetBySchool = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * Update help request status
+ * Answer a help request (receiving school only)
  */
 export const helpControllerUpdateStatus = <ThrowOnError extends boolean = false>(options: Options<HelpControllerUpdateStatusData, ThrowOnError>) => {
     return (options.client ?? client).patch<HelpControllerUpdateStatusResponses, unknown, ThrowOnError>({
