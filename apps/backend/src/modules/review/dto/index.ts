@@ -1,10 +1,4 @@
-import {
-  IsString,
-  IsNumber,
-  IsEnum,
-  IsOptional,
-  IsDateString,
-} from 'class-validator';
+import { IsString, IsNumber, IsEnum, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { ReviewDecision } from '../../../common/enums';
 
@@ -21,9 +15,4 @@ export class CreateReviewDto {
   @ApiProperty()
   @IsNumber()
   submission_id: number;
-
-  @ApiProperty({ required: false })
-  @IsOptional()
-  @IsDateString()
-  date?: string;
 }

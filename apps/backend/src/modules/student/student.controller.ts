@@ -17,7 +17,7 @@ import { DEFAULT_QUERY_LIMIT } from '../../common/constants';
 @ApiTags('students')
 @Controller('students')
 @UseGuards(JwtAuthGuard, RolesGuard)
-@Roles(UserRole.SCHOOL, UserRole.ADMIN)
+@Roles(UserRole.ADMIN)
 @ApiBearerAuth()
 export class StudentController {
   constructor(private readonly studentService: StudentService) {}

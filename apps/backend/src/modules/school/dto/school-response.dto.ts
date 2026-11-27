@@ -8,7 +8,6 @@ export class SchoolResponseDto {
   district: string | null;
   latitude: number;
   longitude: number;
-  situation: string | null;
   email: string | null;
   phone: string | null;
   score_1: number;

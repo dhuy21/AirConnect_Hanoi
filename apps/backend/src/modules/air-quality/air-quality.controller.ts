@@ -6,7 +6,6 @@ import {
   Param,
   Query,
   UseGuards,
-  Req,
   ParseIntPipe,
 } from '@nestjs/common';
 import {
@@ -15,7 +14,6 @@ import {
   ApiBearerAuth,
   ApiOkResponse,
 } from '@nestjs/swagger';
-import { Request } from 'express';
 import { AirQualityService } from './air-quality.service';
 import { CreateAirQualityDto } from './dto';
 import { AirQuality } from '../../entities/air-quality.entity';
@@ -23,8 +21,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../../common/decorators/roles.decorator';
 import { UserRole } from '../../common/enums';
-import { JwtPayload } from '../../common/interfaces/jwt-payload.interface';
-import { DEFAULT_QUERY_LIMIT } from '../../common/constants';
+import { DEFAULT_QUERY_LIMIT, clampLimit } from '../../common/constants';
 
 @ApiTags('air-quality')
 @Controller('air-quality')
@@ -35,7 +32,7 @@ export class AirQualityController {
   @ApiOperation({ summary: 'Get all air quality measurements' })
   @ApiOkResponse({ type: [AirQuality] })
   getAll(@Query('limit') limit: number = DEFAULT_QUERY_LIMIT) {
-    return this.aqService.getAll(+limit);
+    return this.aqService.getAll(clampLimit(limit));
   }
 
   @Get('school/:schoolId')
@@ -47,20 +44,11 @@ export class AirQualityController {
 
   @Post()
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(UserRole.SCHOOL, UserRole.ADMIN)
+  @Roles(UserRole.ADMIN)
   @ApiBearerAuth()
-  @ApiOperation({
-    summary: 'Create air quality measurement (school/admin only)',
-  })
+  @ApiOperation({ summary: 'Create air quality measurement (admin only)' })
   @ApiOkResponse({ type: AirQuality })
-  create(
-    @Body() dto: CreateAirQualityDto,
-    @Req() req: Request & { user: JwtPayload },
-  ) {
-    return this.aqService.create({
-      ...dto,
-      school_id:
-        req.user.role === UserRole.SCHOOL ? req.user.id : dto.school_id,
-    });
+  create(@Body() dto: CreateAirQualityDto) {
+    return this.aqService.create(dto);
   }
 }

@@ -153,7 +153,7 @@ export const airQualityControllerGetAll = <ThrowOnError extends boolean = false>
 };
 
 /**
- * Create air quality measurement (school/admin only)
+ * Create air quality measurement (admin only)
  */
 export const airQualityControllerCreate = <ThrowOnError extends boolean = false>(options: Options<AirQualityControllerCreateData, ThrowOnError>) => {
     return (options.client ?? client).post<AirQualityControllerCreateResponses, unknown, ThrowOnError>({
@@ -233,7 +233,7 @@ export const postControllerGetById = <ThrowOnError extends boolean = false>(opti
 };
 
 /**
- * Get all submissions
+ * Get all submissions (admin only)
  */
 export const submissionControllerGetAll = <ThrowOnError extends boolean = false>(options: Options<SubmissionControllerGetAllData, ThrowOnError>) => {
     return (options.client ?? client).get<SubmissionControllerGetAllResponses, unknown, ThrowOnError>({
@@ -467,7 +467,7 @@ export const helpControllerGetBySchool = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * Update help request status
+ * Answer a help request (receiving school only)
  */
 export const helpControllerUpdateStatus = <ThrowOnError extends boolean = false>(options: Options<HelpControllerUpdateStatusData, ThrowOnError>) => {
     return (options.client ?? client).patch<HelpControllerUpdateStatusResponses, unknown, ThrowOnError>({

@@ -26,6 +26,7 @@ import { UserRole } from '../../common/enums';
 import { JwtPayload } from '../../common/interfaces/jwt-payload.interface';
 import { DEFAULT_QUERY_LIMIT } from '../../common/constants';
 
+import { assertSchoolAccess } from '../../common/school-access';
 @ApiTags('submissions')
 @Controller('submissions')
 @UseGuards(JwtAuthGuard)
@@ -34,7 +35,9 @@ export class SubmissionController {
   constructor(private readonly subService: SubmissionService) {}
 
   @Get()
-  @ApiOperation({ summary: 'Get all submissions' })
+  @UseGuards(RolesGuard)
+  @Roles(UserRole.ADMIN)
+  @ApiOperation({ summary: 'Get all submissions (admin only)' })
   @ApiOkResponse({ type: [Submission] })
   getAll(@Query('limit') limit: number = DEFAULT_QUERY_LIMIT) {
     return this.subService.getAll(+limit);
@@ -43,7 +46,11 @@ export class SubmissionController {
   @Get('school/:schoolId')
   @ApiOperation({ summary: 'Get submissions by school' })
   @ApiOkResponse({ type: [Submission] })
-  getBySchool(@Param('schoolId', ParseIntPipe) schoolId: number) {
+  getBySchool(
+    @Param('schoolId', ParseIntPipe) schoolId: number,
+    @Req() req: Request & { user: JwtPayload },
+  ) {
+    assertSchoolAccess(req.user, schoolId);
     return this.subService.getBySchool(schoolId);
   }
 

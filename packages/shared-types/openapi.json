@@ -434,7 +434,7 @@
             "bearer": []
           }
         ],
-        "summary": "Create air quality measurement (school/admin only)",
+        "summary": "Create air quality measurement (admin only)",
         "tags": [
           "air-quality"
         ]
@@ -629,7 +629,7 @@
             "bearer": []
           }
         ],
-        "summary": "Get all submissions",
+        "summary": "Get all submissions (admin only)",
         "tags": [
           "submissions"
         ]
@@ -1179,7 +1179,7 @@
             "bearer": []
           }
         ],
-        "summary": "Update help request status",
+        "summary": "Answer a help request (receiving school only)",
         "tags": [
           "helps"
         ]
@@ -1860,10 +1860,6 @@
           "longitude": {
             "type": "number"
           },
-          "situation": {
-            "type": "string",
-            "nullable": true
-          },
           "email": {
             "type": "string",
             "nullable": true
@@ -1900,7 +1896,6 @@
           "district",
           "latitude",
           "longitude",
-          "situation",
           "email",
           "phone",
           "score_1",
@@ -2558,9 +2553,6 @@
           },
           "school_id": {
             "type": "number"
-          },
-          "published_at": {
-            "type": "string"
           }
         },
         "required": [
@@ -2593,9 +2585,6 @@
           },
           "submission_id": {
             "type": "number"
-          },
-          "date": {
-            "type": "string"
           }
         },
         "required": [
@@ -2703,9 +2692,6 @@
       "CreateHelpDto": {
         "type": "object",
         "properties": {
-          "from_school_id": {
-            "type": "number"
-          },
           "to_school_id": {
             "type": "number"
           },
@@ -2719,19 +2705,9 @@
           },
           "content": {
             "type": "string"
-          },
-          "status": {
-            "type": "string",
-            "enum": [
-              "pending",
-              "accepted",
-              "rejected",
-              "other"
-            ]
           }
         },
         "required": [
-          "from_school_id",
           "to_school_id",
           "type",
           "content"
@@ -2813,9 +2789,6 @@
           "post_id": {
             "type": "number"
           },
-          "student_id": {
-            "type": "number"
-          },
           "rate": {
             "type": "string",
             "enum": [
@@ -2829,7 +2802,6 @@
         },
         "required": [
           "post_id",
-          "student_id",
           "rate"
         ]
       },
